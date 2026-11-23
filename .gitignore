@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+*.log
+# licensed font: keep out of a public repo
+fonts/*.otf
+fonts/*.woff2

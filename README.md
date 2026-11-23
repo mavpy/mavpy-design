@@ -13,6 +13,11 @@ Shared: `styles.css`, `main.js`. Screenshots of the intended result: `previews/`
 
 Design source: Figma file **MAVPY — Site v2 Workshop** (https://www.figma.com/design/hlVOUverBQLP4qj3I4FTub): UI kit, EN/UA desktop 1920 + mobile 390, motion spec, Dev Mode annotations. Also the canvas "MAVPY — редизайн главной", artboards `D · Workshop EN` / `D · Workshop UA` (desktop + mobile 390). The canvas uses this exact `styles.css`, so class names match 1:1.
 
+## Versions and sync with Figma
+One version number everywhere: Git tag `vX.Y` = Figma named version `vX.Y` = section in [CHANGELOG.md](CHANGELOG.md).
+1. Change in Figma (if visual) → 2. change in code on a branch → 3. pull request using the template (what changed, before/after, Figma link) → 4. merge → 5. tag `vX.Y` in Git and save version `vX.Y` in Figma history.
+Roll back: `git checkout vX.Y` + restore the Figma version with the same number.
+
 ## Fonts
 | Role | EN | UA (Cyrillic) | Source |
 |---|---|---|---|

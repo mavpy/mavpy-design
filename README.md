@@ -1,4 +1,6 @@
-# MAVPY site — "Workshop" v2 (handoff)
+# mavpy-design — MAVPY studio site, "Workshop" v2 (handoff)
+
+Repository: `mavpy/mavpy-design`. Design + production-ready static code of the MAVPY studio website.
 
 Static HTML + CSS + vanilla JS, no build step. Two languages:
 
@@ -33,7 +35,7 @@ Everything is measured on a 1920 frame and scales with `--u = min(1px, 100vw/192
 - "Not just a new website" Archivo 900 48u / 47u, right-aligned, absolutely positioned top-right
 - "clients" Helvetica Neue Thin 438u, tracking 4%, spans the container
 - note (Roboto 700 23u) + button (58u high) bottom-right, 72u below "clients"
-- trust strip under the hero: white, marquee with the 4 phrases and client logos
+- trust strip under the hero: white marquee with the 4 advantage phrases (no logos)
 
 Text sizes never drop below the `max(…px, …)` floors, so tablets stay readable. Below 1024px the hero stacks: kicker → MORE → clients (sized to the screen width) → "Not just…" → note → full-width button.
 
@@ -43,7 +45,7 @@ Root `.mv` class sets the level: `m-kinetic` (default), `m-calm` or `m-off`. `pr
 |---|---|
 | Hero: MORE and clients rise from a mask → kicker, "Not just…" and the note from blur → button → grid background | 0 → 1.05s via `--d` |
 | Grid light under the cursor (hero) | follows the mouse, fine pointers only |
-| Trust strip and reviews marquee, pause on hover | 50s / 90s per loop |
+| Trust strip (phrases only) and reviews marquee, pause on hover | 50s / 90s per loop |
 | Proof block: print drops in, marker circle and arrow draw, notes appear, sticker pops | starts when the block enters the viewport (`data-reveal`) |
 | Situation cards: orange 1px outline + marker underline on hover | .3s / .45s |
 | Steps and reviews: lift 5px + orange outline | .3s |
@@ -58,4 +60,8 @@ Root `.mv` class sets the level: `m-kinetic` (default), `m-calm` or `m-off`. `pr
 `main.js` posts `{name, email, phone, page, lang}` as JSON to the URL in the form's `data-endpoint`. Point it at a webhook (own server, n8n, Make) that forwards to Telegram. Keep the bot token on the server. Error texts live in `data-err-*` attributes, per language.
 
 ## Replace before launch
-See `assets/README.txt` and `fonts/README.txt`. Placeholders are the striped `.mv-ph` blocks and every `[bracketed]` text: logo, case screenshots, mascot, sticker, photos, client logos, 4 new cases, the co-founder review, footer contacts. About variant A (two founders) sits in a `<template data-about-a>` under variant B.
+See `assets/README.txt` and `fonts/README.txt`. Placeholders are the striped `.mv-ph` blocks: logo, case screenshots, mascot, sticker, Serhii portrait, team photos, review author photos. All texts are filled.
+
+- Cases (5): Medical clinic (open by default), Massage studio, English school, Crypto company, B2B Solar (concept, last). Texts for Massage / English school / Crypto / B2B Solar are drafts to confirm with the clients. New cases: copy an `<article class="mv-case">` and add it before B2B Solar.
+- About, variant B: founder polaroid (smaller) + "The team behind your project": 3 role cards (Development & automation, Motion & visuals, Ads & analytics). Variant A (two founders) sits in `<template data-about-a>`.
+- Footer contacts: `[email]`, `[phone]`, `[@instagram]` and `[email]` in the form error text (`data-err-net`) still need real values.

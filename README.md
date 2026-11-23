@@ -14,6 +14,7 @@ Shared: `styles.css`, `main.js`. Screenshots of the intended result: `previews/`
 Design source: Figma file **MAVPY — Site v2 Workshop** (https://www.figma.com/design/hlVOUverBQLP4qj3I4FTub): UI kit, EN/UA desktop 1920 + mobile 390, motion spec, Dev Mode annotations. Also the canvas "MAVPY — редизайн главной", artboards `D · Workshop EN` / `D · Workshop UA` (desktop + mobile 390). The canvas uses this exact `styles.css`, so class names match 1:1.
 
 ## Versions and sync with Figma
+How we work day to day (RU): [WORKFLOW.md](WORKFLOW.md).
 One version number everywhere: section `## vX.Y — date` in [CHANGELOG.md](CHANGELOG.md) = Git tag + GitHub Release `vX.Y` = Figma page `🗂 vX.Y · date`.
 1. Change in Figma (if visual) → 2. change in code on a branch → 3. pull request using the template, CHANGELOG section gets its date → 4. Figma snapshot page `🗂 vX.Y` is added in the same PR round → 5. merge → the `Release from CHANGELOG` action creates the tag and the Release automatically.
 All versions with notes: the repo's **Releases** page. Roll back: `git checkout vX.Y` + open page `🗂 vX.Y` in Figma.

@@ -118,7 +118,6 @@
 .mv-strip{background:var(--white);border-block:1px solid var(--line);overflow:hidden;padding-block:calc(20 * var(--u))}
 .mv-strip-item{display:inline-flex;align-items:center;gap:calc(40 * var(--u));padding-right:calc(40 * var(--u));white-space:nowrap;font-family:var(--f-body);font-weight:400;font-size:max(15px,calc(20 * var(--u)));color:var(--black)}
 .mv-strip-item i{width:8px;height:8px;background:var(--amber-500);display:inline-block}
-.mv-strip-logo{width:calc(150 * var(--u));min-width:110px;height:calc(40 * var(--u));min-height:32px;margin-right:calc(40 * var(--u));border-radius:6px;padding:0;font-size:10px}
 .mv-track{display:flex;align-items:center;width:max-content;animation:mvMarq 50s linear infinite}
 .mv-track--slow{animation-duration:90s}
 .mv-marq:hover .mv-track{animation-play-state:paused}
@@ -157,6 +156,7 @@
 .mv-mascot{width:max(112px,calc(220 * var(--u)));height:max(124px,calc(240 * var(--u)));flex-shrink:0;border-radius:var(--r-card) var(--r-card) 0 0;transform-origin:0 100%;transform:scale(var(--ms,1));will-change:transform}
 .mv-proc-head > div{flex:1;padding-bottom:max(24px,calc(36 * var(--u)))}
 .mv-proc-head .mv-lead{max-width:none}
+.mv-proc-lead-m{display:none}
 .mv-step{display:flex;flex-direction:column;gap:max(40px,calc(72 * var(--u)))}
 .mv-step .num{font-family:var(--f-head);font-weight:900;font-size:max(28px,calc(48 * var(--u)));line-height:1;color:#C4C4C0;transition:color .3s var(--ease)}
 .mv-step:hover .num{color:var(--amber-600)}
@@ -191,7 +191,8 @@
 .mv-avatar{width:56px;height:56px;border-radius:50%;padding:0;font-size:9px;flex-shrink:0}
 
 /* ---------- about ---------- */
-.mv-about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:calc(96 * var(--u));align-items:center}
+.mv-about{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:calc(96 * var(--u));align-items:center}
+.mv-about .mv-polaroid{max-width:max(260px,calc(400 * var(--u)))}
 .mv-polaroid{position:relative;background:#fff;padding:14px 14px 64px;transform:rotate(2deg);box-shadow:0 28px 48px -28px rgba(0,0,0,.35);border-radius:3px}
 .mv-polaroid .ph{aspect-ratio:4/5}
 .mv-polaroid .cap{position:absolute;left:18px;bottom:16px;font-family:var(--f-hand);font-weight:700;font-size:30px;color:var(--black)}
@@ -199,8 +200,13 @@
 .mv-about-text{margin-top:max(18px,calc(28 * var(--u)));display:grid;gap:14px;color:var(--text-2);max-width:calc(760 * var(--u))}
 .mv-about-text p{margin:0}
 .mv-founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(80 * var(--u))}
-.mv-team{display:flex;flex-wrap:wrap;gap:28px;margin-top:max(28px,calc(40 * var(--u)));padding-top:24px;border-top:1px solid var(--line)}
-.mv-team > div{display:flex;align-items:center;gap:12px;font-size:max(14px,calc(18 * var(--u)));line-height:1.35}
+.mv-team{margin-top:max(56px,calc(96 * var(--u)));padding-top:max(28px,calc(40 * var(--u)));border-top:1px solid var(--line)}
+.mv-team-label{margin:0 0 max(20px,calc(32 * var(--u)));font-weight:500;font-size:max(14px,calc(18 * var(--u)));color:var(--text-3)}
+.mv-team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:max(16px,calc(24 * var(--u)))}
+.mv-team-card{display:flex;align-items:flex-start;gap:max(14px,calc(20 * var(--u)))}
+.mv-team-role{margin:0 0 6px;font-family:var(--f-body);font-weight:700;font-size:max(18px,calc(26 * var(--u)));line-height:1.2;color:var(--black)}
+.mv-team-card p{font-size:max(15px,calc(20 * var(--u)));line-height:1.45}
+.mv-team-card .mv-avatar{width:max(56px,calc(72 * var(--u)));height:max(56px,calc(72 * var(--u)))}
 
 /* ---------- pricing: order slip ---------- */
 .mv-slip{background:var(--grey-200);border-radius:var(--r-card);padding:8px max(20px,calc(40 * var(--u)))}
@@ -290,6 +296,12 @@
   .mv-hero-bottom{flex-direction:column;align-items:stretch;gap:16px;margin-top:28px}
   .mv-hero-bottom .mv-btn{width:100%}
   .mv-proof,.mv-about,.mv-founders,.mv-contact{grid-template-columns:minmax(0,1fr);gap:40px}
+  .mv-about .mv-polaroid{max-width:240px}
+  .mv-about-text{max-width:none}
+  .mv-proc-lead-d{display:none}
+  .mv-proc-lead-m{display:block;margin:0 0 28px !important}
+  .mv-proc-head{margin-bottom:20px}
+  .mv-team-grid{grid-template-columns:minmax(0,1fr)}
   .mv-print-wrap{padding:28px 12px 64px 4px}
   .mv-3{grid-template-columns:minmax(0,1fr)}
   .mv-sit{min-height:0}

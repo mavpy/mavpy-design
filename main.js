@@ -171,6 +171,30 @@ function initMavpy(root) {
     };
     form.addEventListener('input', mark); mark();
   }
+
+  /* ---------- v3.2: hero — thin streaks run along random grid lines ---------- */
+  var streaks = $('[data-streaks]');
+  if (streaks && !reduce && !root.classList.contains('m-off')) {
+    var cell = function () { return Math.max(1, Math.min(1, win.innerWidth / 1920) * 80); };
+    var spawn = function () {
+      if (document.hidden || streaks.childElementCount >= 2) return;
+      var w = streaks.clientWidth, h = streaks.clientHeight, c = cell(), el = document.createElement('i');
+      var horiz = Math.random() < 0.6, t = 1.2 + Math.random() * 0.8;
+      el.className = 'mv-streak ' + (horiz ? 'mv-streak--h' : 'mv-streak--v');
+      if (horiz) {
+        var row = Math.floor(Math.random() * Math.max(1, Math.floor(h / c))) * c;
+        var x0 = Math.floor(Math.random() * Math.max(1, Math.floor(w / c) - 4)) * c;
+        el.style.cssText = 'top:' + row + 'px;left:' + x0 + 'px;--dx:' + (c * 4) + 'px;--t:' + t + 's';
+      } else {
+        var col = Math.floor(Math.random() * Math.max(1, Math.floor(w / c))) * c;
+        var y0 = Math.floor(Math.random() * Math.max(1, Math.floor(h / c) - 3)) * c;
+        el.style.cssText = 'left:' + col + 'px;top:' + y0 + 'px;--dy:' + (c * 3) + 'px;--t:' + t + 's';
+      }
+      el.addEventListener('animationend', function () { el.remove(); });
+      streaks.appendChild(el);
+    };
+    (function loop() { spawn(); setTimeout(loop, 1500 + Math.random() * 2000); })();
+  }
 }
 
 if (typeof document !== 'undefined' && !document.querySelector('x-dc')) {

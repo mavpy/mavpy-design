@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.0 ("Swiss workshop"). One template → EN (/) and UA (/ua/).
+"""MAVPY site v3.3 ("Swiss workshop"). One template → EN (/) and UA (/ua/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 
@@ -12,7 +12,7 @@ ARROW = '<span class="ar" aria-hidden="true">→</span>'
 
 E = dict(
   html_lang='en', title='MAVPY — websites that bring more clients',
-  desc='A small studio that designs and builds websites for growing businesses, then wires in online booking and lead handling. Fixed price, from $500.',
+  desc='A small studio that designs and builds websites for growing businesses, then wires in online booking and lead handling. Fixed price, from $400.',
   nav=['How we work', 'Cases', 'Pricing', 'Contact'], menu='Menu', lang_group='Language', cta='Get my estimate',
   kicker='<b>Conversion-focused</b> websites for growing businesses', more='MORE', clients='clients',
   notjust='Not just<br>a new<br>website', hero_note='Scoped, priced upfront,<br>delivered end-to-end.',
@@ -71,14 +71,15 @@ E = dict(
         ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.\n\nBefore writing, I read your reviews, calls and competitors’ pages to find the phrases your clients actually use.'),
         ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.\n\nYou get a short report in plain words: what we spent, what came in, and what we change next.')],
   price_idx='Pricing', price_h='Pick your goal,<br>see the price', price_p='No form, no call just to see a number. Find your goal and see where it starts.',
-  pay=['Pay once', 'Pay in 3 parts'], badge='Most popular', from_='from', price_note='',
-  plans=[('Attract new clients', 'A site that turns strangers into enquiries, and ads that keep them coming.', ['Online positioning', 'Site design & build', 'Ad setup & automation'], '$500', '3 × $167', 'clients'),
-         ('Launch a new service', 'One page that makes the new offer impossible to misunderstand.', ['Landing page', 'Copy & visuals', 'Launch ad setup'], '$700', '3 × $234', 'service'),
-         ('Revamp your website', 'A site you’re proud to send, modern and easy to find.', ['Redesign & build', 'Easy platform', 'Basic SEO'], '$800', '3 × $267', 'redesign')],
-  contact_idx='Contact', contact_h='Tell us your goal.<br>We’ll price it.', contact_p='You’ve seen the ballpark: from $500. The exact figure comes on a short call. No sales marathon.',
+  pay=['Pay once', 'Pay in 3 parts'], badge='Most popular', from_='from',
+  price_note='Need a Telegram bot, CRM or something else? We add it on the call, only if your business needs it.',
+  plans=[('Landing page', 'Get enquiries from one page', 'One page that explains what you do and turns visitors into enquiries.', ['One-page site', 'Copy & design', 'Contact form with instant alerts'], '$400', '3 × $134', 'clients'),
+         ('Landing page + tools', 'Turn visitors into bookings', 'A landing page that takes bookings and sends every lead where your team works.', ['Everything in Landing page', 'Online booking & calendar', 'Leads straight to Telegram or CRM'], '$700', '3 × $234', 'service'),
+         ('Multi-page website', 'Show every service you offer', 'A full site for a business with several services, with the same tools built in.', ['Up to 5 pages', 'Booking & lead handling', 'Basic SEO'], '$1,200', '3 × $400', 'redesign')],
+  contact_idx='Contact', contact_h='Tell us your goal.<br>We’ll price it.', contact_p='You’ve seen the ballpark: from $400. The exact figure comes on a short call. No sales marathon.',
   next_steps=['We reply within 24 hours', 'A 15-minute call about your goal', 'Fixed price and timeline in writing'],
   need='What do you need?', goals=[('clients', 'New clients'), ('service', 'New service'), ('redesign', 'Redesign'), ('ads', 'Ads & analytics'), ('auto', 'Automation')],
-  f_name='Name', f_email='Email', f_phone='Phone (optional)', reply='We reply within 24h · no spam',
+  f_name='Name', f_email='Email', f_phone='Phone', err_phone='Add a phone number so we can call you back.', reply='We reply within 24h · no spam',
   done_h='Got it, thanks', done_p='We’ll reply within 24 hours.',
   err_name='Add your name so we know who to reply to.', err_email='Check the email, it looks incomplete.',
   err_net='The request didn’t go through. Try again or write to mavpy.studio@gmail.com.',
@@ -87,7 +88,7 @@ E = dict(
 
 U = dict(
   html_lang='uk', title='MAVPY — сайти, що приводять більше клієнтів',
-  desc='Невелика студія, яка проєктує та розробляє сайти для бізнесу, що зростає, і налаштовує за ними онлайн-запис та обробку заявок. Фіксована ціна, від $500.',
+  desc='Невелика студія, яка проєктує та розробляє сайти для бізнесу, що зростає, і налаштовує за ними онлайн-запис та обробку заявок. Фіксована ціна, від $400.',
   nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Меню', lang_group='Мова', cta='Отримати розрахунок',
   kicker='<b>Сайти</b>, що продають, для бізнесу, який зростає', more='БІЛЬШЕ', clients='клієнтів',
   notjust='Не просто<br>новий<br>сайт', hero_note='Обсяг і ціну фіксуємо до старту,<br>робимо все під ключ.',
@@ -147,14 +148,14 @@ U = dict(
         ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.\n\nВи отримуєте короткий звіт простими словами: скільки витратили, що отримали і що змінюємо далі.')],
   price_idx='Ціни', price_h='Оберіть мету,<br>побачте ціну', price_p='Без форм і дзвінків, щоб просто дізнатися ціну. Знайдіть свою мету і подивіться, з якої суми вона починається.',
   pay=['Одним платежем', 'Трьома частинами'], badge='Найпопулярніше', from_='від',
-  price_note='Ціни в гривнях за курсом НБУ на день оплати. Будь-який пакет можна розбити на 3 платежі.',
-  plans=[('Залучити нових клієнтів', 'Сайт, що перетворює незнайомців на заявки, і реклама, яка приводить їх знову і знову.', ['Позиціонування онлайн', 'Дизайн і розробка сайту', 'Реклама та автоматизація'], '₴21 000 <small>($500)</small>', '3 × ₴7 000 <small>($167)</small>', 'clients'),
-         ('Запустити нову послугу', 'Одна сторінка, після якої нову пропозицію неможливо зрозуміти неправильно.', ['Лендинг', 'Тексти та візуал', 'Налаштування реклами на запуск'], '₴29 000 <small>($700)</small>', '3 × ₴9 700 <small>($234)</small>', 'service'),
-         ('Оновити сайт', 'Сайт, який не соромно надіслати: сучасний і легкий для пошуку.', ['Редизайн і розробка', 'Зручна платформа', 'Базове SEO'], '₴33 000 <small>($800)</small>', '3 × ₴11 000 <small>($267)</small>', 'redesign')],
-  contact_idx='Контакти', contact_h='Розкажіть про мету.<br>Ми порахуємо ціну.', contact_p='Орієнтир ви вже бачили: від $500. Точну суму назвемо після короткого дзвінка. Без довгих продажів.',
+  price_note='Потрібен Telegram-бот, CRM чи щось інше? Додамо на дзвінку, лише якщо це потрібно вашому бізнесу. Ціни в гривнях за курсом НБУ на день оплати.',
+  plans=[('Лендинг', 'Заявки з однієї сторінки', 'Одна сторінка, яка пояснює, що ви робите, і перетворює відвідувачів на заявки.', ['Односторінковий сайт', 'Тексти й дизайн', 'Форма зі сповіщеннями'], '₴16 600 <small>($400)</small>', '3 × ₴5 600 <small>($134)</small>', 'clients'),
+         ('Лендинг + інструменти', 'Відвідувачі стають записами', 'Лендинг, який приймає записи й надсилає кожну заявку туди, де працює ваша команда.', ['Усе з пакета «Лендинг»', 'Онлайн-запис і календар', 'Заявки одразу в Telegram або CRM'], '₴29 000 <small>($700)</small>', '3 × ₴9 700 <small>($234)</small>', 'service'),
+         ('Багатосторінковий сайт', 'Покажіть усі свої послуги', 'Повноцінний сайт для бізнесу з кількома послугами, з тими самими інструментами.', ['До 5 сторінок', 'Запис і обробка заявок', 'Базове SEO'], '₴49 800 <small>($1 200)</small>', '3 × ₴16 600 <small>($400)</small>', 'redesign')],
+  contact_idx='Контакти', contact_h='Розкажіть про мету.<br>Ми порахуємо ціну.', contact_p='Орієнтир ви вже бачили: від $400. Точну суму назвемо після короткого дзвінка. Без довгих продажів.',
   next_steps=['Відповідаємо протягом 24 годин', '15-хвилинний дзвінок про вашу мету', 'Фіксована ціна і строки письмово'],
   need='Що вам потрібно?', goals=[('clients', 'Нові клієнти'), ('service', 'Нова послуга'), ('redesign', 'Редизайн'), ('ads', 'Реклама й аналітика'), ('auto', 'Автоматизація')],
-  f_name='Ім’я', f_email='Email', f_phone='Телефон (необов’язково)', reply='Відповімо протягом 24 год · без спаму',
+  f_name='Ім’я', f_email='Email', f_phone='Телефон', err_phone='Вкажіть телефон, щоб ми могли передзвонити.', reply='Відповімо протягом 24 год · без спаму',
   done_h='Дякуємо, отримали', done_p='Відповімо протягом 24 годин.',
   err_name='Вкажіть ім’я, щоб ми знали, кому відповісти.', err_email='Перевірте email, схоже, він неповний.',
   err_net='Заявка не надіслалася. Спробуйте ще раз або напишіть на mavpy.studio@gmail.com.',
@@ -191,7 +192,7 @@ def page(t, lang):
     o.append(f'''<header class="mv-wrap mv-head">
   <a href="#top" class="mv-logo" aria-label="MAVPY"><img class="mv-logo-img" src="{P}assets/img/logo-dark.svg" alt="MAVPY design &amp; dev"></a>
   <nav class="mv-nav" aria-label="Main">{nav}{langs}<a href="#contact" class="mv-btn mv-btn--sm">{t["cta"]}</a></nav>
-  <button type="button" class="mv-burger" aria-expanded="false" aria-label="{t["menu"]}"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0F0F0F" stroke-width="1.6" aria-hidden="true"><path d="M2 6h14M2 12h14"/></svg></button>
+  <button type="button" class="mv-burger" aria-expanded="false" aria-label="{t["menu"]}"><span class="mv-burger-ico" aria-hidden="true"><i></i><i></i></span></button>
 </header>
 <nav class="mv-wrap mv-mnav" aria-label="{t["menu"]}" hidden="hidden">
   {nav}
@@ -219,25 +220,26 @@ def page(t, lang):
 </section>''')
     items = lambda hid: ''.join(f'<span class="mv-strip-item"{" aria-hidden=\"true\"" if hid else ""}><i aria-hidden="true"></i>{s}</span>' for s in t['strip'])
     o.append(f'<div class="mv-strip"><div class="mv-marq" role="region" aria-label="{t["strip_label"]}"><div class="mv-track">{items(False)}{items(True)}</div></div></div>')
-    # 01 featured case (v3.1: full-width screenshot with outline, stats in a row, all black)
+    # 01 featured case (v3.3: v2.1 layout — text left, screenshot right — in the minimal style)
     stats = ''.join(f'<li><b>{n}</b><span>{l}</span></li>' for n, l in t['fc_stats'])
     c0 = t['cases'][0]
     o.append(f'''<section class="v-sec" data-reveal="">
-  <div class="v-wrap">{head(1, t["fc_idx"], t["fc_h"], t["fc_sub"])}
-    <a class="v-feat-shot" href="{c0[4]}" target="_blank" rel="noopener" aria-label="{t["live"]}: {c0[5]}">{img(c0[3], 'Doctor LOR website', 'v-shot')}</a>
-    <div class="v-feat">
-      <div class="v-feat-txt"><p class="v-lead" style="margin:0">{t["fc_p"]}</p>
-        <div class="v-actions"><a class="mv-btn" href="{c0[4]}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><a class="mv-btn mv-btn--line" href="#cases">{t["read_case"]}</a></div></div>
+  <div class="v-wrap v-fc">
+    <div class="v-fc-txt">
+      <p class="v-idx v-idx--row"><span class="n">01</span><span>{t["fc_idx"]}</span></p>
+      <h2 class="v-h2">{t["fc_h"]}</h2>
+      <p class="v-fc-sub">{t["fc_sub"]}</p>
+      <p class="v-lead">{t["fc_p"]}</p>
       <ul class="v-stats">{stats}</ul>
+      <div class="v-actions"><a class="mv-btn" href="{c0[4]}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><a class="mv-btn mv-btn--line" href="#cases">{t["read_case"]}</a></div>
     </div>
+    <a class="v-fc-shot" href="{c0[4]}" target="_blank" rel="noopener" aria-label="{t["live"]}: {c0[5]}"><span class="v-bar" aria-hidden="true"><i></i><i></i><i></i><em>{c0[5]}</em></span>{img(c0[3], 'Doctor LOR website', 'v-shot')}</a>
   </div>
 </section>''')
     # 02 situation
-    lit = [[0], [0, 1, 3], [0, 1, 2, 3, 4, 6]]
     cards = ''
     for i, (h, p, fix) in enumerate(t['sit']):
-        cells = ''.join(f'<i{" class=\"on\"" if k in lit[i] else ""} style="--k:{k}"></i>' for k in range(9))
-        cards += (f'<div class="v-card v-pain"><div class="v-pain-top"><span class="v-num">0{i+1}</span><span class="v-cells" aria-hidden="true">{cells}</span></div>'
+        cards += (f'<div class="v-card v-pain"><div class="v-pain-top"><span class="v-num">0{i+1}</span></div>'
                   f'<h3 class="v-h3">{h}</h3><p>{p}</p><p class="v-fix"><span aria-hidden="true">→</span>{fix}</p></div>')
     o.append(f'<section class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(2, t["sit_idx"], t["sit_h"], t["sit_p"])}<div class="v-3">{cards}</div></div></section>')
     # 03 process (v3.1: big static mascot, step rows, more info slides up on hover)
@@ -252,11 +254,11 @@ def page(t, lang):
         op = i == 0
         dl = ''.join(f'<div{" class=\"res\"" if k == 2 else ""}><dt>{d}</dt><dd>{v}</dd></div>' for k, (d, v) in enumerate(zip(t['dt'], (task, sol, res))))
         arts += f'''<article class="v-case{" is-open" if op else ""}">
-  <div class="v-case-row"><span class="v-num">0{i+1}</span><h3 class="v-case-name">{name}</h3><span class="v-case-kind">{kind}</span><span class="v-case-short">{short}</span>
+  <div class="v-case-row"><span class="v-num">0{i+1}</span><h3 class="v-case-name">{name}</h3><span class="v-case-kind">{kind}</span>
     <button type="button" class="mv-tog" aria-expanded="{str(op).lower()}" aria-controls="{cid}" aria-label="{name}, {t["case_word"]}">{PLUS}</button></div>
   <div class="mv-acc{" is-open is-in" if op else ""}" id="{cid}"><div><div class="v-case-body">
     <div class="v-case-shot">{img(im, name + " website")}</div>
-    <div class="v-case-txt"><dl>{dl}</dl><p class="v-actions"><a class="mv-btn" href="{url}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><span class="v-host">{host}</span></p></div>
+    <div class="v-case-txt"><dl>{dl}</dl><p class="v-actions v-case-act"><a class="mv-btn" href="{url}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><span class="v-host">{host}</span></p></div>
   </div></div></div>
 </article>'''
     o.append(f'<section id="cases" class="v-sec v-dark" data-reveal=""><div class="v-wrap">{head(4, t["cases_idx"], t["cases_h"], t["cases_p"])}<div class="v-cases" data-accordion="">{arts}</div></div></section>')
@@ -277,35 +279,34 @@ def page(t, lang):
 </div></section>''')
     # 07 pricing
     plans = ''
-    for i, (h, d, inc, p1, p3, goal) in enumerate(t['plans']):
-        rec = i == 0
+    for i, (kind, h, d, inc, p1, p3, goal) in enumerate(t['plans']):
+        rec = i == 1
         lis = ''.join(f'<li>{x}</li>' for x in inc)
-        plans += (f'<div class="v-card v-plan{" is-rec" if rec else ""}" data-spot-card=""><div class="v-plan-top"><span class="v-num">0{i+1}</span>{f"<span class=\"v-badge\">{t['badge']}</span>" if rec else ""}</div>'
+        plans += (f'<div class="v-card v-plan{" is-rec" if rec else ""}" data-spot-card=""><div class="v-plan-top"><span class="v-plan-kind">{kind}</span>{f"<span class=\"v-badge\">{t['badge']}</span>" if rec else ""}</div>'
                   f'<h3 class="v-h3">{h}</h3><p>{d}</p><p class="v-price"><span>{t["from_"]}</span><b data-p1="{p1.replace(chr(34), "&quot;")}" data-p3="{p3.replace(chr(34), "&quot;")}">{p1}</b></p>'
-                  f'<ul>{lis}</ul><a class="mv-btn{"" if rec else " mv-btn--line"}" href="#contact" data-goal="{goal}">{t["cta"]} {ARROW}</a></div>')
+                  f'<ul>{lis}</ul><a class="mv-btn" href="#contact" data-goal="{goal}">{t["cta"]} {ARROW}</a></div>')
     note = f'<p class="v-note">{t["price_note"]}</p>' if t['price_note'] else ''
     o.append(f'''<section id="pricing" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(7, t["price_idx"], t["price_h"], t["price_p"])}
   <div class="v-pay" role="group" aria-label="{t["pay"][0]} / {t["pay"][1]}"><button type="button" aria-pressed="true" data-pay="1">{t["pay"][0]}</button><button type="button" aria-pressed="false" data-pay="3">{t["pay"][1]}</button></div>
   <div class="v-3 v-plans">{plans}</div>{note}
 </div></section>''')
     # 08 contact
-    steps = ''.join(f'<li data-next="{i}"><span class="v-num">{i+1}</span>{s}</li>' for i, s in enumerate(t['next_steps']))
     chips = ''.join(f'<label class="v-chip"><input type="radio" name="goal" value="{v}"{" checked" if i == 0 else ""}><span>{l}</span></label>' for i, (v, l) in enumerate(t['goals']))
     o.append(f'''<section id="contact" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(8, t["contact_idx"], t["contact_h"], t["contact_p"])}
   <div class="v-contact">
-  <form class="v-form" data-lead-form="" data-endpoint="" novalidate="novalidate" data-err-name="{t["err_name"]}" data-err-email="{t["err_email"]}" data-err-net="{t["err_net"]}">
+  <form class="v-form" data-lead-form="" data-endpoint="" novalidate="novalidate" data-err-name="{t["err_name"]}" data-err-email="{t["err_email"]}" data-err-phone="{t["err_phone"]}" data-err-net="{t["err_net"]}">
     <div data-form-fields="">
       <input type="hidden" name="goal" value="">
       <div class="v-fields">
         <label class="v-field"><span>{t["f_name"]}</span><input class="v-in" name="name" autocomplete="name" required="required"></label>
         <label class="v-field"><span>{t["f_email"]}</span><input class="v-in" type="email" name="email" autocomplete="email" required="required"></label>
-        <label class="v-field v-field--full"><span>{t["f_phone"]}</span><input class="v-in" type="tel" name="phone" autocomplete="tel"></label>
+        <label class="v-field v-field--full"><span>{t["f_phone"]}</span><input class="v-in" type="tel" name="phone" autocomplete="tel" required="required"></label>
       </div>
       <p class="mv-err" data-form-error="" hidden="hidden" role="alert"></p>
       <div class="v-submit"><button class="mv-btn" type="submit">{t["cta"]} {ARROW}</button><span class="v-host">{t["reply"]}</span></div>
     </div>
     <div class="v-done" data-form-done="" hidden="hidden"><p class="v-h3">{t["done_h"]}</p><p>{t["done_p"]}</p></div>
-  </form><ol class="v-next">{steps}</ol></div>
+  </form></div>
 </div></section>
 </main>''')
     # footer
@@ -319,7 +320,7 @@ def page(t, lang):
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
   <div class="v-ticks" aria-hidden="true">{ticks}</div>
-  <p class="v-foot-word" aria-hidden="true">MAVPY</p>
+  <p class="v-foot-word" aria-hidden="true" data-fit=""><span>MAVPY</span></p>
   <div class="v-foot-bot"><span>{t["copy"]}</span><a href="#top">{t["top"]}</a></div>
 </div></footer>
 </div>''')

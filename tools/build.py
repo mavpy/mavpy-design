@@ -19,7 +19,7 @@ E = dict(
   strip=['30+ projects since 2022', 'Fixed price, no surprises', 'Founder-led, direct', 'Reply within 24h',
          'Pay in 3 parts', 'Booking, CRM and bot wired in', 'You own the site and the code'],
   strip_label='Why clients work with us',
-  fc_idx='Featured case', fc_h='Doctor LOR,<br>ENT clinic in Kharkiv',
+  fc_idx='Featured case', fc_h='Doctor LOR', fc_sub='ENT clinic in Kharkiv: from phone-only booking to a site that books itself',
   fc_p='Before: patients could only book by phone, on a site from the early 2000s. Now booking runs itself and reminders go out on their own.',
   fc_stats=[('5,000', 'operations performed'), ('20 yrs', 'of surgical practice'), ('1 click', 'to book from any screen')],
   live='Open live site', read_case='Read the case ↓',
@@ -31,6 +31,8 @@ E = dict(
   steps=[('Full cycle, done for you', 'From zero to a steady flow of clients. Nothing gets lost in hand-offs.'),
          ('Minimal load on your side', 'We agree on the decisions that matter, handle the rest, and leave you free to run your business.'),
          ('Live in as little as 2 weeks', 'We set the timeline before we start, tie it to your scope, and hold to it.')],
+  steps_more=['Strategy, copy, design, build, booking and ads. One team, one contract.', 'You approve three things: the plan, the design and the launch. We handle the rest.', 'Week 1: plan and design. Week 2: build, connect and launch.'],
+  cols=['#', 'Project', 'Industry', 'Result'], what='What I do',
   cases_idx='Cases', cases_h='Real projects,<br>real results', cases_p='Task, solution, result. The same three lines on every case.',
   dt=['Task', 'Solution', 'Result'], case_word='case',
   cases=[
@@ -63,10 +65,11 @@ E = dict(
     ('avatar-fallback-man', 'Owner', 'The Nook · positioning and booking', 'We stopped being just another beach hotel. Remote workers find us in winter now, and they stay for weeks, not days.'),
     ('avatar-fallback-woman', 'Founder', 'Unit Surface · site with ROI calculator', 'The ROI calculator handles the first sales conversation for us. Leads come in already knowing their numbers.')],
   team_idx='Team', team_h='The people behind<br>your project',
-  team=[('team-serhii', 'Serhii', 'Designer & product manager', 'I start with why people leave your site, then design the page that keeps them. From the first call to launch, you talk to me.'),
-        ('team-nikita', 'Nikita', 'Developer & automation', 'I build the site and connect it to what you already use: booking, CRM, a Telegram bot. Every request lands where your team will see it.'),
-        ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.'),
-        ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.')],
+  tags=[['Research & UX', 'Site structure', 'Design in Figma', 'Project lead'], ['Webflow & custom code', 'Booking, CRM, Telegram bots', 'Integrations', 'Launch & support'], ['Positioning & offer', 'Website copy', 'Case studies', 'Ad content'], ['Google & Meta ads', 'Analytics & tracking', 'Cost per enquiry reports', 'Budget planning']],
+  team=[('team-serhii', 'Serhii', 'Designer & product manager', 'I start with why people leave your site, then design the page that keeps them.\n\nFrom the first call to launch, you talk to me. I keep the plan, the deadlines and the decisions in one place, so nothing gets lost between people.'),
+        ('team-nikita', 'Nikita', 'Developer & automation', 'I build the site and connect it to what you already use: booking, CRM, a Telegram bot.\n\nEvery request lands where your team will see it. After launch I stay on the tech side, so updates and fixes don’t stall.'),
+        ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.\n\nBefore writing, I read your reviews, calls and competitors’ pages to find the phrases your clients actually use.'),
+        ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.\n\nYou get a short report in plain words: what we spent, what came in, and what we change next.')],
   price_idx='Pricing', price_h='Pick your goal,<br>see the price', price_p='No form, no call just to see a number. Find your goal and see where it starts.',
   pay=['Pay once', 'Pay in 3 parts'], badge='Most popular', from_='from', price_note='',
   plans=[('Attract new clients', 'A site that turns strangers into enquiries, and ads that keep them coming.', ['Online positioning', 'Site design & build', 'Ad setup & automation'], '$500', '3 × $167', 'clients'),
@@ -80,7 +83,7 @@ E = dict(
   err_name='Add your name so we know who to reply to.', err_email='Check the email, it looks incomplete.',
   err_net='The request didn’t go through. Try again or write to mavpy.studio@gmail.com.',
   foot_tag='Less noise.<br>More results.', foot_cols=('Navigate', 'Contact', 'Studio'), studio=['Design & development', 'Since 2022', 'EN / UA'],
-  foot_nav='Footer navigation', top='Back to top ↑', copy='© 2022–2026 MAVPY design studio')
+  foot_nav='Footer navigation', top='Back to top ↑', copy='© 2022–2026 MAVPY Design & Dev')
 
 U = dict(
   html_lang='uk', title='MAVPY — сайти, що приводять більше клієнтів',
@@ -91,7 +94,7 @@ U = dict(
   strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Напряму із засновником', 'Відповідь протягом 24 годин',
          'Оплата трьома частинами', 'Запис, CRM і бот під ключ', 'Сайт і код належать вам'],
   strip_label='Чому з нами працюють',
-  fc_idx='Головний кейс', fc_h='Doctor LOR,<br>ЛОР-клініка в Харкові',
+  fc_idx='Головний кейс', fc_h='Doctor LOR', fc_sub='ЛОР-клініка в Харкові: від запису лише телефоном до сайту, що записує сам',
   fc_p='Раніше пацієнти могли записатися лише телефоном через сайт початку 2000-х. Тепер запис працює сам, а нагадування надходять автоматично.',
   fc_stats=[('5 000', 'проведених операцій'), ('20 років', 'хірургічної практики'), ('1 клік', 'до запису з будь-якого екрана')],
   live='Відкрити сайт', read_case='Читати кейс ↓',
@@ -103,6 +106,8 @@ U = dict(
   steps=[('Повний цикл під ключ', 'Від нуля до стабільного потоку клієнтів. Нічого не губиться при передачі між підрядниками.'),
          ('Мінімум навантаження на вас', 'Узгоджуємо лише важливі рішення, решту беремо на себе, а ви спокійно займаєтеся бізнесом.'),
          ('Запуск уже за 2 тижні', 'Строки фіксуємо до старту, прив’язуємо до обсягу робіт і дотримуємося їх.')],
+  steps_more=['Стратегія, тексти, дизайн, розробка, запис і реклама. Одна команда, один договір.', 'Ви погоджуєте три речі: план, дизайн і запуск. Решту робимо ми.', 'Тиждень 1: план і дизайн. Тиждень 2: розробка, підключення і запуск.'],
+  cols=['#', 'Проєкт', 'Сфера', 'Результат'], what='Чим займаюся',
   cases_idx='Кейси', cases_h='Реальні проєкти,<br>реальні результати', cases_p='Задача, рішення, результат. Однакова структура в кожному кейсі.',
   dt=['Задача', 'Рішення', 'Результат'], case_word='кейс',
   cases=[
@@ -135,10 +140,11 @@ U = dict(
     ('avatar-fallback-man', 'Власник', 'The Nook · позиціонування і бронювання', 'Ми перестали бути ще одним пляжним готелем. Тепер нас знаходять ті, хто працює віддалено, навіть узимку, і залишаються на тижні, а не на дні.'),
     ('avatar-fallback-woman', 'Засновниця', 'Unit Surface · сайт з калькулятором окупності', 'Калькулятор окупності проводить першу розмову про продаж за нас. Клієнти приходять, уже знаючи свої цифри.')],
   team_idx='Команда', team_h='Люди, які працюють<br>над вашим проєктом',
-  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, і лише потім малюю сторінку, яка їх утримає. Від першого дзвінка до запуску ви говорите зі мною.'),
-        ('team-nikita', 'Нікіта', 'Розробка та автоматизація', 'Збираю сайт і підключаю його до того, чим ви вже користуєтесь: запис, CRM, Telegram-бот. Кожна заявка потрапляє туди, де її побачить ваша команда.'),
-        ('team-julia', 'Юлія', 'Маркетинг і тексти', 'Пишу словами ваших клієнтів, а не нашими. Кожен заголовок відповідає на одне питання: чому обрати вас, а не сусідній бізнес.'),
-        ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.')],
+  tags=[['Дослідження і UX', 'Структура сайту', 'Дизайн у Figma', 'Ведення проєкту'], ['Webflow і власний код', 'Запис, CRM, Telegram-боти', 'Інтеграції', 'Запуск і підтримка'], ['Позиціонування й оферта', 'Тексти для сайту', 'Кейси', 'Контент для реклами'], ['Реклама Google і Meta', 'Аналітика й відстеження', 'Звіти про ціну заявки', 'Планування бюджету']],
+  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, і лише потім малюю сторінку, яка їх утримає.\n\nВід першого дзвінка до запуску ви говорите зі мною. План, строки й рішення я тримаю в одному місці, тож нічого не губиться між людьми.'),
+        ('team-nikita', 'Нікіта', 'Розробка та автоматизація', 'Збираю сайт і підключаю його до того, чим ви вже користуєтесь: запис, CRM, Telegram-бот.\n\nКожна заявка потрапляє туди, де її побачить ваша команда. Після запуску я лишаюся на технічній стороні, тож оновлення й виправлення не зависають.'),
+        ('team-julia', 'Юлія', 'Маркетинг і тексти', 'Пишу словами ваших клієнтів, а не нашими. Кожен заголовок відповідає на одне питання: чому обрати вас, а не сусідній бізнес.\n\nПерш ніж писати, читаю ваші відгуки, дзвінки й сторінки конкурентів, щоб знайти фрази, якими говорять ваші клієнти.'),
+        ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.\n\nВи отримуєте короткий звіт простими словами: скільки витратили, що отримали і що змінюємо далі.')],
   price_idx='Ціни', price_h='Оберіть мету,<br>побачте ціну', price_p='Без форм і дзвінків, щоб просто дізнатися ціну. Знайдіть свою мету і подивіться, з якої суми вона починається.',
   pay=['Одним платежем', 'Трьома частинами'], badge='Найпопулярніше', from_='від',
   price_note='Ціни в гривнях за курсом НБУ на день оплати. Будь-який пакет можна розбити на 3 платежі.',
@@ -153,7 +159,7 @@ U = dict(
   err_name='Вкажіть ім’я, щоб ми знали, кому відповісти.', err_email='Перевірте email, схоже, він неповний.',
   err_net='Заявка не надіслалася. Спробуйте ще раз або напишіть на mavpy.studio@gmail.com.',
   foot_tag='Менше шуму.<br>Більше результатів.', foot_cols=('Навігація', 'Контакти', 'Студія'), studio=['Дизайн і розробка', 'З 2022 року', 'EN / UA'],
-  foot_nav='Навігація у футері', top='Нагору ↑', copy='© 2022–2026 MAVPY, дизайн-студія')
+  foot_nav='Навігація у футері', top='Нагору ↑', copy='© 2022–2026 MAVPY Design & Dev')
 
 CONTACTS = [('mailto:mavpy.studio@gmail.com', 'mavpy.studio@gmail.com'), ('tel:+380992208343', '+380 99 220 83 43'),
             ('https://instagram.com/mavpy_agency', 'Instagram @mavpy_agency'), ('https://t.me/mavpy_agency', 'Telegram @mavpy_agency')]
@@ -170,6 +176,7 @@ def img(name, alt, cls='', ext='jpg', lazy=True):
 
 
 def page(t, lang):
+    t = dict(t); t['reviews'] = t['reviews'][:3]  # v3.1: only confirmed reviews until clients approve the drafts
     ua = lang == 'uk'
     P = '../' if ua else ''
     en_href, ua_href = ('../', './') if ua else ('./', 'ua/')
@@ -192,7 +199,7 @@ def page(t, lang):
 </nav>
 <main>
 <section id="top" class="mv-hero" data-spotlight="">
-  <div class="a-bg" aria-hidden="true" style="position:absolute;inset:0;--d:1.05s"><div class="mv-mat"></div><div class="mv-mat-glow"></div></div>
+  <div class="a-bg" aria-hidden="true" style="position:absolute;inset:0;--d:1.05s"><div class="mv-mat"></div><div class="mv-mat-glow"></div><div class="mv-streaks" data-streaks=""></div></div>
   <div class="mv-wrap mv-hero-in">
     <div class="mv-hero-top">
       <div>
@@ -212,18 +219,16 @@ def page(t, lang):
 </section>''')
     items = lambda hid: ''.join(f'<span class="mv-strip-item"{" aria-hidden=\"true\"" if hid else ""}><i aria-hidden="true"></i>{s}</span>' for s in t['strip'])
     o.append(f'<div class="mv-strip"><div class="mv-marq" role="region" aria-label="{t["strip_label"]}"><div class="mv-track">{items(False)}{items(True)}</div></div></div>')
-    # 01 featured case
-    stats = ''.join(f'<li><b{" class=\"acc\"" if i == 0 else ""}>{n}</b><span>{l}</span></li>' for i, (n, l) in enumerate(t['fc_stats']))
+    # 01 featured case (v3.1: full-width screenshot with outline, stats in a row, all black)
+    stats = ''.join(f'<li><b>{n}</b><span>{l}</span></li>' for n, l in t['fc_stats'])
     c0 = t['cases'][0]
     o.append(f'''<section class="v-sec" data-reveal="">
-  <div class="v-wrap">{head(1, t["fc_idx"], t["fc_h"])}
-    <div class="v-panel v-feat">
-      <a class="v-browser" href="{c0[4]}" target="_blank" rel="noopener"><span class="v-bar" aria-hidden="true"><i></i><i></i><i></i><em>{c0[5]}</em></span>{img(c0[3], 'Doctor LOR website', 'v-shot')}</a>
-      <div class="v-feat-txt">
-        <p class="v-lead" style="margin:0">{t["fc_p"]}</p>
-        <ul class="v-stats">{stats}</ul>
-        <div class="v-actions"><a class="mv-btn" href="{c0[4]}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><a class="mv-btn mv-btn--line" href="#cases">{t["read_case"]}</a></div>
-      </div>
+  <div class="v-wrap">{head(1, t["fc_idx"], t["fc_h"], t["fc_sub"])}
+    <a class="v-feat-shot" href="{c0[4]}" target="_blank" rel="noopener" aria-label="{t["live"]}: {c0[5]}">{img(c0[3], 'Doctor LOR website', 'v-shot')}</a>
+    <div class="v-feat">
+      <div class="v-feat-txt"><p class="v-lead" style="margin:0">{t["fc_p"]}</p>
+        <div class="v-actions"><a class="mv-btn" href="{c0[4]}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><a class="mv-btn mv-btn--line" href="#cases">{t["read_case"]}</a></div></div>
+      <ul class="v-stats">{stats}</ul>
     </div>
   </div>
 </section>''')
@@ -235,10 +240,10 @@ def page(t, lang):
         cards += (f'<div class="v-card v-pain"><div class="v-pain-top"><span class="v-num">0{i+1}</span><span class="v-cells" aria-hidden="true">{cells}</span></div>'
                   f'<h3 class="v-h3">{h}</h3><p>{p}</p><p class="v-fix"><span aria-hidden="true">→</span>{fix}</p></div>')
     o.append(f'<section class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(2, t["sit_idx"], t["sit_h"], t["sit_p"])}<div class="v-3">{cards}</div></div></section>')
-    # 03 process
-    steps = ''.join(f'<li class="v-card v-step"><span class="v-num">0{i+1}</span><div><h3 class="v-h3">{h}</h3><p>{p}</p></div></li>' for i, (h, p) in enumerate(t['steps']))
+    # 03 process (v3.1: big static mascot, step rows, more info slides up on hover)
+    steps = ''.join(f'<li class="v-step" tabindex="0"><span class="v-num">0{i+1}</span><h3 class="v-h3">{h}</h3><p>{p}</p><p class="v-more"><span aria-hidden="true">→</span>{t["steps_more"][i]}</p></li>' for i, (h, p) in enumerate(t['steps']))
     o.append(f'''<section id="how" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(3, t["proc_idx"], t["proc_h"], t["proc_p"])}
-  <div class="v-proc"><div class="v-mascot" data-mascot="">{img("mascot-3d", "", "", "png")}</div><ol class="v-3 v-steps">{steps}</ol></div>
+  <div class="v-proc"><div class="v-mascot" data-mascot="">{img("mascot-3d", "", "", "png")}</div><ol class="v-steps">{steps}</ol></div>
 </div></section>''')
     # 04 cases (dark)
     arts = ''
@@ -264,11 +269,11 @@ def page(t, lang):
     # 06 team
     slides = ''.join(f'''<div class="v-member{" is-active" if i == 0 else ""}" data-member="{i}"{"" if i == 0 else " aria-hidden=\"true\""}>
       {img(im, n, "v-member-photo")}
-      <div class="v-member-txt"><blockquote class="v-quote">“{q}”</blockquote><p class="v-who"><strong>{n}</strong><span>{r}</span></p></div></div>''' for i, (im, n, r, q) in enumerate(t['team']))
+      <div class="v-member-txt"><blockquote class="v-quote">{''.join(f'<p>{x}</p>' for x in ('“' + q + '”').split(chr(10) + chr(10)))}</blockquote><div><p class="v-who"><strong>{n}</strong><span>{r}</span></p><p class="v-what"><em>{t['what']}</em>{''.join(f'<span>{x}</span>' for x in t['tags'][i])}</p></div></div></div>''' for i, (im, n, r, q) in enumerate(t['team']))
     tabs = ''.join(f'<button type="button" class="v-tab{" is-active" if i == 0 else ""}" data-tab="{i}" aria-pressed="{"true" if i == 0 else "false"}"><span class="bar" aria-hidden="true"><i></i></span>{img(im, "", "v-ava")}<span><strong>{n}</strong><em>{r}</em></span></button>' for i, (im, n, r, q) in enumerate(t['team']))
     links = ''.join(f'<a href="{h}"{" target=\"_blank\" rel=\"noopener\"" if h.startswith("http") else ""}>{l}</a>' for h, l in [CONTACTS[0], CONTACTS[3], CONTACTS[2]])
     o.append(f'''<section id="team" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(6, t["team_idx"], t["team_h"])}
-  <div class="v-team" data-team=""><div class="v-stage">{slides}</div><p class="v-links">{links}</p><div class="v-tabs">{tabs}</div></div>
+  <div class="v-team" data-team=""><div class="v-stage">{slides}</div><div class="v-tabs">{tabs}</div></div>
 </div></section>''')
     # 07 pricing
     plans = ''
@@ -287,10 +292,10 @@ def page(t, lang):
     steps = ''.join(f'<li data-next="{i}"><span class="v-num">{i+1}</span>{s}</li>' for i, s in enumerate(t['next_steps']))
     chips = ''.join(f'<label class="v-chip"><input type="radio" name="goal" value="{v}"{" checked" if i == 0 else ""}><span>{l}</span></label>' for i, (v, l) in enumerate(t['goals']))
     o.append(f'''<section id="contact" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(8, t["contact_idx"], t["contact_h"], t["contact_p"])}
-  <div class="v-contact"><ol class="v-next">{steps}</ol>
+  <div class="v-contact">
   <form class="v-form" data-lead-form="" data-endpoint="" novalidate="novalidate" data-err-name="{t["err_name"]}" data-err-email="{t["err_email"]}" data-err-net="{t["err_net"]}">
     <div data-form-fields="">
-      <fieldset class="v-chips"><legend>{t["need"]}</legend>{chips}</fieldset>
+      <input type="hidden" name="goal" value="">
       <div class="v-fields">
         <label class="v-field"><span>{t["f_name"]}</span><input class="v-in" name="name" autocomplete="name" required="required"></label>
         <label class="v-field"><span>{t["f_email"]}</span><input class="v-in" type="email" name="email" autocomplete="email" required="required"></label>
@@ -300,7 +305,7 @@ def page(t, lang):
       <div class="v-submit"><button class="mv-btn" type="submit">{t["cta"]} {ARROW}</button><span class="v-host">{t["reply"]}</span></div>
     </div>
     <div class="v-done" data-form-done="" hidden="hidden"><p class="v-h3">{t["done_h"]}</p><p>{t["done_p"]}</p></div>
-  </form></div>
+  </form><ol class="v-next">{steps}</ol></div>
 </div></section>
 </main>''')
     # footer

@@ -115,7 +115,7 @@ function initMavpy(root) {
       var name = form.elements.name.value.trim();
       var email = form.elements.email.value.trim();
       if (!name || !/^\S+@\S+\.\S+$/.test(email)) { err.textContent = !name ? msg.name : msg.email; err.hidden = false; return; }
-      var goalEl = form.querySelector('input[name="goal"]:checked');
+      var goalEl = form.querySelector('input[name="goal"]');
       var data = { name: name, email: email, phone: form.elements.phone.value.trim(), goal: goalEl ? goalEl.value : '', page: win.location.href, lang: pageLang };
       var done = function () { form.querySelector('[data-form-fields]').hidden = true; form.querySelector('[data-form-done]').hidden = false; };
       var endpoint = form.dataset.endpoint;
@@ -159,7 +159,7 @@ function initMavpy(root) {
 
   /* ---------- v3.0: "Get my estimate" on a plan pre-selects the goal in the form ---------- */
   $$('[data-goal]').forEach(function (a) {
-    a.addEventListener('click', function () { var r = root.querySelector('input[name="goal"][value="' + a.dataset.goal + '"]'); if (r) r.checked = true; });
+    a.addEventListener('click', function () { var g = root.querySelector('input[name="goal"]'); if (g) g.value = a.dataset.goal; });
   });
 
   /* ---------- v3.0: "what happens next" steps light up as the form is filled ---------- */
@@ -170,6 +170,30 @@ function initMavpy(root) {
       nextSteps.forEach(function (li, k) { li.classList.toggle('is-on', k < n); });
     };
     form.addEventListener('input', mark); mark();
+  }
+
+  /* ---------- v3.2: hero — thin streaks run along random grid lines ---------- */
+  var streaks = $('[data-streaks]');
+  if (streaks && !reduce && !root.classList.contains('m-off')) {
+    var cell = function () { return Math.max(1, Math.min(1, win.innerWidth / 1920) * 80); };
+    var spawn = function () {
+      if (document.hidden || streaks.childElementCount >= 2) return;
+      var w = streaks.clientWidth, h = streaks.clientHeight, c = cell(), el = document.createElement('i');
+      var horiz = Math.random() < 0.6, t = 1.2 + Math.random() * 0.8;
+      el.className = 'mv-streak ' + (horiz ? 'mv-streak--h' : 'mv-streak--v');
+      if (horiz) {
+        var row = Math.floor(Math.random() * Math.max(1, Math.floor(h / c))) * c;
+        var x0 = Math.floor(Math.random() * Math.max(1, Math.floor(w / c) - 4)) * c;
+        el.style.cssText = 'top:' + row + 'px;left:' + x0 + 'px;--dx:' + (c * 4) + 'px;--t:' + t + 's';
+      } else {
+        var col = Math.floor(Math.random() * Math.max(1, Math.floor(w / c))) * c;
+        var y0 = Math.floor(Math.random() * Math.max(1, Math.floor(h / c) - 3)) * c;
+        el.style.cssText = 'left:' + col + 'px;top:' + y0 + 'px;--dy:' + (c * 3) + 'px;--t:' + t + 's';
+      }
+      el.addEventListener('animationend', function () { el.remove(); });
+      streaks.appendChild(el);
+    };
+    (function loop() { spawn(); setTimeout(loop, 1500 + Math.random() * 2000); })();
   }
 }
 

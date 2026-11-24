@@ -115,7 +115,8 @@ function initMavpy(root) {
       var name = form.elements.name.value.trim();
       var email = form.elements.email.value.trim();
       if (!name || !/^\S+@\S+\.\S+$/.test(email)) { err.textContent = !name ? msg.name : msg.email; err.hidden = false; return; }
-      var data = { name: name, email: email, phone: form.elements.phone.value.trim(), page: win.location.href, lang: pageLang };
+      var goalEl = form.querySelector('input[name="goal"]:checked');
+      var data = { name: name, email: email, phone: form.elements.phone.value.trim(), goal: goalEl ? goalEl.value : '', page: win.location.href, lang: pageLang };
       var done = function () { form.querySelector('[data-form-fields]').hidden = true; form.querySelector('[data-form-done]').hidden = false; };
       var endpoint = form.dataset.endpoint;
       if (!endpoint) { done(); return; }
@@ -123,6 +124,52 @@ function initMavpy(root) {
         .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
         .catch(function () { err.textContent = msg.net; err.hidden = false; });
     });
+  }
+
+  /* ---------- v3.0: team — all four below, each grows in turn every 6s ---------- */
+  var team = $('[data-team]');
+  if (team) {
+    var members = Array.prototype.slice.call(team.querySelectorAll('[data-member]'));
+    var tabs = Array.prototype.slice.call(team.querySelectorAll('[data-tab]'));
+    var cur = 0, timer = null, DUR = 6000;
+    var show = function (i) {
+      cur = (i + members.length) % members.length;
+      members.forEach(function (m, k) { var on = k === cur; m.classList.toggle('is-active', on); if (on) m.removeAttribute('aria-hidden'); else m.setAttribute('aria-hidden', 'true'); });
+      tabs.forEach(function (b, k) { var on = k === cur; b.classList.remove('is-active'); b.setAttribute('aria-pressed', on ? 'true' : 'false'); if (on) { void b.offsetWidth; b.classList.add('is-active'); } });
+    };
+    var auto = !reduce && !root.classList.contains('m-off');
+    var start = function () { if (!auto) return; clearInterval(timer); team.classList.remove('is-paused'); timer = setInterval(function () { show(cur + 1); }, DUR); };
+    var stop = function () { clearInterval(timer); team.classList.add('is-paused'); };
+    tabs.forEach(function (b, k) { b.addEventListener('click', function () { show(k); start(); }); });
+    team.addEventListener('mouseenter', stop);
+    team.addEventListener('mouseleave', start);
+    team.addEventListener('focusin', stop);
+    show(0); start();
+  }
+
+  /* ---------- v3.0: pricing — pay once / pay in 3 parts ---------- */
+  var payBtns = $$('[data-pay]');
+  payBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      payBtns.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      var key = btn.dataset.pay === '3' ? 'p3' : 'p1';
+      $$('.v-price b').forEach(function (b) { b.style.opacity = '0'; setTimeout(function () { b.innerHTML = b.dataset[key]; b.style.opacity = '1'; }, 160); });
+    });
+  });
+
+  /* ---------- v3.0: "Get my estimate" on a plan pre-selects the goal in the form ---------- */
+  $$('[data-goal]').forEach(function (a) {
+    a.addEventListener('click', function () { var r = root.querySelector('input[name="goal"][value="' + a.dataset.goal + '"]'); if (r) r.checked = true; });
+  });
+
+  /* ---------- v3.0: "what happens next" steps light up as the form is filled ---------- */
+  var nextSteps = $$('[data-next]');
+  if (form && nextSteps.length) {
+    var mark = function () {
+      var n = 1 + (form.elements.name.value.trim() ? 1 : 0) + (/^\S+@\S+\.\S+$/.test(form.elements.email.value.trim()) ? 1 : 0);
+      nextSteps.forEach(function (li, k) { li.classList.toggle('is-on', k < n); });
+    };
+    form.addEventListener('input', mark); mark();
   }
 }
 

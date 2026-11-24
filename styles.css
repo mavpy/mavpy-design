@@ -477,3 +477,112 @@
   .v-member-photo{max-width:240px}
 }
 @media (prefers-reduced-motion:reduce){.mv-streaks{display:none}}
+
+/* =========================================================
+   v3.3 — call with Nikita + Serhii's Figma comments (notes/2026-11-24-v3.3-edits.md)
+   ========================================================= */
+/* whole page: hero and every section on one 1280 width (at 1920) */
+.mv{--container:calc(1280 * var(--u));--wide:calc(1280 * var(--u));position:relative}
+/* buttons: clearer hover (dark button, amber text) */
+.mv-btn:hover{background:var(--black);color:var(--amber-500)}
+.mv-btn:active{background:var(--ink);color:var(--amber-400)}
+.mv-btn--line:hover{background:var(--black);color:var(--amber-500)}
+
+/* 01 featured case: v2.1 layout — text left, screenshot right */
+.v-fc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:max(32px,calc(80 * var(--u)));align-items:center}
+.v-fc-txt{display:flex;flex-direction:column;align-items:flex-start}
+.v-idx--row{flex-direction:row;gap:12px;margin-bottom:max(16px,calc(24 * var(--u)))}
+.v-fc-sub{margin:max(12px,calc(16 * var(--u))) 0 0;font-weight:500;font-size:max(17px,calc(22 * var(--u)));line-height:1.35;color:var(--black)}
+.v-fc-txt .v-lead{max-width:none}
+.v-fc .v-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g);width:100%;margin:max(24px,calc(40 * var(--u))) 0}
+.v-fc .v-stats li{display:flex;flex-direction:column;gap:6px;padding-block:max(12px,calc(16 * var(--u))) 0}
+.v-fc .v-stats b{font-size:max(28px,calc(40 * var(--u)))}
+.v-fc .v-stats span{font-size:max(14px,calc(17 * var(--u)));line-height:1.35}
+.v-fc-shot{display:block;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
+.v-fc-shot .v-bar{border-bottom:1px solid var(--line)}
+.v-fc-shot .v-shot{aspect-ratio:16/11}
+.v-fc-shot:hover .v-shot{object-position:50% 100%}
+
+/* 02 situation: no small icons, bigger text */
+.v-pain{min-height:calc(400 * var(--u))}
+.v-pain .v-h3{font-size:max(24px,calc(38 * var(--u)))}
+.v-pain p{font-size:max(18px,calc(23 * var(--u)))}
+.v-fix{font-size:max(16px,calc(20 * var(--u))) !important}
+
+/* 03 process: steps on a white panel, smaller mascot */
+.v-proc{grid-template-columns:minmax(0,3fr) minmax(0,9fr);align-items:end}
+.v-mascot{max-width:calc(300 * var(--u))}
+.v-steps{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:0 max(20px,calc(40 * var(--u)))}
+.v-steps .v-step:first-child{border-top:0}
+.v-step{grid-template-columns:minmax(0,.6fr) minmax(0,3.3fr) minmax(0,3.7fr)}
+
+/* 04 cases: one lighter card per case, clear labels, button at the bottom of the screenshot */
+.v-case-body{align-items:stretch;padding:max(16px,calc(24 * var(--u)));margin-bottom:max(24px,calc(40 * var(--u)));background:#363636;border-radius:16px}
+.v-case-shot{align-self:start}
+.v-case-txt{gap:max(20px,calc(28 * var(--u)))}
+.v-case-txt dt{display:inline-block;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,.12);font-family:var(--f-body);font-weight:700;font-size:max(13px,calc(15 * var(--u)));letter-spacing:.02em;text-transform:uppercase;color:var(--white)}
+.v-case-txt .res dt{background:var(--amber-500);color:var(--black)}
+.v-case-txt dd{margin-top:10px}
+.v-case-act{margin-top:auto}
+
+/* 05 reviews: bigger quote text */
+.v-review{width:max(300px,calc(560 * var(--u)));height:max(400px,calc(480 * var(--u)))}
+.v-review blockquote{font-size:max(18px,calc(24 * var(--u)));line-height:1.45}
+
+/* 07 pricing: no glow, orange outline only on hover, all buttons orange, badge on the middle plan */
+.v-plan::before{display:none}
+.v-plan,.v-plan.is-rec{border:2px solid transparent;box-shadow:0 0 0 1px var(--line);transform:none !important}
+.v-plan:hover{border-color:var(--amber-500);box-shadow:none}
+.v-plan.is-rec .v-price b{color:var(--black)}
+.v-plan-kind{font-family:var(--mono);font-weight:500;font-size:max(13px,calc(15 * var(--u)));color:var(--amber-700)}
+.v-note{margin-top:max(20px,calc(28 * var(--u)));font-family:var(--f-body);font-size:max(15px,calc(18 * var(--u)));color:var(--text-2)}
+
+/* 08 contact: just the form */
+.v-form{width:calc(100% * 8 / 12)}
+
+/* footer: more air, wordmark across the full width */
+.v-foot{padding-top:max(88px,calc(160 * var(--u)))}
+.v-foot-top{padding-bottom:max(64px,calc(120 * var(--u)))}
+.v-foot-word,:lang(uk) .v-foot-word{margin:max(24px,calc(48 * var(--u))) 0 max(16px,calc(32 * var(--u)));font-size:calc(var(--wide) * .262);line-height:.8;white-space:nowrap}
+.v-foot-word span{display:inline-block}
+
+/* burger: two bars → cross; menu opens over the page */
+.mv-burger-ico{position:relative;width:18px;height:12px}
+.mv-burger-ico i{position:absolute;left:0;width:100%;height:1.6px;background:var(--black);transition:transform .25s var(--ease),top .25s var(--ease)}
+.mv-burger-ico i:first-child{top:1px}
+.mv-burger-ico i:last-child{top:9px}
+.mv-burger[aria-expanded="true"] .mv-burger-ico i:first-child{top:5px;transform:rotate(45deg)}
+.mv-burger[aria-expanded="true"] .mv-burger-ico i:last-child{top:5px;transform:rotate(-45deg)}
+.mv-mnav{position:absolute;z-index:50;left:0;right:0;width:auto;max-width:none;top:max(72px,calc(108 * var(--u)));margin:0;padding:8px 20px 24px;background:var(--grey-100);border-bottom:1px solid var(--line);box-shadow:0 24px 32px -24px rgba(15,15,15,.35)}
+
+@media (max-width:1023px){
+  .mv{--container:calc(100vw - 40px);--wide:calc(100vw - 40px)}
+  .v-fc{grid-template-columns:minmax(0,1fr)}
+  .v-fc-shot{order:2}
+  .v-fc .v-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .v-proc{grid-template-columns:minmax(0,1fr)}
+  .v-mascot{width:min(220px,55vw);max-width:none;margin-inline:auto;transform:none}
+  .v-steps{padding:0 20px}
+  .v-step{grid-template-columns:minmax(0,1fr)}
+  .v-member{justify-items:center}
+  .v-member-photo{margin-inline:auto}
+  .v-member-txt{width:100%}
+  .v-form{width:100%}
+  .v-case-body{padding:14px}
+}
+@media (max-width:600px){
+  .v-fc .v-stats{grid-template-columns:minmax(0,1fr)}
+  .v-actions .mv-btn{width:100%}
+  .v-submit .mv-btn{width:100%}
+  .v-review{width:min(84vw,340px)}
+}
+.v-case-row{grid-template-columns:minmax(0,1fr) minmax(0,4fr) minmax(0,6fr) 52px}
+.v-case-shot{align-self:stretch;display:flex}
+.v-case-shot img{height:100%;min-height:100%;aspect-ratio:auto;flex:1}
+.v-plan > p:not(.v-price){min-height:4.4em}
+@media (max-width:1023px){
+  .v-case-row{grid-template-columns:auto minmax(0,1fr) 52px}
+  .v-case-shot img{aspect-ratio:16/10;height:auto}
+  .v-plan > p:not(.v-price){min-height:0}
+}
+.v-case-shot img{object-position:0 0}

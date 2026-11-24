@@ -25,14 +25,12 @@ function initMavpy(root) {
   var burger = $('.mv-burger');
   var mnav = $('.mv-mnav');
   if (burger && mnav) {
-    burger.addEventListener('click', function () {
-      var open = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!open));
-      mnav.hidden = open;
-    });
-    $$('.mv-mnav a.n').forEach(function (a) {
-      a.addEventListener('click', function () { burger.setAttribute('aria-expanded', 'false'); mnav.hidden = true; });
-    });
+    /* v3.3: the menu opens over the page (does not push content down); the icon turns into a cross */
+    var setMenu = function (open) { burger.setAttribute('aria-expanded', String(open)); mnav.hidden = !open; root.classList.toggle('is-menu', open); };
+    burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
+    $$('.mv-mnav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mnav.hidden) { setMenu(false); burger.focus(); } });
+    doc.addEventListener('click', function (e) { if (!mnav.hidden && !mnav.contains(e.target) && !burger.contains(e.target)) setMenu(false); });
   }
 
   /* ---------- Cursor light: hero grid + pricing rows (mouse only) ---------- */
@@ -89,7 +87,7 @@ function initMavpy(root) {
   /* ---------- Mascot: scale 1 → 1.14 from the bottom-left corner while scrolling ---------- */
   var mascot = $('[data-mascot]');
   var reduce = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (mascot && !reduce && !root.classList.contains('m-off')) {
+  if (mascot && !reduce && !root.classList.contains('m-off') && win.matchMedia('(min-width: 1024px)').matches) {
     var ticking = false;
     var update = function () {
       var r = mascot.getBoundingClientRect();
@@ -108,15 +106,17 @@ function initMavpy(root) {
   var form = $('[data-lead-form]');
   if (form) {
     var err = form.querySelector('[data-form-error]');
-    var msg = { name: form.dataset.errName, email: form.dataset.errEmail, net: form.dataset.errNet };
+    var msg = { name: form.dataset.errName, email: form.dataset.errEmail, phone: form.dataset.errPhone, net: form.dataset.errNet };
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       err.hidden = true;
       var name = form.elements.name.value.trim();
       var email = form.elements.email.value.trim();
-      if (!name || !/^\S+@\S+\.\S+$/.test(email)) { err.textContent = !name ? msg.name : msg.email; err.hidden = false; return; }
+      var phone = form.elements.phone.value.trim();
+      var bad = !name ? msg.name : !/^\S+@\S+\.\S+$/.test(email) ? msg.email : phone.replace(/\D/g, '').length < 7 ? msg.phone : '';
+      if (bad) { err.textContent = bad; err.hidden = false; return; }
       var goalEl = form.querySelector('input[name="goal"]');
-      var data = { name: name, email: email, phone: form.elements.phone.value.trim(), goal: goalEl ? goalEl.value : '', page: win.location.href, lang: pageLang };
+      var data = { name: name, email: email, phone: phone, goal: goalEl ? goalEl.value : '', page: win.location.href, lang: pageLang };
       var done = function () { form.querySelector('[data-form-fields]').hidden = true; form.querySelector('[data-form-done]').hidden = false; };
       var endpoint = form.dataset.endpoint;
       if (!endpoint) { done(); return; }
@@ -162,14 +162,18 @@ function initMavpy(root) {
     a.addEventListener('click', function () { var g = root.querySelector('input[name="goal"]'); if (g) g.value = a.dataset.goal; });
   });
 
-  /* ---------- v3.0: "what happens next" steps light up as the form is filled ---------- */
-  var nextSteps = $$('[data-next]');
-  if (form && nextSteps.length) {
-    var mark = function () {
-      var n = 1 + (form.elements.name.value.trim() ? 1 : 0) + (/^\S+@\S+\.\S+$/.test(form.elements.email.value.trim()) ? 1 : 0);
-      nextSteps.forEach(function (li, k) { li.classList.toggle('is-on', k < n); });
+  /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
+  var fit = $('[data-fit]');
+  if (fit) {
+    var word = fit.firstElementChild;
+    var fitWord = function () {
+      fit.style.fontSize = '100px';
+      var w = word.getBoundingClientRect().width;
+      if (w) fit.style.fontSize = (100 * fit.clientWidth / w).toFixed(2) + 'px';
     };
-    form.addEventListener('input', mark); mark();
+    fitWord();
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(fitWord);
+    win.addEventListener('resize', fitWord);
   }
 
   /* ---------- v3.2: hero — thin streaks run along random grid lines ---------- */

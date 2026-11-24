@@ -381,3 +381,64 @@
 .v-foot-top > div:first-child{gap:0}
 @media (max-width:1023px){.v-foot-top > div:first-child{grid-column:1/-1}}
 .v-foot-top > div:first-child{align-items:flex-start}
+
+/* =========================================================
+   v3.1 — Serhii's review of 24.11 (see notes/2026-11-24-v3.1-edits.md)
+   ========================================================= */
+.mv-mat,.mv-mat-glow{background-size:calc(80 * var(--u)) calc(80 * var(--u))}
+/* titles flush right, small index labels left */
+.v-head > div{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+/* featured case: full-width screenshot with a thin outline, stats in a row, all black */
+.v-feat-shot{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--white)}
+.v-feat-shot .v-shot{aspect-ratio:16/7}
+.v-feat-shot:hover .v-shot{object-position:50% 100%}
+.v-feat{grid-template-columns:5fr 7fr;align-items:start;margin-top:max(24px,calc(40 * var(--u)))}
+.v-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.v-stats li{display:flex;flex-direction:column;gap:8px}
+.v-stats b,.v-stats b.acc{color:var(--black)}
+/* pains: bigger body text */
+.v-pain p{font-size:max(17px,calc(21 * var(--u)))}
+/* process: big static mascot + step rows; more info slides up on hover */
+.v-proc{grid-template-columns:4fr 8fr}
+.v-steps{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}
+.v-step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3.3fr) minmax(0,3.7fr);gap:8px var(--g);align-items:baseline;min-height:0;padding:max(24px,calc(36 * var(--u))) 0;border:0;border-top:1px solid var(--line);border-radius:0;background:none;transform:none !important;outline-offset:6px;transition:border-color .3s var(--ease)}
+.v-step .v-h3{font-size:max(22px,calc(40 * var(--u)));letter-spacing:-.01em}
+.v-step > p{margin:0;color:var(--text-2);font-size:max(16px,calc(19 * var(--u)));line-height:1.45}
+.v-step .v-more{grid-column:3;display:flex;gap:10px;max-height:0;opacity:0;overflow:hidden;transform:translateY(8px);color:var(--ink);font-weight:500;transition:max-height .4s var(--ease),opacity .3s var(--ease),transform .4s var(--ease)}
+.v-step .v-more span{font-family:var(--mono);color:var(--amber-700)}
+.v-step:hover,.v-step:focus-visible{border-top-color:var(--amber-500);box-shadow:inset 0 1px 0 var(--amber-500)}
+.v-step:hover .v-more,.v-step:focus-visible .v-more{max-height:140px;opacity:1;transform:none}
+@media (hover:none){.v-step .v-more{max-height:none;opacity:1;transform:none}}
+/* cases: softer dark + column labels */
+.v-dark{background:#2A2A2A}
+.v-cols{display:grid;grid-template-columns:1fr 4fr 3fr 3fr 52px;gap:var(--g);padding-bottom:14px;font-family:var(--mono);font-size:13px;color:#8F8F8B}
+/* reviews: author line always at the same place */
+.v-review figcaption > span{min-width:0}
+.v-review em{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* team: lighter, bigger quote; "what I do" tags; no contacts */
+.v-quote{font-family:var(--f-body);font-weight:300;font-size:max(22px,calc(44 * var(--u)));line-height:1.25;letter-spacing:-.005em}
+.v-what{display:flex;flex-wrap:wrap;gap:8px;margin:max(16px,calc(20 * var(--u))) 0 0;padding-top:max(16px,calc(20 * var(--u)));border-top:1px solid var(--line)}
+.v-what em{width:100%;font-style:normal;font-family:var(--mono);font-size:13px;color:var(--text-3)}
+.v-what span{padding:6px 12px;border:1px solid var(--line);border-radius:6px;font-size:max(14px,calc(15 * var(--u)));color:var(--text-2)}
+/* contact: centered form, next steps underneath, no goal chips */
+.v-contact{display:flex;flex-direction:column;align-items:center;gap:max(24px,calc(32 * var(--u)))}
+.v-form,.v-next{width:calc(100% * 8 / 12)}
+.v-next{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+/* footer: thinner slogan, smaller wordmark */
+.v-foot-tag{font-family:var(--f-body);font-weight:300;line-height:1.1}
+.v-foot-word{font-size:calc(var(--wide) * .172)}
+:lang(uk) .v-foot-word{font-size:calc(var(--wide) * .131)}
+@media (max-width:1023px){
+  .v-head > div{align-items:flex-start;text-align:left}
+  .v-feat{grid-template-columns:minmax(0,1fr)}
+  .v-feat-shot .v-shot{aspect-ratio:16/10}
+  .v-stats{grid-template-columns:minmax(0,1fr)}
+  .v-proc{grid-template-columns:minmax(0,1fr)}
+  .v-step{grid-template-columns:minmax(0,1fr)}
+  .v-step .v-more{grid-column:auto}
+  .v-cols{display:none}
+  .v-form,.v-next{width:100%}
+  .v-next{grid-template-columns:minmax(0,1fr)}
+  .v-foot-word{font-size:calc(var(--wide) * .2)}
+  :lang(uk) .v-foot-word{font-size:calc(var(--wide) * .16)}
+}

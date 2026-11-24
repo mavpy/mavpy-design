@@ -115,7 +115,7 @@ function initMavpy(root) {
       var name = form.elements.name.value.trim();
       var email = form.elements.email.value.trim();
       if (!name || !/^\S+@\S+\.\S+$/.test(email)) { err.textContent = !name ? msg.name : msg.email; err.hidden = false; return; }
-      var goalEl = form.querySelector('input[name="goal"]:checked');
+      var goalEl = form.querySelector('input[name="goal"]');
       var data = { name: name, email: email, phone: form.elements.phone.value.trim(), goal: goalEl ? goalEl.value : '', page: win.location.href, lang: pageLang };
       var done = function () { form.querySelector('[data-form-fields]').hidden = true; form.querySelector('[data-form-done]').hidden = false; };
       var endpoint = form.dataset.endpoint;
@@ -159,7 +159,7 @@ function initMavpy(root) {
 
   /* ---------- v3.0: "Get my estimate" on a plan pre-selects the goal in the form ---------- */
   $$('[data-goal]').forEach(function (a) {
-    a.addEventListener('click', function () { var r = root.querySelector('input[name="goal"][value="' + a.dataset.goal + '"]'); if (r) r.checked = true; });
+    a.addEventListener('click', function () { var g = root.querySelector('input[name="goal"]'); if (g) g.value = a.dataset.goal; });
   });
 
   /* ---------- v3.0: "what happens next" steps light up as the form is filled ---------- */

@@ -365,7 +365,7 @@
   .v-tab{flex-direction:column;align-items:flex-start;gap:8px}
   .v-tab .v-ava{width:48px;height:48px}
   .v-tab em{display:none}
-  .v-next{display:none}
+  .v-next li{grid-template-columns:auto 1fr;gap:12px}
   .v-fields{grid-template-columns:minmax(0,1fr)}
   .v-foot-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .v-foot-tag{grid-column:1/-1}

@@ -309,7 +309,7 @@ def page(t, lang):
     ticks = ''.join(f'<span>{k:02d}</span>' for k in range(1, 13))
     c = t['foot_cols']
     o.append(f'''<footer class="v-foot"><div class="v-wrap">
-  <div class="v-foot-top"><p class="v-foot-tag">{t["foot_tag"]}</p>
+  <div class="v-foot-top"><div><img class="v-foot-logo" src="{P}assets/img/logo-light.svg" alt="MAVPY design &amp; dev" loading="lazy"><p class="v-foot-tag">{t["foot_tag"]}</p></div>
     <nav aria-label="{t["foot_nav"]}"><p class="v-foot-h">{c[0]}</p>{fnav}</nav>
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
@@ -331,7 +331,7 @@ def html(lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{t["title"]}</title>
 <meta name="description" content="{t["desc"]}">
-<link rel="icon" href="{P}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{P}assets/img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="{P}assets/img/apple-touch-icon.png">
 <link rel="alternate" hreflang="en" href="/"><link rel="alternate" hreflang="uk" href="/ua/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONTS}" rel="stylesheet">

@@ -377,3 +377,7 @@
   .mv [data-reveal] .v-head,.mv [data-reveal] .v-3 > *{opacity:1 !important;transform:none !important}
 }
 .v-done[hidden],[data-form-fields][hidden]{display:none}
+.v-foot-logo{display:block;height:max(36px,calc(48 * var(--u)));width:auto;margin-bottom:max(24px,calc(40 * var(--u)))}
+.v-foot-top > div:first-child{gap:0}
+@media (max-width:1023px){.v-foot-top > div:first-child{grid-column:1/-1}}
+.v-foot-top > div:first-child{align-items:flex-start}

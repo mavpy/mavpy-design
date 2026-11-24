@@ -66,10 +66,10 @@ E = dict(
     ('avatar-fallback-woman', 'Founder', 'Unit Surface · site with ROI calculator', 'The ROI calculator handles the first sales conversation for us. Leads come in already knowing their numbers.')],
   team_idx='Team', team_h='The people behind<br>your project',
   tags=[['Research & UX', 'Site structure', 'Design in Figma', 'Project lead'], ['Webflow & custom code', 'Booking, CRM, Telegram bots', 'Integrations', 'Launch & support'], ['Positioning & offer', 'Website copy', 'Case studies', 'Ad content'], ['Google & Meta ads', 'Analytics & tracking', 'Cost per enquiry reports', 'Budget planning']],
-  team=[('team-serhii', 'Serhii', 'Designer & product manager', 'I start with why people leave your site, then design the page that keeps them. From the first call to launch, you talk to me.'),
-        ('team-nikita', 'Nikita', 'Developer & automation', 'I build the site and connect it to what you already use: booking, CRM, a Telegram bot. Every request lands where your team will see it.'),
-        ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.'),
-        ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.')],
+  team=[('team-serhii', 'Serhii', 'Designer & product manager', 'I start with why people leave your site, then design the page that keeps them.\n\nFrom the first call to launch, you talk to me. I keep the plan, the deadlines and the decisions in one place, so nothing gets lost between people.'),
+        ('team-nikita', 'Nikita', 'Developer & automation', 'I build the site and connect it to what you already use: booking, CRM, a Telegram bot.\n\nEvery request lands where your team will see it. After launch I stay on the tech side, so updates and fixes don’t stall.'),
+        ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.\n\nBefore writing, I read your reviews, calls and competitors’ pages to find the phrases your clients actually use.'),
+        ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.\n\nYou get a short report in plain words: what we spent, what came in, and what we change next.')],
   price_idx='Pricing', price_h='Pick your goal,<br>see the price', price_p='No form, no call just to see a number. Find your goal and see where it starts.',
   pay=['Pay once', 'Pay in 3 parts'], badge='Most popular', from_='from', price_note='',
   plans=[('Attract new clients', 'A site that turns strangers into enquiries, and ads that keep them coming.', ['Online positioning', 'Site design & build', 'Ad setup & automation'], '$500', '3 × $167', 'clients'),
@@ -141,10 +141,10 @@ U = dict(
     ('avatar-fallback-woman', 'Засновниця', 'Unit Surface · сайт з калькулятором окупності', 'Калькулятор окупності проводить першу розмову про продаж за нас. Клієнти приходять, уже знаючи свої цифри.')],
   team_idx='Команда', team_h='Люди, які працюють<br>над вашим проєктом',
   tags=[['Дослідження і UX', 'Структура сайту', 'Дизайн у Figma', 'Ведення проєкту'], ['Webflow і власний код', 'Запис, CRM, Telegram-боти', 'Інтеграції', 'Запуск і підтримка'], ['Позиціонування й оферта', 'Тексти для сайту', 'Кейси', 'Контент для реклами'], ['Реклама Google і Meta', 'Аналітика й відстеження', 'Звіти про ціну заявки', 'Планування бюджету']],
-  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, і лише потім малюю сторінку, яка їх утримає. Від першого дзвінка до запуску ви говорите зі мною.'),
-        ('team-nikita', 'Нікіта', 'Розробка та автоматизація', 'Збираю сайт і підключаю його до того, чим ви вже користуєтесь: запис, CRM, Telegram-бот. Кожна заявка потрапляє туди, де її побачить ваша команда.'),
-        ('team-julia', 'Юлія', 'Маркетинг і тексти', 'Пишу словами ваших клієнтів, а не нашими. Кожен заголовок відповідає на одне питання: чому обрати вас, а не сусідній бізнес.'),
-        ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.')],
+  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, і лише потім малюю сторінку, яка їх утримає.\n\nВід першого дзвінка до запуску ви говорите зі мною. План, строки й рішення я тримаю в одному місці, тож нічого не губиться між людьми.'),
+        ('team-nikita', 'Нікіта', 'Розробка та автоматизація', 'Збираю сайт і підключаю його до того, чим ви вже користуєтесь: запис, CRM, Telegram-бот.\n\nКожна заявка потрапляє туди, де її побачить ваша команда. Після запуску я лишаюся на технічній стороні, тож оновлення й виправлення не зависають.'),
+        ('team-julia', 'Юлія', 'Маркетинг і тексти', 'Пишу словами ваших клієнтів, а не нашими. Кожен заголовок відповідає на одне питання: чому обрати вас, а не сусідній бізнес.\n\nПерш ніж писати, читаю ваші відгуки, дзвінки й сторінки конкурентів, щоб знайти фрази, якими говорять ваші клієнти.'),
+        ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.\n\nВи отримуєте короткий звіт простими словами: скільки витратили, що отримали і що змінюємо далі.')],
   price_idx='Ціни', price_h='Оберіть мету,<br>побачте ціну', price_p='Без форм і дзвінків, щоб просто дізнатися ціну. Знайдіть свою мету і подивіться, з якої суми вона починається.',
   pay=['Одним платежем', 'Трьома частинами'], badge='Найпопулярніше', from_='від',
   price_note='Ціни в гривнях за курсом НБУ на день оплати. Будь-який пакет можна розбити на 3 платежі.',
@@ -199,7 +199,7 @@ def page(t, lang):
 </nav>
 <main>
 <section id="top" class="mv-hero" data-spotlight="">
-  <div class="a-bg" aria-hidden="true" style="position:absolute;inset:0;--d:1.05s"><div class="mv-mat"></div><div class="mv-mat-glow"></div></div>
+  <div class="a-bg" aria-hidden="true" style="position:absolute;inset:0;--d:1.05s"><div class="mv-mat"></div><div class="mv-mat-glow"></div><div class="mv-streaks" data-streaks=""></div></div>
   <div class="mv-wrap mv-hero-in">
     <div class="mv-hero-top">
       <div>
@@ -259,7 +259,7 @@ def page(t, lang):
     <div class="v-case-txt"><dl>{dl}</dl><p class="v-actions"><a class="mv-btn" href="{url}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><span class="v-host">{host}</span></p></div>
   </div></div></div>
 </article>'''
-    o.append(f'<section id="cases" class="v-sec v-dark" data-reveal=""><div class="v-wrap">{head(4, t["cases_idx"], t["cases_h"], t["cases_p"])}<div class="v-cols" aria-hidden="true"><span>{t['cols'][0]}</span><span>{t['cols'][1]}</span><span>{t['cols'][2]}</span><span>{t['cols'][3]}</span></div><div class="v-cases" data-accordion="">{arts}</div></div></section>')
+    o.append(f'<section id="cases" class="v-sec v-dark" data-reveal=""><div class="v-wrap">{head(4, t["cases_idx"], t["cases_h"], t["cases_p"])}<div class="v-cases" data-accordion="">{arts}</div></div></section>')
     # 05 reviews
     def revs(hid):
         return ''.join(f'<figure class="v-card v-review"{" aria-hidden=\"true\"" if hid else ""}><span class="q" aria-hidden="true">“</span><blockquote>{q}</blockquote>'
@@ -269,7 +269,7 @@ def page(t, lang):
     # 06 team
     slides = ''.join(f'''<div class="v-member{" is-active" if i == 0 else ""}" data-member="{i}"{"" if i == 0 else " aria-hidden=\"true\""}>
       {img(im, n, "v-member-photo")}
-      <div class="v-member-txt"><blockquote class="v-quote">“{q}”</blockquote><div><p class="v-who"><strong>{n}</strong><span>{r}</span></p><p class="v-what"><em>{t['what']}</em>{''.join(f'<span>{x}</span>' for x in t['tags'][i])}</p></div></div></div>''' for i, (im, n, r, q) in enumerate(t['team']))
+      <div class="v-member-txt"><blockquote class="v-quote">{''.join(f'<p>{x}</p>' for x in ('“' + q + '”').split(chr(10) + chr(10)))}</blockquote><div><p class="v-who"><strong>{n}</strong><span>{r}</span></p><p class="v-what"><em>{t['what']}</em>{''.join(f'<span>{x}</span>' for x in t['tags'][i])}</p></div></div></div>''' for i, (im, n, r, q) in enumerate(t['team']))
     tabs = ''.join(f'<button type="button" class="v-tab{" is-active" if i == 0 else ""}" data-tab="{i}" aria-pressed="{"true" if i == 0 else "false"}"><span class="bar" aria-hidden="true"><i></i></span>{img(im, "", "v-ava")}<span><strong>{n}</strong><em>{r}</em></span></button>' for i, (im, n, r, q) in enumerate(t['team']))
     links = ''.join(f'<a href="{h}"{" target=\"_blank\" rel=\"noopener\"" if h.startswith("http") else ""}>{l}</a>' for h, l in [CONTACTS[0], CONTACTS[3], CONTACTS[2]])
     o.append(f'''<section id="team" class="v-sec v-rule" data-reveal=""><div class="v-wrap">{head(6, t["team_idx"], t["team_h"])}

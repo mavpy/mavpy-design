@@ -6,8 +6,10 @@ Static HTML + CSS + vanilla JS, no build step. Two languages:
 
 | Page | File | Language |
 |---|---|---|
-| `/` | `index.html` | EN (default) |
-| `/ua/` | `ua/index.html` | UA (`lang="uk"`) |
+| `/` | `index.html` | UA (default, `lang="uk"`) |
+| `/en/` | `en/index.html` | EN |
+
+Since v3.4 Ukrainian is the default. The old `/ua/` address redirects to `/` (`_redirects`, Netlify, 301).
 
 Shared: `styles.css`, `main.js`. Screenshots of the intended result: `previews/` (rendered with the real kit fonts; "clients" uses Inter 100 there because Helvetica Neue Thin is licensed and wasn't available for the render).
 
@@ -57,10 +59,10 @@ Root `.mv` class sets the level: `m-kinetic` (default), `m-calm` or `m-off`. `pr
 | Steps and reviews: lift 5px + orange outline | .3s |
 | Cases: one open at a time, height via `grid-template-rows`, screenshot fades in, + rotates to × | .45s |
 | Pricing rows: lift 3px + amber light under the cursor | .3s |
-| Mascot scales 1 → 1.14 from its bottom-left corner while scrolling | rAF |
+| Mascot: static, mirrored, bottom-right of step 3 (hidden on mobile, v3.4) | CSS |
 
 ## Language switch
-`EN / UA` links in the header. The choice is saved in `localStorage` (`mavpy-lang`). On the next visit to `/` a saved `uk` redirects to `/ua/`. Add `hreflang` alternates on the live domain (already in the `<head>`, relative).
+`UA / EN` links in the header. The choice is saved in `localStorage` (`mavpy-lang`). On the next visit to `/` a saved `en` redirects to `/en/`. Add `hreflang` alternates on the live domain (already in the `<head>`, relative).
 
 ## Lead form → bot
 `main.js` posts `{name, email, phone, page, lang}` as JSON to the URL in the form's `data-endpoint`. Point it at a webhook (own server, n8n, Make) that forwards to Telegram. Keep the bot token on the server. Error texts live in `data-err-*` attributes, per language.

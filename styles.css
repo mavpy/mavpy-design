@@ -760,3 +760,115 @@
 .v-flow-fig{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .v-flow-fig b{font-weight:800;font-size:max(56px,calc(96 * var(--u)));line-height:.9}
 .v-flow-fig span{font-size:max(20px,calc(28 * var(--u)));letter-spacing:-.01em}
+
+/* =========================================================
+   v3.6 — Serhii's edits 25.11 evening (notes/2026-11-25-v3.6-edits.md)
+   Warm palette replaces grey; lighter headings; calmer main button
+   ========================================================= */
+/* palette tokens (fixed): warm-50 base, warm-100 second tone, white cards */
+:root{--warm-50:#F7F5F2;--warm-100:#EFEDEA;--grey-100:#F7F5F2;--grey-200:#EFEDEA}
+.v-bg-base{background:var(--warm-50)}
+.v-bg-white{background:var(--white)}
+.v-bg-warm{background:var(--warm-100)}
+.v-bg-white .v-card{background:var(--warm-50)}
+
+/* headings: one step lighter */
+.mv-h2,.v-h2,.v-h3,.v-case-name,.v-flow-fig b{font-weight:700}
+:lang(uk) .v-h2,:lang(uk) .v-h3,:lang(uk) .mv-h2,:lang(uk) .v-case-name{font-weight:700}
+.mv-notjust{font-weight:800}
+
+/* main button: warmer tint + lift + arrow, no dark fill */
+.mv-btn{transition:background-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.mv-btn:hover,.mv-btn:focus-visible{background:#FFB829;color:var(--black);transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(204,136,0,.65)}
+.mv-btn:active{background:var(--amber-500);color:var(--black);transform:translateY(0);box-shadow:none}
+.mv-btn--amber:hover,.v-dark .mv-btn--amber:hover{background:rgba(255,171,1,.12);color:inherit}
+.mv-btn--line:hover{background:var(--white);color:var(--black)}
+
+/* hero: test — words tilt a little towards the cursor and gain depth */
+.mv-hero [data-tilt]{display:inline-block;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s var(--ease),text-shadow .35s var(--ease);will-change:transform}
+.mv-hero [data-tilt].is-tilt{text-shadow:1px 1px 0 rgba(15,15,15,.08),2px 3px 0 rgba(15,15,15,.05)}
+
+/* trust strip squares a bit bigger */
+.mv-strip-item i{width:6px;height:6px}
+
+/* featured case: whole screenshot fits the frame, thin amber line, button right after the numbers */
+.v-fc{align-items:center}
+.v-fc-txt .v-actions{margin-top:0}
+.v-fc .v-stats{margin:max(24px,calc(32 * var(--u))) 0}
+.v-fc .v-stats b{font-family:var(--f-head);font-weight:600;white-space:nowrap}
+.v-fc-shot{display:block;border:1px solid var(--amber-500);border-radius:12px;overflow:hidden;align-self:center}
+.v-fc-shot .v-shot,.v-fc-shot:hover .v-shot{display:block;width:100%;height:auto;min-height:0;aspect-ratio:16/10;object-fit:cover;object-position:50% 0;border-radius:0;transition:none}
+
+/* sound familiar: warm cards, amber outline on hover, slow looped amber icons */
+.v-pain{border:1px solid transparent;transition:border-color .3s var(--ease)}
+@media (hover:hover){.v-pain:hover{border-color:var(--amber-500)}}
+.v-pain-top .ico{color:var(--amber-500)}
+.ico--dollar{transform-origin:50% 50%;animation:v-sway 6s ease-in-out infinite}
+.ico--pie path:last-child{transform-origin:50% 50%;animation:v-turn 12s linear infinite}
+.ico--chart path{stroke-dasharray:1;stroke-dashoffset:1;animation:v-draw 5s ease-in-out infinite}
+.ico--chart path:nth-child(2){animation-delay:.4s}.ico--chart path:nth-child(3){animation-delay:.8s}
+@keyframes v-sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@keyframes v-turn{to{transform:rotate(360deg)}}
+@keyframes v-draw{0%{stroke-dashoffset:1}40%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@media (prefers-reduced-motion:reduce){.ico--dollar,.ico--pie path,.ico--chart path{animation:none;stroke-dashoffset:0}}
+
+/* process: cards stacked, full width; figure, text, detail; amber line under the detail */
+.v-flow{grid-template-columns:minmax(0,1fr);gap:max(12px,calc(16 * var(--u)))}
+.v-flow-step{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,5fr) minmax(0,4fr);gap:var(--g);align-items:start}
+.v-flow-fig{margin:0;align-self:start}
+.v-flow-fig b{font-weight:600;font-size:max(56px,calc(96 * var(--u)));line-height:.85}
+.v-flow-fig span{font-weight:600}
+.v-flow-main{display:flex;flex-direction:column;gap:10px}
+.v-flow-main p{margin:0;color:var(--text-2);font-size:max(16px,calc(19 * var(--u)));line-height:1.45}
+.v-flow-side{display:flex;flex-direction:column;gap:max(14px,calc(18 * var(--u)))}
+.v-flow-side .v-flow-more{margin:0 !important;padding:0;border:0;color:var(--ink) !important;font-weight:500;font-size:max(15px,calc(18 * var(--u)));line-height:1.45}
+.v-flow-bar{display:block;flex:none;height:2px;background:var(--line);position:relative;overflow:hidden}
+.v-flow-bar i{position:absolute;inset:0;background:var(--amber-500);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.2s var(--ease)}
+.is-in .v-flow-bar i{transform:none}
+
+/* cases: screenshot keeps its full width, height trimmed from the bottom */
+.v-case-shot{position:relative;display:block;align-self:stretch;background:var(--white);min-height:calc(400 * var(--u))}
+.v-case-shot img{position:absolute;top:0;left:0;width:100%;height:auto;min-height:0;aspect-ratio:auto;object-fit:initial;flex:none}
+.v-case-txt{gap:max(22px,calc(30 * var(--u)))}
+.v-case-txt dd{line-height:1.55}
+.v-case-txt dd b{color:var(--white);font-weight:700}
+.v-case-act{margin-top:auto;padding-top:max(24px,calc(32 * var(--u)))}
+.mv-btn--amber,.v-dark .mv-btn--amber{box-shadow:inset 0 0 0 1.5px var(--amber-500)}
+.v-case-act .mv-btn--amber{box-shadow:inset 0 0 0 1px var(--amber-500)}
+
+/* team: amber hairline around photos, calmer quote, tags on the photo's bottom line */
+.v-member-photo{border:1px solid var(--amber-500)}
+.v-member-dot img,.v-tab img{outline:1px solid var(--amber-500);outline-offset:1px}
+.v-quote{font-weight:400;font-size:max(17px,calc(28 * var(--u)));line-height:1.4}
+.v-member{align-items:stretch}
+.v-member-txt{justify-content:space-between}
+
+/* pricing: lighter sums */
+.v-price b{font-weight:500}
+
+/* footer: mascot at the very bottom */
+.v-foot-mascot{display:flex;justify-content:center;margin-top:max(24px,calc(40 * var(--u)))}
+.v-foot-mascot img{width:max(120px,calc(180 * var(--u)));height:auto}
+
+@media (max-width:1023px){
+  .v-fc-txt .v-actions{justify-content:center;width:100%}
+  .v-fc-txt .v-actions .mv-btn{width:auto;font-size:18px;padding:0 28px}
+  .v-fc-txt .v-actions .mv-btn .ar{font-size:20px}
+  .v-fc-sub,.v-fc-txt .v-lead{width:100%;max-width:none}
+  .v-flow-step{grid-template-columns:minmax(0,1fr);gap:14px}
+  .v-case-shot{min-height:0}
+  .v-case-shot img{position:static;width:100%;height:auto}
+  .v-member-photo{aspect-ratio:auto;height:auto;object-fit:contain;width:100%}
+  .v-what{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .v-what em{grid-column:1 / -1}
+  .v-what span{text-align:center}
+}
+.mv-hero .mv-more[data-tilt]{display:inline-flex}
+.v-case-shot{background:transparent}
+.v-case-shot img{border-radius:10px}
+@media (max-width:1023px){
+  .v-fc{align-items:stretch}
+  :lang(uk) .mv-more{font-size:min(13vw,96px);flex-wrap:nowrap;white-space:nowrap}
+}
+.ico--pie path:last-child{animation:none}
+.ico--pie{transform-origin:50% 50%;animation:v-turn 16s linear infinite}

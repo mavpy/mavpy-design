@@ -162,6 +162,20 @@ function initMavpy(root) {
     a.addEventListener('click', function () { var g = root.querySelector('input[name="goal"]'); if (g) g.value = a.dataset.goal; });
   });
 
+  /* ---------- v3.6 (test): hero words tilt slightly towards the cursor ---------- */
+  if (!reduce && win.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.mv-hero [data-tilt]').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+        el.classList.add('is-tilt');
+      });
+      el.addEventListener('mouseleave', function () { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); el.classList.remove('is-tilt'); });
+    });
+  }
+
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');
   if (fit) {

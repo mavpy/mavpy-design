@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.9 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.10 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -51,8 +51,8 @@ E = dict(
   steps_fig=['1 team', '3 approvals', '2 weeks'],
   steps_more=['Strategy, copy, design, build, booking and ads. One team and one contract, so nothing gets lost between contractors.', 'You approve three things: the plan, the design and the launch. We do the rest and show you the result.', 'Week 1: plan and design. Week 2: build, integrations and launch. The timeline is fixed in the contract.'],
   cols=['#', 'Project', 'Industry', 'Result'], what='What I do',
-  cases_idx='Cases', cases_h='Real projects,<br>real results', cases_p='Task, solution, result. The same three lines on every case.',
-  dt=['Task', 'Solution', 'Result'], case_word='case',
+  cases_idx='Cases', cases_h='Before → after', cases_p='Where each client started, what we did and what changed.',
+  dt=['Before', 'What we did', 'After'], case_word='case',
   cases=[
     ('Doctor LOR', 'ENT clinic · Kharkiv', '', 'case-doctor-lor', 'https://www.drlor-kh.com/', 'drlor-kh.com',
      'Patients take months to choose a surgeon and fear the operation. Booking was by phone only, on a site from the early 2000s.',
@@ -110,7 +110,7 @@ U = dict(
   desc='Сайти з онлайн-записом і заявками в Telegram або CRM. Від стратегії до запуску й підтримки. Фіксована ціна від 16 800 грн.',
   nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Відкрити меню', lang_group='Мова', cta='Дізнатися вартість',
   kicker='<b>Сайти, що приводять клієнтів</b> і працюють замість вас', more='НОВІ КЛІЄНТИ', clients='стабільно',
-  notjust='Ваш час — для бізнесу,<br>а не для переписок', hero_note='Робимо все: від стратегії до запуску.<br>Ви погоджуєте лише ключове.',
+  notjust='Ваш час — для бізнесу,<br>заявки збирає сайт', hero_note='Робимо все: від стратегії до запуску.<br>Ви погоджуєте лише ключове.',
   strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте безпосередньо із засновником', 'Відповідаємо протягом доби', 'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код належать вам'],
   strip_label='Чому обирають нас',
   fc_idx='Приклад із практики', fc_h='Doctor LOR', fc_sub='ЛОР-клініка в Харкові. Раніше — запис лише телефоном, тепер сайт записує пацієнтів сам.',
@@ -124,8 +124,8 @@ U = dict(
   steps_fig=['1 команда', '3 погодження', '2 тижні'],
   steps_more=['Стратегія, тексти, дизайн, розробка, запис і реклама. Одна команда, один договір — і ніхто не губиться між підрядниками.', 'Ви погоджуєте три речі: план, дизайн і запуск. Решту робимо самі й показуємо результат.', 'Перший тиждень — план і дизайн. Другий — розробка, інтеграції й запуск. Строки фіксуємо в договорі.'],
   cols=['#', 'Проєкт', 'Сфера', 'Результат'], what='Чим займаюся',
-  cases_idx='Кейси', cases_h='Що змінилося<br>після запуску', cases_p='З чим прийшли, що ми зробили й який результат.',
-  dt=['Завдання', 'Рішення', 'Результат'], case_word='кейс',
+  cases_idx='Кейси', cases_h='Було → стало', cases_p='З чим прийшли, що ми зробили й що змінилося.',
+  dt=['Було', 'Що зробили', 'Стало'], case_word='кейс',
   cases=[
     ('Doctor LOR', 'ЛОР-клініка · Харків', '', 'case-doctor-lor', 'https://www.drlor-kh.com/', 'drlor-kh.com',
      'Пацієнти місяцями обирають хірурга й бояться операції. Записатися можна було лише телефоном, а сайт застряг на початку 2000-х.',

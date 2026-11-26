@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.10 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.11 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -98,7 +98,7 @@ E = dict(
   side_h='Prefer to talk directly?', side=['Phone', 'Email', 'Instagram'], form_cta='Book a free review',
   next_steps=['We reply within 24 hours', 'A 15-minute call about your goal', 'Fixed price and timeline in writing'],
   need='What do you need?', goals=[('clients', 'New clients'), ('service', 'New service'), ('redesign', 'Redesign'), ('ads', 'Ads & analytics'), ('auto', 'Automation')],
-  f_name='Name', f_email='Email', f_phone='Phone', ph_name='How should we address you?', ph_email='you@company.com', ph_phone='+1 555 000 0000', err_phone='Add a phone number so we can call you back.', reply='We reply within 24 hours · no spam',
+  f_name='Name', f_email='Email', f_phone='Phone', ph_name='How should we address you?', ph_email='you@company.com', ph_phone='', err_phone='Add a phone number so we can call you back.', reply='We reply within 24 hours · no spam',
   done_h='Got it, thanks', done_p='We’ll get back within 24 hours to set a time for the call.',
   err_name='Add your name so we know who to reply to.', err_email='Check the email, it looks incomplete.',
   err_net='The request didn’t go through. Try again or write to mavpy.studio@gmail.com.',
@@ -109,7 +109,7 @@ U = dict(
   html_lang='uk', title='MAVPY — сайти, що приводять клієнтів і працюють замість вас',
   desc='Сайти з онлайн-записом і заявками в Telegram або CRM. Від стратегії до запуску й підтримки. Фіксована ціна від 16 800 грн.',
   nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Відкрити меню', lang_group='Мова', cta='Дізнатися вартість',
-  kicker='<b>Сайти, що приводять клієнтів</b> і працюють замість вас', more='НОВІ КЛІЄНТИ', clients='стабільно',
+  kicker='Сайти, що працюють <b>замість вас</b>', more='НОВІ КЛІЄНТИ', clients='стабільно',
   notjust='Ваш час — для бізнесу,<br>заявки збирає сайт', hero_note='Робимо все: від стратегії до запуску.<br>Ви погоджуєте лише ключове.',
   strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте безпосередньо із засновником', 'Відповідаємо протягом доби', 'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код належать вам'],
   strip_label='Чому обирають нас',
@@ -161,13 +161,13 @@ U = dict(
   price_idx='Ціни', price_h='Ціни без дзвінків і форм', price_p='Оберіть мету — й одразу побачите суму. Ціну фіксуємо до старту.',
   pay=['Одним платежем', 'Трьома частинами'], badge='Популярний', plan_cta='Обговорити проєкт', from_='від',
   price_note='Потрібен Telegram-бот, CRM чи інша функція? Додамо до будь-якого пакета. Ціни в доларах, у гривнях — за курсом НБУ на день оплати.',
-  plans=[('Лендинг', 'Сайт, який приносить заявки', 'Одна сторінка, що пояснює вашу пропозицію й перетворює відвідувачів на заявки.', ['Односторінковий сайт', 'Тексти під ваших клієнтів', 'Форма зі сповіщеннями', 'Місяць підтримки після запуску'], '₴16 800 <small>(≈ $400)</small>', '3 × ₴5 600', 'clients'),
-         ('Лендинг + автоматизація', 'Сайт, який записує клієнтів сам', 'Клієнт сам обирає час, а заявка одразу надходить вашій команді.', ['Усе з пакета «Лендинг»', 'Онлайн-запис і календар', 'Заявки в Telegram або CRM', 'Місяць підтримки після запуску'], '₴29 100 <small>(≈ $700)</small>', '3 × ₴9 700', 'service'),
-         ('Багатосторінковий сайт', 'Сайт для бізнесу, що росте', 'Окрема сторінка для кожної послуги, а запис і обробка заявок уже всередині.', ['До 5 сторінок', 'Запис і обробка заявок', 'Аналітика й відстеження заявок', 'Місяць пріоритетної підтримки'], '₴49 800 <small>(≈ $1 200)</small>', '3 × ₴16 600', 'redesign')],
+  plans=[('Лендинг', 'Сайт, який приносить заявки', 'Одна сторінка, що пояснює вашу пропозицію й перетворює відвідувачів на заявки.', ['Односторінковий сайт', 'Тексти під ваших клієнтів', 'Форма зі сповіщеннями', 'Місяць підтримки після запуску'], '₴16 800|≈ $400', '3 × ₴5 600|≈ $133 за платіж', 'clients'),
+         ('Лендинг + автоматизація', 'Сайт, який записує клієнтів сам', 'Клієнт сам обирає час, а заявка одразу надходить вашій команді.', ['Усе з пакета «Лендинг»', 'Онлайн-запис і календар', 'Заявки в Telegram або CRM', 'Місяць підтримки після запуску'], '₴29 100|≈ $700', '3 × ₴9 700|≈ $233 за платіж', 'service'),
+         ('Багатосторінковий сайт', 'Сайт для бізнесу, що росте', 'Окрема сторінка для кожної послуги, а запис і обробка заявок уже всередині.', ['До 5 сторінок', 'Запис і обробка заявок', 'Аналітика й відстеження заявок', 'Місяць пріоритетної підтримки'], '₴49 800|≈ $1 200', '3 × ₴16 600|≈ $400 за платіж', 'redesign')],
   contact_idx='Контакти', contact_h='Безкоштовний<br>15‑хвилинний розбір', contact_p='Разом подивимося на ваш сайт або ідею й підкажемо, що приведе більше заявок. Це ні до чого не зобов’язує.',
   side_h='Зручніше без форми?', side=['Телефон', 'Email', 'Instagram'], form_cta='Записатися на розбір',
   next_steps=[], need='', goals=[('clients', '')],
-  f_name='Ім’я', f_email='Email', f_phone='Телефон', ph_name='Як до вас звертатися?', ph_email='you@company.com', ph_phone='+380 __ ___ __ __', err_phone='Вкажіть телефон, щоб ми могли зателефонувати.', reply='Відповімо протягом доби · без спаму',
+  f_name='Ім’я', f_email='Email', f_phone='Телефон', ph_name='Як до вас звертатися?', ph_email='you@company.com', ph_phone='', err_phone='Вкажіть телефон, щоб ми могли зателефонувати.', reply='Відповімо протягом доби · без спаму',
   done_h='Дякуємо, заявку отримали', done_p='Зв’яжемося протягом доби, щоб домовитися про час дзвінка.',
   err_name='Вкажіть ім’я, щоб ми знали, як до вас звертатися.', err_email='Перевірте email — схоже, адреса неповна.',
   err_net='Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам на mavpy.studio@gmail.com.',
@@ -183,6 +183,15 @@ def head(n, label, title, lead=None, cls=''):
     return (f'<div class="v-head {cls}"><p class="v-idx"><span>{label}</span></p>'
             f'<div><h2 class="v-h2">{title.replace("<br>", " <br>")}</h2>{ld}</div></div>')
 
+
+WIDE_SHOTS = {"case-the-nook"}  # v3.11: screenshots much wider than the case frame fill it on desktop, cropped from the right
+
+def price_block(frm, p1, p3):
+    """v3.11: main sum on one line (never breaks); optional small line under it, flush with the card text."""
+    m1, _, s1 = p1.partition('|'); m3, _, s3 = p3.partition('|')
+    q = lambda v: v.replace('"', '&quot;')
+    sub = f'<span class="v-price-sub" data-p1="{q(s1)}" data-p3="{q(s3)}">{s1}</span>' if (s1 or s3) else ''
+    return f'<p class="v-price"><span>{frm}</span><b data-p1="{q(m1)}" data-p3="{q(m3)}">{m1}</b>{sub}</p>'
 
 def img(name, alt, cls='', ext='jpg', lazy=True):
     return f'<img class="{cls}" src="{{P}}assets/img/{name}.{ext}" alt="{alt}"{" loading=\"lazy\"" if lazy else ""} decoding="async">'
@@ -274,7 +283,7 @@ def page(t, lang):
   <div class="v-case-row"><span class="v-case-l"><span class="v-num">0{i+1}</span><h3 class="v-case-name">{name}</h3></span><span class="v-case-kind">{kind}</span>
     <button type="button" class="mv-tog" aria-expanded="{str(op).lower()}" aria-controls="{cid}" aria-label="{name}, {t["case_word"]}">{PLUS}</button></div>
   <div class="mv-acc{" is-open is-in" if op else ""}" id="{cid}"><div><div class="v-case-body">
-    <div class="v-case-shot">{img(im, name + " website")}</div>
+    <div class="v-case-shot">{img(im, name + " website", "is-wide" if im in WIDE_SHOTS else "")}</div>
     <div class="v-case-txt"><dl>{dl}</dl><p class="v-actions v-case-act"><a class="mv-btn mv-btn--amber" href="{url}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><span class="v-host">{host}</span></p></div>
   </div></div></div>
 </article>'''
@@ -300,7 +309,7 @@ def page(t, lang):
         rec = i == 1
         lis = ''.join(f'<li>{x}</li>' for x in inc)
         plans += (f'<div class="v-card v-plan{" is-rec" if rec else ""}" data-spot-card=""><div class="v-plan-top"><span class="v-plan-kind">{kind}</span>{f"<span class=\"v-badge\">{t['badge']}</span>" if rec else ""}</div>'
-                  f'<h3 class="v-h3">{h}</h3><p>{d}</p><p class="v-price"><span>{t["from_"]}</span><b data-p1="{p1.replace(chr(34), "&quot;")}" data-p3="{p3.replace(chr(34), "&quot;")}">{p1}</b></p>'
+                  f'<h3 class="v-h3">{h}</h3><p>{d}</p>{price_block(t["from_"], p1, p3)}'
                   f'<ul>{lis}</ul><a class="mv-btn" href="#contact" data-goal="{goal}">{t["plan_cta"]} {ARROW}</a></div>')
     note = f'<p class="v-note">{t["price_note"]}</p>' if t['price_note'] else ''
     o.append(f'''<section id="pricing" class="v-sec v-bg-base" data-reveal=""><div class="v-wrap">{head(7, t["price_idx"], t["price_h"], t["price_p"])}
@@ -339,7 +348,7 @@ def page(t, lang):
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
   <div class="v-ticks v-ticks--line" aria-hidden="true"></div>
-  <p class="v-foot-word v-foot-word--img"><img src="{P}assets/img/footer-wordmark.png" alt="MAVPY" width="1271" height="212" loading="lazy"></p>
+  <p class="v-foot-word v-foot-word--txt" data-fit=""><span>MAVPY</span></p>
   <div class="v-foot-bot"><span>{t["copy"]}</span><a href="#top">{t["top"]}</a></div>
 </div></footer>
 </div>''')

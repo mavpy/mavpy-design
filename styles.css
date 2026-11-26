@@ -1084,3 +1084,32 @@
   .pseq .v-flow-side::before{transform:scaleX(0)}
   .pseq.pseq-line .v-flow-side::before{transform:scaleX(1)}
 }
+
+/* v3.11: very wide screenshot (The Nook) fills the case frame on desktop, cropped from the right so the headline stays; full image on tablet/mobile */
+.v-case-shot img.is-wide{height:100%;object-fit:cover;object-position:0 50%}
+@media (max-width:1199px){.v-case-shot img.is-wide{height:auto;object-fit:initial}}
+
+/* =========================================================
+   v3.11 — Serhii's notes in Figma 26.11 (notes/2026-11-26-v3.11-edits.md)
+   ========================================================= */
+/* hero: UA built exactly like EN — the big word is fitted to the container by JS, same spacing;
+   one-line «НОВІ КЛІЄНТИ» on tablet/mobile (fitted like «MORE») */
+.mv-hero .mv-clients{white-space:nowrap}
+:lang(uk) .mv-hero .mv-more{flex-wrap:nowrap;white-space:nowrap}
+:lang(uk) .mv-hero .mv-more-w{max-width:none;width:auto;white-space:nowrap}
+:lang(uk) .mv-hero .mv-more .mv-bars{align-self:flex-end;height:.72em;margin-top:0}
+/* hero button: never stretched across the screen */
+@media (max-width:1199px){
+  .mv-hero-bottom{flex-direction:column;align-items:flex-start;gap:16px}
+  .mv-hero-bottom .mv-btn{width:auto;align-self:flex-start}
+}
+/* process: the amber line keeps pace with the fast typing */
+.pseq .v-flow-side::before{transition-duration:1.1s}
+/* pricing: the sum never breaks; 3 parts a bit smaller; the dollar line sits under it, flush left with the card text */
+.v-price{flex-wrap:wrap;row-gap:6px}
+.v-price b{white-space:nowrap}
+.v-price.is-3 b{font-size:max(30px,calc(42 * var(--u)))}
+.v-price-sub{flex-basis:100%;margin:0;font-family:var(--f-body);font-weight:500;font-size:var(--fs-small);line-height:1.3;color:var(--text-3);transition:opacity .2s var(--ease)}
+/* footer: plain MAVPY wordmark again (no mascot), stretched to the full width like the image was */
+.v-foot-word--txt{font-family:'Montserrat','Archivo','Arial Black',sans-serif;font-weight:900;letter-spacing:-.01em;line-height:.78;color:var(--white)}
+.v-foot-word--txt span{display:inline-block}

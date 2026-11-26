@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.11 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.12 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -109,8 +109,8 @@ U = dict(
   html_lang='uk', title='MAVPY — сайти, що приводять клієнтів і працюють замість вас',
   desc='Сайти з онлайн-записом і заявками в Telegram або CRM. Від стратегії до запуску й підтримки. Фіксована ціна від 16 800 грн.',
   nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Відкрити меню', lang_group='Мова', cta='Дізнатися вартість',
-  kicker='Сайти, що працюють <b>замість вас</b>', more='НОВІ КЛІЄНТИ', clients='стабільно',
-  notjust='Ваш час — для бізнесу,<br>заявки збирає сайт', hero_note='Робимо все: від стратегії до запуску.<br>Ви погоджуєте лише ключове.',
+  kicker='Сайти, що працюють <b>на результат</b>', more='НОВІ', clients='клієнти',
+  notjust='Не просто<br>новий<br>сайт', hero_note='Обсяг і ціна — до старту.<br>Робимо все під ключ.',
   strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте безпосередньо із засновником', 'Відповідаємо протягом доби', 'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код належать вам'],
   strip_label='Чому обирають нас',
   fc_idx='Приклад із практики', fc_h='Doctor LOR', fc_sub='ЛОР-клініка в Харкові. Раніше — запис лише телефоном, тепер сайт записує пацієнтів сам.',
@@ -348,7 +348,7 @@ def page(t, lang):
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
   <div class="v-ticks v-ticks--line" aria-hidden="true"></div>
-  <p class="v-foot-word v-foot-word--txt" data-fit=""><span>MAVPY</span></p>
+  <p class="v-foot-word v-foot-word--img"><img src="{P}assets/img/footer-wordmark.png" alt="MAVPY" width="1271" height="212" loading="lazy"></p>
   <div class="v-foot-bot"><span>{t["copy"]}</span><a href="#top">{t["top"]}</a></div>
 </div></footer>
 </div>''')

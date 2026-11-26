@@ -1113,3 +1113,40 @@
 /* footer: plain MAVPY wordmark again (no mascot), stretched to the full width like the image was */
 .v-foot-word--txt{font-family:'Montserrat','Archivo','Arial Black',sans-serif;font-weight:900;letter-spacing:-.01em;line-height:.78;color:var(--white)}
 .v-foot-word--txt span{display:inline-block}
+
+/* =========================================================
+   v3.12 — Serhii's notes on «✏️ Правки и контент → v3.12» (notes/2026-11-26-v3.12-edits.md)
+   ========================================================= */
+/* hero UA = hero EN: «НОВІ / клієнти», same sizes, same section height */
+:lang(uk) .mv-hero .mv-more{font-size:calc(135 * var(--u));letter-spacing:.02em;line-height:.74}
+:lang(uk) .mv-hero .mv-more-w{letter-spacing:.02em}
+:lang(uk) .mv-hero .mv-notjust{font-size:calc(48 * var(--u));line-height:calc(47 * var(--u))}
+@media (max-width:1199px){
+  :lang(uk) .mv-hero .mv-more{font-size:calc((100vw - 40px) * .2)}
+  :lang(uk) .mv-hero .mv-notjust{font-size:28px;line-height:24px}
+}
+:lang(uk) .mv-hero .mv-clients{margin-bottom:.078em !important}
+@media (min-width:1200px){:lang(uk) .mv-hero .mv-hero-bottom{margin-top:calc(134 * var(--u))}}
+/* buttons: full width only on phones; tablet and desktop — as wide as the text */
+@media (min-width:601px) and (max-width:1199px){
+  .mv .mv-btn{width:auto !important;align-self:flex-start;justify-content:center}
+  .mv .v-actions{width:auto}
+  .mv-hero-bottom{align-items:flex-start}
+}
+/* featured: screenshot frame as thick as the button outline; button with a light amber tint */
+.v-fc-shot{border-width:1.5px}
+.v-fc-txt .v-actions .mv-btn--amber{background:#FFF6E3}
+.v-fc-txt .v-actions .mv-btn--amber:hover{background:#FFEFCF}
+.pseq .v-flow-side::before{transition-duration:1.8s}
+/* cases: every screenshot fills the frame's full height, like the first case */
+.v-case-shot{display:flex}
+.v-case-shot img,.v-case-shot img.is-wide{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+@media (max-width:1199px){.v-case-shot img,.v-case-shot img.is-wide{height:auto;object-fit:initial}}
+/* footer: new wordmark image (no mascot) */
+.v-foot-word--img{font-size:0;line-height:0}
+.v-foot-word--img img{display:block;width:100%;height:auto}
+/* pricing UA: the dollar line sits right under the hryvnia sum, flush with its left edge */
+.v-price{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:.4em;row-gap:4px}
+.v-price > span:first-child{grid-column:1;grid-row:1}
+.v-price b{grid-column:2;grid-row:1;justify-self:start}
+.v-price .v-price-sub{grid-column:2;grid-row:2;flex-basis:auto}

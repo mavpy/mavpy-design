@@ -1,9 +1,24 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.6 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.7 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from icons import ICONS
+import re
+PAIN_ICONS = [
+    # recommendations are not enough → a line that keeps climbing
+    '<svg class="pi pi--grow" viewBox="0 0 64 64" aria-hidden="true"><path class="pi-ax" d="M8 56H58M8 56V8"/>'
+    '<path class="pi-grid" d="M8 41H58M8 26H58"/><path class="pi-ln" pathLength="1" d="M10 48 L22 40 L31 44 L43 28 L56 14"/>'
+    '<circle class="pi-dot" cx="56" cy="14" r="2.6"/></svg>',
+    # visitors but no enquiries → bars rising one by one
+    '<svg class="pi pi--bars" viewBox="0 0 64 64" aria-hidden="true"><path class="pi-ax" d="M8 56H58"/>'
+    '<rect class="pi-bar" x="12" y="20" width="7" height="36" rx="1.5"/><rect class="pi-bar" x="25" y="20" width="7" height="36" rx="1.5"/>'
+    '<rect class="pi-bar" x="38" y="20" width="7" height="36" rx="1.5"/><rect class="pi-bar" x="51" y="20" width="7" height="36" rx="1.5"/></svg>',
+    # routine eats the day → a week grid filling up cell by cell
+    '<svg class="pi pi--cal" viewBox="0 0 64 64" aria-hidden="true"><rect class="pi-ax" x="8" y="12" width="48" height="44" rx="4"/>'
+    '<path class="pi-ax" d="M8 24H56M20 8V16M44 8V16"/>'
+    + ''.join(f'<rect class="pi-cell" x="{14 + c * 13}" y="{30 + r * 9}" width="9" height="5" rx="1.2"/>' for r in range(3) for c in range(3))
+    + '</svg>']
 
 REPO = sys.argv[1]
 FONTS = ("https://fonts.googleapis.com/css2?family=BBH+Hegarty&family=Archivo:wght@500;600;700;800;900"
@@ -21,7 +36,7 @@ E = dict(
   strip=['30+ projects since 2022', 'Fixed price, no surprises', 'Founder-led, direct', 'Reply within 24h',
          'Pay in 3 parts', 'Booking, CRM and bot wired in', 'You own the site and the code'],
   strip_label='Why clients work with us',
-  fc_idx='Featured case', fc_h='Doctor LOR', fc_sub='ENT clinic in Kharkiv: from phone-only booking to a site that books itself',
+  fc_idx='A case from our work', fc_h='Doctor LOR', fc_sub='ENT clinic in Kharkiv: from phone-only booking to a site that books itself',
   fc_p='Before: patients could only book by phone, on a site from the early 2000s. Now booking runs itself and reminders go out on their own.',
   fc_stats=[('271', 'organic clicks in 2 months'), ('#1–2', 'in Google for the clinic’s name and district'), ('$0', 'spent on ads')],
   live='Open live site', read_case='Read the case ↓',
@@ -59,7 +74,7 @@ E = dict(
      'Owners of industrial roofs don’t see solar as income, and B2B decisions take <b>months</b>.',
      'Headline: “Your roof is an untapped financial asset”. An ROI calculator on the first screen: payback in <b>5–7 years</b>.',
      'Visitors see <b>their own payback</b> before the first call, so sales talks start further along.')],
-  rev_idx='Reviews', rev_h='In their words', rev_p='What clients said after launch.',
+  rev_idx='Reviews', rev_h='What clients say', rev_p='Reviews from people we’ve already launched with.',
   reviews=[
     ('review-natalia-srt', 'Natalia M.', 'SRT · online booking', 'Booking used to eat half my administrator’s day. Now it runs on its own and patients just show up. Serhii handled everything, I barely had to step in.'),
     ('review-ivan', 'Ivan V.', 'Doctor LOR · new site and booking', 'We had visitors but almost no enquiries. Serhii didn’t just redesign, he asked why people were leaving first. That’s the difference. The form finally started filling.'),
@@ -74,10 +89,10 @@ E = dict(
         ('team-julia', 'Julia', 'Marketing & copywriting', 'I write in your clients’ words, not ours. Each headline answers one question: why choose you over the business next door.\n\nBefore writing, I read your reviews, calls and competitors’ pages to find the phrases your clients actually use.'),
         ('team-marina', 'Marina', 'Ads & analytics', 'I run your ads and set up tracking, so you see which channel brings paying clients and which one only spends the budget.\n\nYou get a short report in plain words: what we spent, what came in, and what we change next.')],
   price_idx='Pricing', price_h='Pick your goal, see the price', price_p='No form, no call just to see a number. Find your goal and see where it starts.',
-  pay=['Pay once', 'Pay in 3 parts'], badge='Popular', from_='from',
+  pay=['Pay once', 'Pay in 3 parts'], badge='Popular', plan_cta='Discuss your project', from_='from',
   price_note='Need a Telegram bot, CRM or another feature? It can be added to any package.',
-  plans=[('Landing page', 'A site that brings enquiries', 'One page that explains your offer and turns visitors into enquiries.', ['One-page site', 'Design & development', 'Copy that sells', 'Form with instant alerts'], '$400', '3 × $134', 'clients'),
-         ('Landing page + automation', 'A site that books clients for you', 'Takes bookings online and sends every lead straight to your team.', ['Everything in Landing page', 'Online booking & calendar', 'Leads to Telegram or CRM'], '$700', '3 × $234', 'service'),
+  plans=[('Landing page', 'A site that brings enquiries', 'One page that explains your offer and turns visitors into enquiries.', ['One-page site', 'Design & development', 'Copy that sells', 'Form with instant alerts', '1 month of support after launch'], '$399', '3 × $133', 'clients'),
+         ('Landing page + automation', 'A site that books clients for you', 'Takes bookings online and sends every lead straight to your team.', ['Everything in Landing page', 'Online booking & calendar', 'Leads to Telegram or CRM', '1 month of support after launch'], '$699', '3 × $233', 'service'),
          ('Multi-page website', 'A site for a growing business', 'A page for every service, with booking and lead handling built in.', ['Up to 5 pages', 'Booking & lead handling', 'Analytics & lead tracking', 'Two language versions', 'Priority support for 1 month'], '$1,200', '3 × $400', 'redesign')],
   contact_idx='Contact', contact_h='Free 15‑minute<br>site review', contact_p='We’ll look at your site or idea together and show what will bring more enquiries. Free, no obligation.',
   side_h='Prefer to talk directly?', side=['Phone', 'Email', 'Instagram'], form_cta='Book a free review',
@@ -87,81 +102,76 @@ E = dict(
   done_h='Got it, thanks', done_p='We’ll get back within 24 hours to set a time for the call.',
   err_name='Add your name so we know who to reply to.', err_email='Check the email, it looks incomplete.',
   err_net='The request didn’t go through. Try again or write to mavpy.studio@gmail.com.',
-  foot_tag='Less noise.<br>More results.', foot_cols=('Navigate', 'Contact', 'Studio'), studio=['Design & development', 'Since 2022', 'UA / EN'],
+  foot_tag='Less noise.<br>More substance.', foot_cols=('Navigate', 'Contact', 'Studio'), studio=['Design & development', 'Since 2022', 'UA / EN'],
   foot_nav='Footer navigation', top='Back to top ↑', copy='© 2022–2026 MAVPY Design & Dev')
 
 U = dict(
-  html_lang='uk', title='MAVPY — сайти, які приводять клієнтів для бізнесу',
-  desc='Невелика студія: проєктуємо й розробляємо сайти для бізнесу, налаштовуємо онлайн-запис та обробку заявок. Фіксована ціна — від ₴16 600.',
-  nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Меню', lang_group='Мова', cta='Дізнатися вартість',
-  kicker='<b>Сайти, що працюють</b> на результат вашого бізнесу', more='БІЛЬШЕ', clients='клієнтів',
-  notjust='Не просто<br>гарний<br>сайт', hero_note='Ціну й строки фіксуємо до старту.<br>Беремо на себе все — до запуску.',
-  strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте напряму із засновником', 'Відповідаємо протягом доби',
-         'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код — ваші'],
+  html_lang='uk', title='MAVPY — сайти, що приводять клієнтів і працюють замість вас',
+  desc='Сайти з онлайн-записом і заявками в Telegram або CRM. Від стратегії до запуску й підтримки. Фіксована ціна від 16 800 грн.',
+  nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Відкрити меню', lang_group='Мова', cta='Дізнатися вартість',
+  kicker='<b>Сайти, що приводять клієнтів</b> і працюють замість вас', more='НОВІ КЛІЄНТИ', clients='без хаосу',
+  notjust='Ви займаєтеся<br>бізнесом,<br>а не перепискою', hero_note='Від стратегії до запуску робимо все самі.<br>Після — підтримка й оновлення.<br>Ви погоджуєте лише ключове.',
+  strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте безпосередньо із засновником', 'Відповідаємо протягом доби', 'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код належать вам'],
   strip_label='Чому обирають нас',
-  fc_idx='Головний кейс', fc_h='Doctor LOR', fc_sub='ЛОР-клініка в Харкові: замість запису лише телефоном — сайт, який записує пацієнтів сам',
-  fc_p='Раніше записатися можна було тільки телефоном, а сайт пам’ятав початок 2000-х. Тепер пацієнти записуються онлайн, а нагадування надходять автоматично.',
-  fc_stats=[('271', 'перехід із Google за 2 місяці'), ('№1–2', 'у Google за назвою клініки й районом'), ('$0', 'на рекламу')],
+  fc_idx='Приклад із практики', fc_h='Doctor LOR', fc_sub='ЛОР-клініка в Харкові. Раніше — запис лише телефоном, тепер сайт записує пацієнтів сам.',
+  fc_p='Старий сайт пам’ятав початок 2000-х. Тепер пацієнти записуються онлайн, а нагадування надходять автоматично.',
+  fc_stats=[('271', 'перехід із Google за 2 місяці'), ('№ 1–2', 'у Google за назвою клініки й районом'), ('$0', 'на рекламу')],
   live='Відкрити сайт', read_case='Дивитися кейс ↓',
-  sit_idx='Знайомо?', sit_h='Що з цього про вас?', sit_p='Знайдіть своє — з цього ми й почнемо.',
-  sit=[('Сайт відштовхує клієнтів', 'Людина вирішує за кілька секунд — ще до того, як дочитає вашу пропозицію.', ''),
-       ('Рекомендацій уже замало', 'Сарафанне радіо не спрогнозуєш. Потрібен стабільний потік клієнтів, на який можна розраховувати.', ''),
-       ('Відвідувачі є, а заявок немає', 'Люди заходять на сайт, гортають — і йдуть, так і не залишивши заявку.', '')],
+  sit_idx='Знайомо?', sit_h='Що з цього є у вас?', sit_p='Знайдіть своє — з цього ми й почнемо.',
+  sit=[('Рекомендацій уже замало', 'Сарафанне радіо не сплануєш: то п’ять клієнтів, то жодного. Потрібен стабільний потік.', ''), ('Відвідувачі є, а заявок немає', 'Люди заходять, гортають сторінку й ідуть, так і не залишивши заявки.', ''), ('Рутина з’їдає ваш день', 'Дзвінки, переписки й запис вручну. На розвиток бізнесу й на себе часу не лишається.', '')],
   proc_idx='Процес', proc_h='Як ми працюємо', proc_p='Зрозумілий процес і лише ті фахівці, які потрібні саме для вашого завдання.',
-  steps=[('Усе під ключ', 'Від стратегії до потоку клієнтів. Нічого не губиться між підрядниками.'),
-         ('Мінімум вашого часу', 'Погоджуємо лише ключові рішення, решту беремо на себе. Ви займаєтеся бізнесом.'),
-         ('Запуск за 2 тижні', 'Строки фіксуємо до старту, прив’язуємо до обсягу робіт і дотримуємося їх.')],
+  steps=[('Усе під ключ', 'Від стратегії до перших заявок. Нічого не губиться між підрядниками.'), ('Мінімум вашого часу', 'Ваш час — на бізнес і близьких. Решту беремо на себе.'), ('Чіткі строки', 'Строки фіксуємо до старту. Лендинг запускаємо за 2 тижні.')],
   steps_fig=['1 команда', '3 погодження', '2 тижні'],
-  steps_more=['Стратегія, тексти, дизайн, розробка, запис і реклама. Одна команда — один договір.', 'Ви погоджуєте три речі: план, дизайн і запуск. Усе інше робимо ми.', 'Перший тиждень — план і дизайн. Другий — розробка, інтеграції та запуск.'],
+  steps_more=['Стратегія, тексти, дизайн, розробка, запис і реклама. Одна команда — один договір.', 'Ви погоджуєте три речі: план, дизайн і запуск.', 'Перший тиждень — план і дизайн. Другий — розробка, інтеграції й запуск.'],
   cols=['#', 'Проєкт', 'Сфера', 'Результат'], what='Чим займаюся',
-  cases_idx='Кейси', cases_h='Реальні проєкти —<br>реальні результати', cases_p='Задача, рішення, результат. Однаково в кожному кейсі.',
-  dt=['Задача', 'Рішення', 'Результат'], case_word='кейс',
+  cases_idx='Кейси', cases_h='Що змінилося<br>після запуску', cases_p='З чим прийшли, що ми зробили й який результат.',
+  dt=['Завдання', 'Рішення', 'Результат'], case_word='кейс',
   cases=[
     ('Doctor LOR', 'ЛОР-клініка · Харків', '', 'case-doctor-lor', 'https://www.drlor-kh.com/', 'drlor-kh.com',
      'Пацієнти місяцями обирають хірурга й бояться операції. Записатися можна було лише телефоном, а сайт застряг на початку 2000-х.',
-     'Перший екран — про результат: вільне дихання й природний вигляд. Ціна й седація — одразу на виду. Запис <b>в один клік</b>.',
-     '<b>271</b> перехід із Google і <b>№1–2</b> у пошуку за <b>2 місяці</b> — без жодного долара на рекламу. Дзвінки приходять із пошуку.'),
+     'Перший екран — про результат: вільне дихання й природний вигляд. Ціну й седацію видно одразу. Запис <b>в один клік</b>.',
+     '<b>271</b> перехід із Google і <b>№ 1–2</b> у пошуку за назвою й районом. За <b>2 місяці</b> й без жодного долара на рекламу.'),
     ('Aurelia Dental', 'Преміальна стоматологія · Анталія', '', 'case-aurelia-dental', 'https://aurelia-dental.webflow.io/', 'aurelia-dental.webflow.io',
      'Пацієнти з інших країн обирають клініку дистанційно й бояться болю та прихованих доплат.',
      'Спокійний дизайн із фото й обіцянка лікування без страху. <b>Безкоштовна онлайн-консультація</b> ще до перельоту. Лише <b>дві дії</b>: записатися або проконсультуватися.',
-     'Пацієнти записуються на консультацію <b>ще до поїздки</b>. На типові питання тепер відповідає сайт, а не команда на кожному дзвінку.'),
+     'Пацієнти записуються на консультацію <b>ще до поїздки</b>. На типові питання тепер відповідає сайт, а не адміністратор на кожному дзвінку.'),
     ('SRT', 'Терапія хронічного болю', '', 'case-srt-therapy', 'https://srt-bf60b5.webflow.io/', 'srt-bf60b5.webflow.io',
-     'Клієнти приходять після років болю й невдалого лікування. Запис забирав <b>пів робочого дня</b> адміністратора.',
+     'Клієнти приходять після років болю й невдалого лікування. Запис забирав у адміністратора <b>пів робочого дня</b>.',
      'Метод пояснено крок за кроком, на першому екрані — <b>понад 10 років</b> практики. Онлайн-запис синхронізовано з календарем.',
      'Запис працює сам. Адміністратор повернув собі <b>пів дня</b>.'),
     ('The Nook', 'Готель на 12 номерів біля моря', '', 'case-the-nook', 'https://the-nook----premium-coastal-coliving-we.webflow.io/', 'the-nook.webflow.io',
-     'Гості бачили ще один пляжний готель, і <b>поза сезоном</b> номери пустували.',
+     'Гості бачили ще один пляжний готель, а <b>поза сезоном</b> номери пустували.',
      'Нове позиціонування для віддаленої роботи: «Працюй біля моря. Відпочивай зі змістом». Тихі робочі місця, відкрито <b>цілий рік</b>, пакети для тривалого проживання.',
      'У міжсезоння з’явилися свої гості: люди на віддаленій роботі, які приїжджають на <b>тижні, а не дні</b>.'),
     ('Unit Surface', 'Сонячні станції на дахах · B2B', '', 'case-unit-surface', 'https://unit-surface-c8e2de.webflow.io/', 'unit-surface.webflow.io',
-     'Власники промислових дахів не бачать у сонячній станції доходу, а B2B-рішення ухвалюють <b>місяцями</b>.',
+     'Власники промислових дахів не бачать у сонячній станції доходу, а рішення в B2B ухвалюють <b>місяцями</b>.',
      'Заголовок «Ваш дах — фінансовий актив, який простоює». Калькулятор окупності на першому екрані: <b>5–7 років</b>.',
-     'Ще до дзвінка відвідувачі бачать <b>власні цифри окупності</b>, тож переговори починаються не з нуля.')],
-  rev_idx='Відгуки', rev_h='Їхніми словами', rev_p='Що кажуть клієнти після запуску.',
+     'Ще до дзвінка відвідувач бачить <b>власні цифри окупності</b>, тож переговори починаються не з нуля.')],
+  rev_idx='Відгуки', rev_h='Що кажуть клієнти', rev_p='Відгуки тих, з ким ми вже запустили сайт.',
   reviews=[
-    ('review-natalia-srt', 'Наталія М.', 'SRT · онлайн-запис', 'Запис забирав у мого адміністратора пів робочого дня. Тепер він працює сам, а пацієнти просто приходять. Сергій зробив усе — мені майже не довелося втручатися.'),
-    ('review-ivan', 'Іван В.', 'Doctor LOR · новий сайт і запис', 'Відвідувачі були, а заявок — майже ні. Сергій не просто оновив дизайн: спершу він з’ясував, чому люди йдуть. У цьому й різниця. Форма нарешті почала заповнюватися.'),
-    ('review-bram-spacem', 'Bram V.', 'Space’M Online · вебдизайн', 'Serhii is strong in communication, super fast in delivering the scope, overdelivers and is a real professional. Gladly recommend.')],
+    ('review-natalia-srt', 'Наталія М.', 'SRT · онлайн-запис', 'Запис забирав у мого адміністратора пів робочого дня. Тепер він працює сам, а пацієнти просто приходять. Сергій зробив усе, мені майже не довелося втручатися.'),
+    ('review-ivan', 'Іван В.', 'Doctor LOR · новий сайт і запис', 'Відвідувачі були, а заявок — майже ні. Сергій спершу з’ясував, чому люди йдуть, і лише потім узявся за дизайн. Форма нарешті почала заповнюватися.'),
+    ('review-bram-spacem', 'Bram V.', 'Space’M Online · вебдизайн · відгук з Upwork', 'Serhii is strong in communication, super fast in delivering the scope, overdelivers and is a real professional. Gladly recommend.')],
   team_idx='Команда', team_h='Люди, які працюватимуть<br>над вашим проєктом',
   tags=[['Дослідження та UX', 'Структура сайту', 'Дизайн у Figma', 'Керування проєктом'], ['Webflow і власний код', 'Запис, CRM, Telegram-боти', 'Інтеграції', 'Запуск і підтримка'], ['Позиціонування й пропозиція', 'Тексти для сайту', 'Кейси', 'Контент для реклами'], ['Реклама в Google і Meta', 'Аналітика й відстеження', 'Звіти про вартість заявки', 'Планування бюджету']],
-  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, а вже потім проєктую сторінку, яка їх утримає.\n\nВід першого дзвінка до запуску ви спілкуєтеся зі мною. План, строки й рішення — в одному місці, тож нічого не губиться між людьми.'),
-        ('team-nikita', 'Нікіта', 'Розробка й автоматизація', 'Розробляю сайт і підключаю його до того, чим ви вже користуєтеся: запис, CRM, Telegram-бот.\n\nКожна заявка потрапляє туди, де її побачить ваша команда. Після запуску відповідаю за технічну частину, тож оновлення й виправлення не затягуються.'),
+  team=[('team-serhii', 'Сергій', 'Дизайнер і продакт-менеджер', 'Спершу з’ясовую, чому люди йдуть із сайту, і лише потім проєктую сторінку, яка їх утримає.\n\nВід першого дзвінка до запуску ви спілкуєтеся зі мною. План, строки й рішення — в одному місці.'),
+        ('team-nikita', 'Нікіта', 'Розробка й автоматизація', 'Розробляю сайт і підключаю його до того, чим ви вже користуєтеся: запис, CRM чи Telegram-бот.\n\nКожна заявка потрапляє туди, де її побачить ваша команда. Після запуску відповідаю за технічну частину, тож оновлення й виправлення не затягуються.'),
         ('team-julia', 'Юлія', 'Маркетинг і тексти', 'Пишу словами ваших клієнтів, а не нашими. Кожен заголовок відповідає на одне питання: чому варто обрати саме вас.\n\nПерш ніж писати, вивчаю ваші відгуки, дзвінки й сайти конкурентів, щоб знайти фрази, якими говорять ваші клієнти.'),
         ('team-marina', 'Марина', 'Реклама й аналітика', 'Запускаю рекламу й налаштовую аналітику, щоб ви бачили, який канал приводить клієнтів, а який лише витрачає бюджет.\n\nВи отримуєте короткий звіт простими словами: скільки витратили, що отримали й що змінюємо далі.')],
-  price_idx='Ціни', price_h='Оберіть мету — і побачите ціну', price_p='Щоб дізнатися ціну, не потрібно заповнювати форму чи дзвонити. Оберіть мету — і одразу побачите суму.',
-  pay=['Одним платежем', 'Трьома частинами'], badge='Популярний', from_='від',
-  price_note='Потрібен Telegram-бот, CRM чи інша функція? Її можна додати до будь-якого пакета. Сума в гривнях — за курсом НБУ на день оплати.',
-  plans=[('Лендинг', 'Сайт, який приносить заявки', 'Одна сторінка, що пояснює вашу пропозицію й перетворює відвідувачів на заявки.', ['Односторінковий сайт', 'Дизайн і розробка', 'Тексти, що продають', 'Форма зі сповіщеннями'], '₴16 600 <small>($400)</small>', '3 × ₴5 600 <small>($134)</small>', 'clients'),
-         ('Лендинг + автоматизація', 'Сайт, який записує клієнтів сам', 'Приймає записи онлайн і надсилає кожну заявку одразу вашій команді.', ['Усе з пакета «Лендинг»', 'Онлайн-запис і календар', 'Заявки в Telegram або CRM'], '₴29 000 <small>($700)</small>', '3 × ₴9 700 <small>($234)</small>', 'service'),
-         ('Багатосторінковий сайт', 'Сайт для бізнесу, що росте', 'Окрема сторінка для кожної послуги, а запис і обробка заявок уже всередині.', ['До 5 сторінок', 'Запис і обробка заявок', 'Аналітика й відстеження заявок', 'Дві мовні версії', 'Пріоритетна підтримка 1 місяць'], '₴49 800 <small>($1 200)</small>', '3 × ₴16 600 <small>($400)</small>', 'redesign')],
-  contact_idx='Контакти', contact_h='Безкоштовний<br>15‑хвилинний розбір', contact_p='Разом подивимося на ваш сайт або ідею й підкажемо, що приведе більше заявок. Безкоштовно й ні до чого не зобов’язує.',
-  side_h='Зручніше напряму?', side=['Телефон', 'Email', 'Instagram'], form_cta='Записатися на розбір',
+  price_idx='Ціни', price_h='Ціни без дзвінків і форм', price_p='Оберіть мету й одразу побачите суму. Остаточну ціну фіксуємо до старту.',
+  pay=['Одним платежем', 'Трьома частинами'], badge='Популярний', plan_cta='Обговорити проєкт', from_='від',
+  price_note='Потрібен Telegram-бот, CRM чи інша функція? Додамо до будь-якого пакета. Ціни в доларах, у гривнях — за курсом НБУ на день оплати.',
+  plans=[('Лендинг', 'Сайт, який приносить заявки', 'Одна сторінка, що пояснює вашу пропозицію й перетворює відвідувачів на заявки.', ['Односторінковий сайт', 'Дизайн і розробка', 'Тексти під ваших клієнтів', 'Форма зі сповіщеннями', 'Місяць підтримки після запуску'], '₴16 800 <small>(≈ $400)</small>', '3 × ₴5 600', 'clients'),
+         ('Лендинг + автоматизація', 'Сайт, який записує клієнтів сам', 'Клієнт сам обирає час, а заявка одразу надходить вашій команді.', ['Усе з пакета «Лендинг»', 'Онлайн-запис і календар', 'Заявки в Telegram або CRM', 'Місяць підтримки після запуску'], '₴29 100 <small>(≈ $700)</small>', '3 × ₴9 700', 'service'),
+         ('Багатосторінковий сайт', 'Сайт для бізнесу, що росте', 'Окрема сторінка для кожної послуги, а запис і обробка заявок уже всередині.', ['До 5 сторінок', 'Запис і обробка заявок', 'Аналітика й відстеження заявок', 'Дві мовні версії', 'Місяць пріоритетної підтримки'], '₴49 800 <small>(≈ $1 200)</small>', '3 × ₴16 600', 'redesign')],
+  contact_idx='Контакти', contact_h='Безкоштовний<br>15‑хвилинний розбір', contact_p='Разом подивимося на ваш сайт або ідею й підкажемо, що приведе більше заявок. Це ні до чого не зобов’язує.',
+  side_h='Зручніше без форми?', side=['Телефон', 'Email', 'Instagram'], form_cta='Записатися на розбір',
   next_steps=[], need='', goals=[('clients', '')],
   f_name='Ім’я', f_email='Email', f_phone='Телефон', err_phone='Вкажіть телефон, щоб ми могли зателефонувати.', reply='Відповімо протягом доби · без спаму',
   done_h='Дякуємо, заявку отримали', done_p='Зв’яжемося протягом доби, щоб домовитися про час дзвінка.',
   err_name='Вкажіть ім’я, щоб ми знали, як до вас звертатися.', err_email='Перевірте email — схоже, адреса неповна.',
   err_net='Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам на mavpy.studio@gmail.com.',
-  foot_tag='Менше шуму.<br>Більше результату.', foot_cols=('Навігація', 'Контакти', 'Студія'), studio=['Дизайн і розробка', 'З 2022 року', 'UA / EN'],
+  foot_tag='Менше шуму.<br>Більше сенсу.', foot_cols=('Навігація', 'Контакти', 'Студія'), studio=['Дизайн і розробка', 'З 2022 року', 'UA / EN'],
   foot_nav='Навігація у футері', top='Нагору ↑', copy='© 2022–2026 MAVPY Design & Dev')
 
 CONTACTS = [('mailto:mavpy.studio@gmail.com', 'mavpy.studio@gmail.com'), ('tel:+380992208343', '+380 99 220 83 43'),
@@ -209,11 +219,11 @@ def page(t, lang):
       <div>
         <p class="mv-kicker a-blur" style="--d:.45s">{t["kicker"]}</p>
         <h1 style="margin:0">
-          <span class="a-mask"><span class="mv-more" data-tilt=""><span class="mv-bars" aria-hidden="true"><i></i><i></i><i></i></span>{t["more"]}</span></span>
+          <span class="a-mask"><span class="mv-more" data-tilt=""><span class="mv-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="mv-more-w">{t["more"]}</span></span></span>
           <span class="a-mask"><span class="mv-clients" data-tilt="" style="--d:.15s">{t["clients"]}</span></span>
         </h1>
       </div>
-      <p class="mv-notjust a-blur" style="--d:.5s">{t["notjust"]}</p>
+      <p class="mv-notjust" data-type="" aria-label="{t["notjust"].replace("<br>", " ")}">{t["notjust"]}</p>
     </div>
     <div class="mv-hero-bottom">
       <p class="mv-hero-note a-blur" style="--d:.6s">{t["hero_note"]}</p>
@@ -242,8 +252,7 @@ def page(t, lang):
     # 02 situation
     cards = ''
     for i, (h, p, fix) in enumerate(t['sit']):
-        k = ('dollar', 'pie', 'chart')[i]
-        ico = ICONS[k].replace('class="ico"', f'class="ico ico--{k}"', 1).replace('<path ', '<path pathLength="1" ')
+        ico = PAIN_ICONS[i]
         cards += (f'<div class="v-card v-pain"><div class="v-pain-top">{ico}</div>'
                   f'<h3 class="v-h3">{h}</h3><p>{p}</p></div>')
     o.append(f'<section class="v-sec v-bg-white" data-reveal=""><div class="v-wrap">{head(2, t["sit_idx"], t["sit_h"], t["sit_p"])}<div class="v-3">{cards}</div></div></section>')
@@ -259,7 +268,7 @@ def page(t, lang):
     arts = ''
     for i, (name, kind, short, im, url, host, task, sol, res) in enumerate(t['cases']):
         cid = f'case-{i+1}'
-        op = i == 0
+        op = False
         dl = ''.join(f'<div{" class=\"res\"" if k == 2 else ""}><dt>{d}</dt><dd>{v}</dd></div>' for k, (d, v) in enumerate(zip(t['dt'], (task, sol, res))))
         arts += f'''<article class="v-case{" is-open" if op else ""}">
   <div class="v-case-row"><span class="v-case-l"><span class="v-num">0{i+1}</span><h3 class="v-case-name">{name}</h3></span><span class="v-case-kind">{kind}</span>
@@ -292,7 +301,7 @@ def page(t, lang):
         lis = ''.join(f'<li>{x}</li>' for x in inc)
         plans += (f'<div class="v-card v-plan{" is-rec" if rec else ""}" data-spot-card=""><div class="v-plan-top"><span class="v-plan-kind">{kind}</span>{f"<span class=\"v-badge\">{t['badge']}</span>" if rec else ""}</div>'
                   f'<h3 class="v-h3">{h}</h3><p>{d}</p><p class="v-price"><span>{t["from_"]}</span><b data-p1="{p1.replace(chr(34), "&quot;")}" data-p3="{p3.replace(chr(34), "&quot;")}">{p1}</b></p>'
-                  f'<ul>{lis}</ul><a class="mv-btn" href="#contact" data-goal="{goal}">{t["cta"]} {ARROW}</a></div>')
+                  f'<ul>{lis}</ul><a class="mv-btn" href="#contact" data-goal="{goal}">{t["plan_cta"]} {ARROW}</a></div>')
     note = f'<p class="v-note">{t["price_note"]}</p>' if t['price_note'] else ''
     o.append(f'''<section id="pricing" class="v-sec v-bg-base" data-reveal=""><div class="v-wrap">{head(7, t["price_idx"], t["price_h"], t["price_p"])}
   <div class="v-pay" role="group" aria-label="{t["pay"][0]} / {t["pay"][1]}"><button type="button" aria-pressed="true" data-pay="1">{t["pay"][0]}</button><button type="button" aria-pressed="false" data-pay="3">{t["pay"][1]}</button></div>
@@ -331,14 +340,30 @@ def page(t, lang):
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
   <div class="v-ticks" aria-hidden="true">{ticks}</div>
-  <p class="v-foot-word" aria-hidden="true" data-fit=""><span>MAVPY</span></p><div class="v-foot-mascot" aria-hidden="true">{img("mascot-3d", "", "", "png")}</div>
+  <p class="v-foot-word v-foot-word--img"><img src="{P}assets/img/footer-wordmark.png" alt="MAVPY" width="1271" height="212" loading="lazy"></p>
   <div class="v-foot-bot"><span>{t["copy"]}</span><a href="#top">{t["top"]}</a></div>
 </div></footer>
 </div>''')
     return '\n'.join(o).replace('{P}', P)
 
 
+NB = '\u00a0'
+def ua_typo(h):
+    def fix(m):
+        x = m.group(1)
+        x = re.sub(r'(?<![\w’\'-])([ВУЗІЙАОвузійао])\s+', lambda k: k.group(1) + NB, x)
+        x = re.sub(r'\s+—', NB + '—', x)
+        x = re.sub(r'(\d)\s+(?=[а-яіїєґА-ЯІЇЄҐ₴$%×])', lambda k: k.group(1) + NB, x)
+        x = re.sub(r'(\d)\s(?=\d{3}\b)', lambda k: k.group(1) + NB, x)
+        return '>' + x + '<'
+    head, body = h.split('<body>', 1)
+    return head + '<body>' + re.sub(r'>([^<>]+)<', fix, body)
+
 def html(lang):
+    out = _html(lang)
+    return ua_typo(out) if lang == 'uk' else out
+
+def _html(lang):
     t = E if lang == 'en' else U
     P = '../' if lang == 'en' else ''
     return f'''<!doctype html>
@@ -353,7 +378,7 @@ def html(lang):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONTS}" rel="stylesheet">
 <link rel="stylesheet" href="{P}styles.css">
-<style>body{{margin:0;background:#F2F2F2}}</style>
+<style>body{{margin:0;background:#F7F5F2}}</style>
 </head>
 <body>
 {page(t, lang)}

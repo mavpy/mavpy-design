@@ -176,15 +176,17 @@ function initMavpy(root) {
     });
   }
 
+  if ('scrollRestoration' in win.history && !win.location.hash) { win.history.scrollRestoration = 'manual'; win.scrollTo(0, 0); }
+
   /* ---------- v3.7: sticky header gets a background once the page scrolls ---------- */
   var headEl = $('.mv-head');
   if (headEl) {
-    var onScrollHead = function () { headEl.classList.toggle('is-stuck', win.scrollY > 8); };
+    var onScrollHead = function () { headEl.classList.toggle('is-stuck', win.scrollY > 24); };
     onScrollHead(); win.addEventListener('scroll', onScrollHead, { passive: true });
   }
 
   /* ---------- v3.7: cards slide up softly when they enter the view, in order ---------- */
-  var cardSel = '.v-fc, .v-pain, .v-flow-step, .v-case, .v-stage, .v-plan, .v-contact--2';
+  var cardSel = '.v-fc, .v-pain, .v-case, .v-stage, .v-plan, .v-contact--2';
   var cards = $$(cardSel);
   if (cards.length && 'IntersectionObserver' in win && !reduce) {
     cards.forEach(function (el) {
@@ -194,7 +196,7 @@ function initMavpy(root) {
     });
     var cio = new win.IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('ri-in'); cio.unobserve(en.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0.2, rootMargin: '0px 0px -18% 0px' });
     cards.forEach(function (el) { cio.observe(el); });
   }
 
@@ -227,16 +229,26 @@ function initMavpy(root) {
     setTimeout(tick, startDelay);
   };
   $$('[data-type]:not([data-type="scroll"])').forEach(function (el) { typeIt(el, 1100); });
-  /* process details: one card after another — 1, then 2, then 3 */
-  var seq = $$('[data-type="scroll"]');
-  if (seq.length && 'IntersectionObserver' in win) {
-    if (!reduce) seq.forEach(function (el) { el.classList.add('tw-wait'); });
-    var runSeq = function (k) { if (k < seq.length) typeIt(seq[k], k ? 120 : 300, function () { runSeq(k + 1); }); };
+  /* process: card 1 slides in → amber line draws down while its text types → then card 2 → then card 3 */
+  var steps = $$('#how .v-flow-step');
+  if (steps.length && 'IntersectionObserver' in win && !reduce) {
+    steps.forEach(function (st) { st.classList.add('pseq'); var m = st.querySelector('[data-type="scroll"]'); if (m) m.classList.add('tw-wait'); });
+    var runStep = function (k) {
+      if (k >= steps.length) return;
+      var st = steps[k], txt = st.querySelector('[data-type="scroll"]');
+      st.classList.add('pseq-in');
+      setTimeout(function () {
+        st.classList.add('pseq-line');
+        if (txt) typeIt(txt, 0, function () { setTimeout(function () { runStep(k + 1); }, 150); });
+        else setTimeout(function () { runStep(k + 1); }, 900);
+      }, 650);
+    };
     var sio = new win.IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) { sio.disconnect(); runSeq(0); }
-    }, { threshold: 0.35 });
-    sio.observe(seq[0].closest('ol, ul, .v-flow') || seq[0]);
+      if (entries[0].isIntersecting) { sio.disconnect(); runStep(0); }
+    }, { threshold: 0.25, rootMargin: '0px 0px -15% 0px' });
+    sio.observe(steps[0]);
   }
+
 
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');

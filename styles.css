@@ -1046,3 +1046,41 @@
 @media (min-width:600px) and (max-width:1199px){:lang(uk) .mv-more{font-size:min(9vw,88px)}:lang(uk) .mv-more-w{max-width:none;width:auto;white-space:nowrap}:lang(uk) .mv-more .mv-bars{align-self:flex-end;height:.72em}}
 @media (min-width:1200px){:lang(uk) .mv-clients{font-size:calc(282 * var(--u))}}
 @media (max-width:1199px){:lang(uk) .mv-clients{font-size:calc((100vw - 40px) * .212);letter-spacing:.01em}}
+
+/* =========================================================
+   v3.10 — Serhii's comments 26.11 (notes/2026-11-26-v3.10-edits.md)
+   ========================================================= */
+/* header: only the background changes on scroll — no height jump, so the hero no longer blinks */
+.mv-head.is-stuck{height:max(72px,calc(108 * var(--u)))}
+/* hero: more air between the three text bands; «НОВІ КЛІЄНТИ» closer to the bars */
+.mv-hero .mv-more{gap:calc(2 * var(--u));margin-left:calc(6 * var(--u))}
+@keyframes mv-bars-left{to{transform:translateX(calc(-6 * var(--u)))}}
+@media (min-width:1200px){
+  .mv-clients{margin-top:calc(56 * var(--u))}
+  .mv-hero-bottom{margin-top:calc(104 * var(--u))}
+}
+@media (max-width:1199px){
+  .mv-hero .mv-more{gap:4px;margin-left:0}
+  @keyframes mv-bars-left{to{transform:none}}
+  .mv-clients{margin-top:20px}
+  .mv-hero-bottom{margin-top:40px}
+}
+/* sound familiar: icons loop all the time, already moving when seen */
+.pi-ln,.pi-dot{animation-delay:-2.2s}
+.pi-bar{animation-delay:-1.4s}.pi-bar:nth-of-type(2){animation-delay:-1.05s}.pi-bar:nth-of-type(3){animation-delay:-.7s}.pi-bar:nth-of-type(4){animation-delay:-.35s}
+.pi-cell{animation-delay:-3s}
+/* cards: slower, clearly visible slide-up */
+.ri{transition-duration:1s,1s}
+/* process: card → amber line draws down while text types → next card */
+.v-flow-side{border-left:0;position:relative}
+.v-flow-side::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--amber-500);transform-origin:50% 0}
+.pseq{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.45,0,.25,1),transform .7s cubic-bezier(.45,0,.25,1)}
+.pseq.pseq-in{opacity:1;transform:none}
+.pseq .v-flow-side::before{transform:scaleY(0);transition:transform 2.6s cubic-bezier(.45,0,.25,1)}
+.pseq.pseq-line .v-flow-side::before{transform:scaleY(1)}
+@media (max-width:1199px){
+  .v-flow-side{border-top:0;padding-top:16px}
+  .v-flow-side::before{right:0;bottom:auto;width:auto;height:2px;transform-origin:0 50%}
+  .pseq .v-flow-side::before{transform:scaleX(0)}
+  .pseq.pseq-line .v-flow-side::before{transform:scaleX(1)}
+}

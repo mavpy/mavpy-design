@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.12 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.13 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

@@ -1150,3 +1150,4 @@
 .v-price > span:first-child{grid-column:1;grid-row:1}
 .v-price b{grid-column:2;grid-row:1;justify-self:start}
 .v-price .v-price-sub{grid-column:2;grid-row:2;flex-basis:auto}
+.pseq .v-flow-side::before{transition-duration:.9s}

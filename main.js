@@ -209,23 +209,32 @@ function initMavpy(root) {
     } else { openFirst(); }
   }
 
-  /* ---------- v3.7: hero — word slides out of the bars; right block is typed ---------- */
-  var typeEl = $('[data-type]');
-  if (typeEl) {
-    var html = typeEl.innerHTML, parts = html.split(/<br\s*\/?>/i);
-    if (reduce) { typeEl.classList.add('is-typed'); }
-    else {
-      typeEl.innerHTML = parts.map(function () { return '<span class="tw-line"></span>'; }).join('<br>');
-      var lines = typeEl.querySelectorAll('.tw-line'), li = 0, ci = 0;
-      var tick = function () {
-        if (li >= parts.length) { typeEl.classList.add('is-typed'); return; }
-        var txt = parts[li].replace(/&nbsp;/g, '\u00a0');
-        lines[li].textContent = txt.slice(0, ++ci);
-        if (ci >= txt.length) { li++; ci = 0; setTimeout(tick, 160); } else { setTimeout(tick, 42); }
-      };
-      setTimeout(tick, 1100);
-    }
-  }
+  /* ---------- v3.8: typed text (hero right block on load, process details on scroll), no caret ---------- */
+  var typeIt = function (el, startDelay) {
+    var parts = el.innerHTML.split(/<br\s*\/?>/i);
+    if (reduce) return;
+    el.style.minHeight = el.offsetHeight + 'px';
+    el.innerHTML = parts.map(function () { return '<span class="tw-line"></span>'; }).join('<br>');
+    el.classList.remove('tw-wait');
+    var lines = el.querySelectorAll('.tw-line'), li = 0, ci = 0;
+    var tick = function () {
+      if (li >= parts.length) { el.classList.add('is-typed'); return; }
+      var tmp = document.createElement('span'); tmp.innerHTML = parts[li];
+      var txt = tmp.textContent;
+      lines[li].textContent = txt.slice(0, ++ci);
+      if (ci >= txt.length) { li++; ci = 0; setTimeout(tick, 140); } else { setTimeout(tick, 28); }
+    };
+    setTimeout(tick, startDelay);
+  };
+  $$('[data-type]').forEach(function (el) {
+    if (el.getAttribute('data-type') !== 'scroll') { typeIt(el, 1100); return; }
+    if (!('IntersectionObserver' in win)) return;
+    if (!reduce) el.classList.add('tw-wait');
+    var tio = new win.IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { tio.disconnect(); typeIt(el, 300); }
+    }, { threshold: 0.6 });
+    tio.observe(el);
+  });
 
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');

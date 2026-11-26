@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.8 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.9 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,7 @@ E = dict(
   html_lang='en', title='MAVPY — websites that bring more clients',
   desc='A small studio that designs and builds websites for growing businesses, then wires in online booking and lead handling. Fixed price, from $400.',
   nav=['How we work', 'Cases', 'Pricing', 'Contact'], menu='Menu', lang_group='Language', cta='Get my estimate',
-  kicker='Websites built around <b>business results</b>', more='MORE', clients='CLIENTS',
+  kicker='Websites built around <b>business results</b>', more='MORE', clients='clients',
   notjust='Not just<br>a new<br>website', hero_note='Scoped, priced upfront,<br>delivered end-to-end.',
   strip=['30+ projects since 2022', 'Fixed price, no surprises', 'Founder-led, direct', 'Reply within 24h',
          'Pay in 3 parts', 'Booking, CRM and bot wired in', 'You own the site and the code'],
@@ -109,7 +109,7 @@ U = dict(
   html_lang='uk', title='MAVPY — сайти, що приводять клієнтів і працюють замість вас',
   desc='Сайти з онлайн-записом і заявками в Telegram або CRM. Від стратегії до запуску й підтримки. Фіксована ціна від 16 800 грн.',
   nav=['Як ми працюємо', 'Кейси', 'Ціни', 'Контакти'], menu='Відкрити меню', lang_group='Мова', cta='Дізнатися вартість',
-  kicker='<b>Сайти, що приводять клієнтів</b> і працюють замість вас', more='НОВІ', clients='КЛІЄНТИ',
+  kicker='<b>Сайти, що приводять клієнтів</b> і працюють замість вас', more='НОВІ КЛІЄНТИ', clients='стабільно',
   notjust='Ваш час — для бізнесу,<br>а не для переписок', hero_note='Робимо все: від стратегії до запуску.<br>Ви погоджуєте лише ключове.',
   strip=['30+ проєктів з 2022 року', 'Фіксована ціна без сюрпризів', 'Працюєте безпосередньо із засновником', 'Відповідаємо протягом доби', 'Оплата трьома частинами', 'Запис, CRM і бот — під ключ', 'Сайт і код належать вам'],
   strip_label='Чому обирають нас',
@@ -332,13 +332,13 @@ def page(t, lang):
     fnav = ''.join(f'<a href="{h}">{n}</a>' for h, n in zip(anchors, t['nav']))
     fico = {'mailto': 'mail', 'tel': 'phone', 'https://instagram': 'insta', 'https://t.me': 'tg'}
     fcon = ''.join(f'<a class="v-foot-ic" href="{h}"{" target=\"_blank\" rel=\"noopener\"" if h.startswith("http") else ""}>{ICONS[next(v for k, v in fico.items() if h.startswith(k))]}<span>{l.replace("Instagram ", "").replace("Telegram ", "")}</span></a>' for h, l in CONTACTS)
-    ticks = ''.join(f'<span>{k:02d}</span>' for k in range(1, 13))
     c = t['foot_cols']
     o.append(f'''<footer class="v-foot"><div class="v-wrap">
   <div class="v-foot-top"><div><img class="v-foot-logo" src="{P}assets/img/logo-light.svg" alt="MAVPY design &amp; dev" loading="lazy"><p class="v-foot-tag">{t["foot_tag"]}</p></div>
     <nav aria-label="{t["foot_nav"]}"><p class="v-foot-h">{c[0]}</p>{fnav}</nav>
     <div><p class="v-foot-h">{c[1]}</p>{fcon}</div>
     <div><p class="v-foot-h">{c[2]}</p>{''.join(f"<span>{s}</span>" for s in t["studio"])}</div></div>
+  <div class="v-ticks v-ticks--line" aria-hidden="true"></div>
   <p class="v-foot-word v-foot-word--img"><img src="{P}assets/img/footer-wordmark.png" alt="MAVPY" width="1271" height="212" loading="lazy"></p>
   <div class="v-foot-bot"><span>{t["copy"]}</span><a href="#top">{t["top"]}</a></div>
 </div></footer>

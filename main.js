@@ -153,7 +153,8 @@ function initMavpy(root) {
     btn.addEventListener('click', function () {
       payBtns.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
       var key = btn.dataset.pay === '3' ? 'p3' : 'p1';
-      $$('.v-price b').forEach(function (b) { b.style.opacity = '0'; setTimeout(function () { b.innerHTML = b.dataset[key]; b.style.opacity = '1'; }, 160); });
+      $$('.v-price').forEach(function (pr) { pr.classList.toggle('is-3', key === 'p3'); });
+      $$('.v-price [data-p1]').forEach(function (b) { b.style.opacity = '0'; setTimeout(function () { b.innerHTML = b.dataset[key]; b.style.opacity = '1'; }, 160); });
     });
   });
 
@@ -177,6 +178,12 @@ function initMavpy(root) {
   }
 
   if ('scrollRestoration' in win.history && !win.location.hash) { win.history.scrollRestoration = 'manual'; win.scrollTo(0, 0); }
+  /* v3.11: the page always opens at the very top (no anchor) — also after fonts/images settle and on back-forward */
+  if (!win.location.hash) {
+    var toTop = function () { if (win.scrollY < 400) win.scrollTo(0, 0); };
+    win.addEventListener('load', toTop);
+    win.addEventListener('pageshow', function (e) { if (e.persisted) win.scrollTo(0, 0); });
+  }
 
   /* ---------- v3.7: sticky header gets a background once the page scrolls ---------- */
   var headEl = $('.mv-head');
@@ -212,7 +219,8 @@ function initMavpy(root) {
   }
 
   /* ---------- v3.8: typed text (hero right block on load, process details on scroll), no caret ---------- */
-  var typeIt = function (el, startDelay, done) {
+  var typeIt = function (el, startDelay, done, speed) {
+    speed = speed || 28;
     var parts = el.innerHTML.split(/<br\s*\/?>/i);
     if (reduce) { if (done) done(); return; }
     el.style.minHeight = el.offsetHeight + 'px';
@@ -224,12 +232,13 @@ function initMavpy(root) {
       var tmp = document.createElement('span'); tmp.innerHTML = parts[li];
       var txt = tmp.textContent;
       lines[li].textContent = txt.slice(0, ++ci);
-      if (ci >= txt.length) { li++; ci = 0; setTimeout(tick, 140); } else { setTimeout(tick, 28); }
+      if (ci >= txt.length) { li++; ci = 0; setTimeout(tick, speed * 5); } else { setTimeout(tick, speed); }
     };
     setTimeout(tick, startDelay);
   };
   $$('[data-type]:not([data-type="scroll"])').forEach(function (el) { typeIt(el, 1100); });
-  /* process: card 1 slides in → amber line draws down while its text types → then card 2 → then card 3 */
+  /* process (v3.11): each card slides in; the moment it lands the amber line draws and its text types fast;
+     the next card starts when the previous one is ~2/3 in — one smooth chain 1 → 2 → 3 */
   var steps = $$('#how .v-flow-step');
   if (steps.length && 'IntersectionObserver' in win && !reduce) {
     steps.forEach(function (st) { st.classList.add('pseq'); var m = st.querySelector('[data-type="scroll"]'); if (m) m.classList.add('tw-wait'); });
@@ -239,9 +248,9 @@ function initMavpy(root) {
       st.classList.add('pseq-in');
       setTimeout(function () {
         st.classList.add('pseq-line');
-        if (txt) typeIt(txt, 0, function () { setTimeout(function () { runStep(k + 1); }, 150); });
-        else setTimeout(function () { runStep(k + 1); }, 900);
-      }, 650);
+        if (txt) typeIt(txt, 0, null, 11);
+      }, 180);
+      setTimeout(function () { runStep(k + 1); }, 470);
     };
     var sio = new win.IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) { sio.disconnect(); runStep(0); }
@@ -250,6 +259,38 @@ function initMavpy(root) {
   }
 
 
+  /* ---------- v3.11: hero — the big word fills the container exactly (UA and EN, every width);
+     on tablet/mobile «НОВІ КЛІЄНТИ» stays on one line and fills the width like «MORE» ---------- */
+  var heroIn = $('.mv-hero-in'), heroBig = $('.mv-hero .mv-clients'), heroTop = $('.mv-hero .mv-more');
+  if (heroIn && heroBig) {
+    var isUa = (doc.documentElement.lang || '').indexOf('uk') === 0;
+    var natural = function (el, disp) {
+      var od = el.style.display, ow = el.style.width; el.style.display = disp; el.style.width = 'max-content';
+      var w = el.getBoundingClientRect().width; el.style.display = od; el.style.width = ow; return w;
+    };
+    var fitHero = function () {
+      var cs = win.getComputedStyle(heroIn);
+      var W = heroIn.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      heroBig.style.fontSize = '100px';
+      var w = natural(heroBig, 'inline-block');
+      if (w) heroBig.style.fontSize = (100 * W / w).toFixed(2) + 'px';
+      if (isUa && heroTop) {
+        heroTop.style.fontSize = '';
+        if (win.innerWidth < 1200) {
+          var word = heroTop.querySelector('.mv-more-w'), bars = heroTop.querySelector('.mv-bars');
+          heroTop.style.fontSize = '100px';
+          var tw = word ? natural(word, 'inline-block') : 0;
+          var gap = parseFloat(win.getComputedStyle(heroTop).columnGap) || 0;
+          var room = W - (bars ? bars.getBoundingClientRect().width + gap : 0) - 2;
+          if (tw) heroTop.style.fontSize = (100 * room / tw).toFixed(2) + 'px';
+        }
+      }
+    };
+    fitHero();
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(fitHero);
+    win.addEventListener('resize', fitHero);
+  }
+
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');
   if (fit) {
@@ -257,7 +298,7 @@ function initMavpy(root) {
     var fitWord = function () {
       fit.style.fontSize = '100px';
       var w = word.getBoundingClientRect().width;
-      if (w) fit.style.fontSize = (100 * fit.clientWidth / w).toFixed(2) + 'px';
+      if (w) fit.style.fontSize = (99 * fit.clientWidth / w).toFixed(2) + 'px';
     };
     fitWord();
     if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(fitWord);

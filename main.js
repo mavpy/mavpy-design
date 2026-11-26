@@ -87,7 +87,7 @@ function initMavpy(root) {
   /* ---------- Mascot: scale 1 → 1.14 from the bottom-left corner while scrolling ---------- */
   var mascot = $('[data-mascot]');
   var reduce = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (mascot && !reduce && !root.classList.contains('m-off') && win.matchMedia('(min-width: 1024px)').matches) {
+  if (mascot && !reduce && !root.classList.contains('m-off') && win.matchMedia('(min-width: 1200px)').matches) {
     var ticking = false;
     var update = function () {
       var r = mascot.getBoundingClientRect();
@@ -210,15 +210,15 @@ function initMavpy(root) {
   }
 
   /* ---------- v3.8: typed text (hero right block on load, process details on scroll), no caret ---------- */
-  var typeIt = function (el, startDelay) {
+  var typeIt = function (el, startDelay, done) {
     var parts = el.innerHTML.split(/<br\s*\/?>/i);
-    if (reduce) return;
+    if (reduce) { if (done) done(); return; }
     el.style.minHeight = el.offsetHeight + 'px';
     el.innerHTML = parts.map(function () { return '<span class="tw-line"></span>'; }).join('<br>');
     el.classList.remove('tw-wait');
     var lines = el.querySelectorAll('.tw-line'), li = 0, ci = 0;
     var tick = function () {
-      if (li >= parts.length) { el.classList.add('is-typed'); return; }
+      if (li >= parts.length) { el.classList.add('is-typed'); if (done) done(); return; }
       var tmp = document.createElement('span'); tmp.innerHTML = parts[li];
       var txt = tmp.textContent;
       lines[li].textContent = txt.slice(0, ++ci);
@@ -226,15 +226,17 @@ function initMavpy(root) {
     };
     setTimeout(tick, startDelay);
   };
-  $$('[data-type]').forEach(function (el) {
-    if (el.getAttribute('data-type') !== 'scroll') { typeIt(el, 1100); return; }
-    if (!('IntersectionObserver' in win)) return;
-    if (!reduce) el.classList.add('tw-wait');
-    var tio = new win.IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) { tio.disconnect(); typeIt(el, 300); }
-    }, { threshold: 0.6 });
-    tio.observe(el);
-  });
+  $$('[data-type]:not([data-type="scroll"])').forEach(function (el) { typeIt(el, 1100); });
+  /* process details: one card after another — 1, then 2, then 3 */
+  var seq = $$('[data-type="scroll"]');
+  if (seq.length && 'IntersectionObserver' in win) {
+    if (!reduce) seq.forEach(function (el) { el.classList.add('tw-wait'); });
+    var runSeq = function (k) { if (k < seq.length) typeIt(seq[k], k ? 120 : 300, function () { runSeq(k + 1); }); };
+    var sio = new win.IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { sio.disconnect(); runSeq(0); }
+    }, { threshold: 0.35 });
+    sio.observe(seq[0].closest('ol, ul, .v-flow') || seq[0]);
+  }
 
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');

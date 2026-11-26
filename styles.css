@@ -87,7 +87,7 @@
 .mv-burger{display:none;width:44px;height:44px;border-radius:var(--r-btn);border:1.5px solid var(--black);background:none;cursor:pointer;align-items:center;justify-content:center}
 .mv-mnav{display:grid;gap:4px;padding-bottom:20px;border-bottom:1px solid var(--line)}
 .mv-mnav[hidden]{display:none}
-@media (min-width:1024px){.mv-mnav{display:none !important}}
+@media (min-width:1200px){.mv-mnav{display:none !important}}
 .mv-mnav a.n{text-decoration:none;padding:12px 0;font-weight:500;font-size:18px;text-transform:uppercase}
 
 /* ---------- hero (1:1 with the current site, measured at 1920) ---------- */
@@ -330,7 +330,7 @@
 .m-off .mv-track{animation:none}
 
 /* ---------- tablet & mobile ---------- */
-@media (max-width:1023px){
+@media (max-width:1199px){
   .mv{--container:calc(100vw - 40px);--wide:calc(100vw - 40px)}
   .mv-nav{display:none}
   .mv-burger{display:inline-flex}
@@ -379,7 +379,7 @@
 .v-done[hidden],[data-form-fields][hidden]{display:none}
 .v-foot-logo{display:block;height:max(36px,calc(48 * var(--u)));width:auto;margin-bottom:max(24px,calc(40 * var(--u)))}
 .v-foot-top > div:first-child{gap:0}
-@media (max-width:1023px){.v-foot-top > div:first-child{grid-column:1/-1}}
+@media (max-width:1199px){.v-foot-top > div:first-child{grid-column:1/-1}}
 .v-foot-top > div:first-child{align-items:flex-start}
 
 /* =========================================================
@@ -428,7 +428,7 @@
 .v-foot-tag{font-family:var(--f-body);font-weight:300;line-height:1.1}
 .v-foot-word{font-size:calc(var(--wide) * .172)}
 :lang(uk) .v-foot-word{font-size:calc(var(--wide) * .131)}
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-head > div{align-items:flex-start;text-align:left}
   .v-feat{grid-template-columns:minmax(0,1fr)}
   .v-feat-shot .v-shot{aspect-ratio:16/10}
@@ -468,7 +468,7 @@
 .v-field span{font-family:var(--f-body);font-weight:500;font-size:15px;color:var(--text-2)}
 .v-in{height:52px;padding:0 16px;border:1px solid rgba(15,15,15,.3);border-radius:8px;background:var(--white);font-size:17px}
 .v-in:focus{border-color:var(--amber-600);box-shadow:0 0 0 3px rgba(255,171,1,.25)}
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-head{grid-template-columns:minmax(0,1fr)}
   .v-head .v-idx{order:-1;flex-direction:row;align-items:center;text-align:left}
   .v-member-photo{max-width:360px;aspect-ratio:4/4.4}
@@ -555,7 +555,7 @@
 .mv-burger[aria-expanded="true"] .mv-burger-ico i:last-child{top:5px;transform:rotate(-45deg)}
 .mv-mnav{position:absolute;z-index:50;left:0;right:0;width:auto;max-width:none;top:max(72px,calc(108 * var(--u)));margin:0;padding:8px 20px 24px;background:var(--grey-100);border-bottom:1px solid var(--line);box-shadow:0 24px 32px -24px rgba(15,15,15,.35)}
 
-@media (max-width:1023px){
+@media (max-width:1199px){
   .mv{--container:calc(100vw - 40px);--wide:calc(100vw - 40px)}
   .v-fc{grid-template-columns:minmax(0,1fr)}
   .v-fc-shot{order:2}
@@ -580,7 +580,7 @@
 .v-case-shot{align-self:stretch;display:flex}
 .v-case-shot img{height:100%;min-height:100%;aspect-ratio:auto;flex:1}
 .v-plan > p:not(.v-price){min-height:4.4em}
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-case-row{grid-template-columns:auto minmax(0,1fr) 52px}
   .v-case-shot img{aspect-ratio:16/10;height:auto}
   .v-plan > p:not(.v-price){min-height:0}
@@ -603,7 +603,7 @@
 .mv-scrim{position:fixed;inset:0;z-index:40;background:rgba(242,242,242,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .25s var(--ease),visibility 0s .25s}
 .mv.is-menu .mv-scrim{opacity:1;visibility:visible;transition:opacity .25s var(--ease)}
 .mv-head{position:relative;z-index:51}
-@media (min-width:1024px){.mv-scrim{display:none}}
+@media (min-width:1200px){.mv-scrim{display:none}}
 
 /* 01 featured case: one light panel, plain screenshot, one outline button on the screenshot's bottom line */
 .v-fc{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:max(20px,calc(48 * var(--u)));align-items:stretch}
@@ -662,7 +662,7 @@
 .v-foot-ic{display:inline-flex;align-items:center;gap:10px}
 .v-foot-ic .ico{width:20px;height:20px;flex:none}
 
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-fc{display:flex;flex-direction:column;gap:0}
   .v-fc-txt{display:contents}
   .v-fc-txt .v-idx{order:1}.v-fc-txt .v-h2{order:2}.v-fc-sub{order:3}.v-fc-txt .v-lead{order:4}
@@ -688,8 +688,8 @@
 .v-fc .v-stats b{white-space:nowrap;font-size:max(24px,calc(34 * var(--u)))}
 .v-dark .mv-btn--ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
 .v-dark .mv-btn--ghost:hover{background:var(--white);color:var(--black)}
-@media (max-width:1023px){.v-case-kind{justify-self:start;text-align:left}}
-@media (max-width:1023px){
+@media (max-width:1199px){.v-case-kind{justify-self:start;text-align:left}}
+@media (max-width:1199px){
   .v-case-row .v-case-l{grid-column:1;grid-row:1}
   .v-case-row .v-case-kind{grid-column:1;grid-row:2;justify-self:start;padding-left:calc(14px + 2ch)}
   .v-case-row .mv-tog{grid-column:auto;grid-row:auto}
@@ -751,7 +751,7 @@
 .v-plaque:hover strong{color:var(--amber-700)}
 .v-contact--2 .v-form{border:2px solid var(--amber-500);background:var(--white)}
 
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-flow{grid-template-columns:minmax(0,1fr)}
   .v-fc-shot .v-shot{min-height:0}
   .v-contact--2{padding:16px}
@@ -850,7 +850,7 @@
 .v-foot-mascot{display:flex;justify-content:center;margin-top:max(24px,calc(40 * var(--u)))}
 .v-foot-mascot img{width:max(120px,calc(180 * var(--u)));height:auto}
 
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-fc-txt .v-actions{justify-content:center;width:100%}
   .v-fc-txt .v-actions .mv-btn{width:auto;font-size:18px;padding:0 28px}
   .v-fc-txt .v-actions .mv-btn .ar{font-size:20px}
@@ -866,7 +866,7 @@
 .mv-hero .mv-more[data-tilt]{display:inline-flex}
 .v-case-shot{background:transparent}
 .v-case-shot img{border-radius:10px}
-@media (max-width:1023px){
+@media (max-width:1199px){
   .v-fc{align-items:stretch}
   :lang(uk) .mv-more{font-size:min(13vw,96px);flex-wrap:nowrap;white-space:nowrap}
 }
@@ -968,7 +968,7 @@
 .ri.ri-in{opacity:1;transform:none}
 .v-plan.ri:not(.ri-in){transform:translateY(28px) !important}
 
-@media (max-width:1023px){
+@media (max-width:1199px){
   :lang(uk) .mv-more{font-size:min(14vw,72px);flex-wrap:wrap;white-space:normal;line-height:.9}
   :lang(uk) .mv-more-w{max-width:7ch}
   :lang(uk) .mv-notjust{font-size:24px;line-height:26px}
@@ -979,7 +979,7 @@
 /* v3.7 fix: thin word fits the 1920 frame; bold word gets air between letters */
 :lang(uk) .mv-clients{font-size:calc(336 * var(--u));letter-spacing:.015em}
 :lang(uk) .mv-more-w{letter-spacing:.025em}
-@media (max-width:1023px){:lang(uk) .mv-more{flex-wrap:nowrap;align-items:flex-start}:lang(uk) .mv-more .mv-bars{align-self:flex-start;height:.62em;margin-top:.06em}:lang(uk) .mv-more-w{max-width:none;white-space:normal;width:min-content}}
+@media (max-width:1199px){:lang(uk) .mv-more{flex-wrap:nowrap;align-items:flex-start}:lang(uk) .mv-more .mv-bars{align-self:flex-start;height:.62em;margin-top:.06em}:lang(uk) .mv-more-w{max-width:none;white-space:normal;width:min-content}}
 
 /* =========================================================
    v3.8 — Serhii's cards on «✏️ Правки и контент → v3.8» (notes/2026-11-26-v3.8-edits.md)
@@ -991,16 +991,9 @@
 .mv-btn--ghost:hover,.v-dark .mv-btn--ghost:hover{color:var(--white);background:rgba(255,255,255,.08);transform:translateY(-1px) scale(1.03)}
 .v-case-act .mv-btn--amber:hover{box-shadow:inset 0 0 0 1px var(--amber-500)}
 
-/* hero: calmer — no cursor light, no tilt; every line starts at the container's left edge; more air between tiers */
+/* hero: no cursor light, no tilt (layout as in v3.7) */
 .mv-hero .mv-more,.mv-hero .mv-clients{transform:none !important}
-.mv-hero-top{display:flex;flex-direction:column;align-items:flex-start}
-.mv-clients,:lang(uk) .mv-clients{font-size:calc(300 * var(--u));letter-spacing:.02em;line-height:.86;margin:calc(20 * var(--u)) 0 0 calc(-4 * var(--u))}
-.mv-notjust,.mv-notjust[data-type]{position:static;text-align:left;margin:calc(72 * var(--u)) 0 0;min-height:0}
-:lang(uk) .mv-notjust{font-size:calc(40 * var(--u));line-height:calc(44 * var(--u))}
 .mv-notjust .tw-line::after,.mv-notjust .tw-line:last-child::after{content:none !important;display:none !important}
-.mv-hero-bottom{justify-content:flex-start;margin-top:calc(72 * var(--u));gap:calc(40 * var(--u))}
-.mv-hero-bottom .mv-hero-note{order:2}
-.mv-hero-bottom .mv-btn{order:1}
 
 /* process: the hero grid as a quiet background; blocks ~10% taller; detail text is typed */
 .v-bg-grid{background-image:linear-gradient(rgba(15,15,15,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,15,15,.045) 1px,transparent 1px);background-size:calc(80 * var(--u)) calc(80 * var(--u))}
@@ -1022,18 +1015,34 @@
 .v-foot-tag{font-size:max(26px,calc(44 * var(--u)))}
 .v-ticks{display:none}
 
-@media (max-width:1023px){
-  .mv-clients,:lang(uk) .mv-clients{font-size:calc((100vw - 40px) * .2);margin-top:12px}
-  .mv-notjust,:lang(uk) .mv-notjust{order:0;align-self:flex-start;font-size:24px;line-height:28px;margin-top:32px}
-  .mv-hero-bottom{margin-top:32px;align-items:stretch}
-  .mv-hero-bottom .mv-hero-note{order:1}
-  .mv-hero-bottom .mv-btn{order:2}
-  :lang(uk) .mv-more{flex-wrap:nowrap;align-items:flex-end;font-size:min(16vw,80px)}
-  :lang(uk) .mv-more .mv-bars{align-self:flex-end;height:.72em;margin-top:0}
-  :lang(uk) .mv-more-w{width:auto}
+@media (max-width:1199px){
   .v-fc-txt{height:auto}
   .v-flow-step{padding-block:28px}
 }
 .v-flow-side .v-flow-more{font-size:var(--fs-body);font-weight:400;line-height:1.5;color:var(--ink)}
 .v-fc .v-stats{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,.6fr)}
-@media (max-width:1023px){.v-fc .v-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1199px){.v-fc .v-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* =========================================================
+   v3.9 — Serhii's comments 26.11 (notes/2026-11-26-v3.9-edits.md)
+   ========================================================= */
+/* buttons: «.mv a:hover» turned link text amber-700 — button text stays black (white on dark outline) */
+.mv a.mv-btn:hover,.mv a.mv-btn:focus-visible,.mv button.mv-btn:hover,.mv .mv-btn--amber:hover,.mv .mv-btn--line:hover{color:var(--black)}
+.mv .v-dark a.mv-btn--amber:hover,.mv .v-dark a.mv-btn--ghost:hover,.mv a.mv-btn--ghost:hover{color:var(--white)}
+/* hero: left words start exactly at the logo's left edge; the rest stays where it was */
+.mv-hero .mv-more{margin-left:0}
+.mv-hero .mv-clients{margin-left:-.035em}
+/* footer: the ruler numbers are gone, the thin line stays */
+.v-ticks{display:block;height:0;padding:0;border-top:1px solid var(--graphite)}
+.v-ticks span{display:none}
+.v-ticks--line{margin-bottom:max(24px,calc(40 * var(--u)))}
+.mv-hero .mv-more{margin-left:calc(14 * var(--u))}
+/* tablet (≤1199): one-column layout, burger menu — the 3-column cards no longer squeeze at 1024 */
+@media (max-width:1199px){
+  .mv-bars{gap:min(1.4vw,8px)}
+  .mv-bars i:nth-child(1){width:min(2vw,11px)}.mv-bars i:nth-child(2){width:min(1.5vw,8px)}.mv-bars i:nth-child(3){width:min(4.6vw,26px)}
+  .v-member-photo{max-width:440px}
+}
+@media (min-width:600px) and (max-width:1199px){:lang(uk) .mv-more{font-size:min(9vw,88px)}:lang(uk) .mv-more-w{max-width:none;width:auto;white-space:nowrap}:lang(uk) .mv-more .mv-bars{align-self:flex-end;height:.72em}}
+@media (min-width:1200px){:lang(uk) .mv-clients{font-size:calc(282 * var(--u))}}
+@media (max-width:1199px){:lang(uk) .mv-clients{font-size:calc((100vw - 40px) * .212);letter-spacing:.01em}}

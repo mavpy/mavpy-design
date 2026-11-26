@@ -244,15 +244,17 @@ function initMavpy(root) {
     steps.forEach(function (st) { st.classList.add('pseq'); var m = st.querySelector('[data-type="scroll"]'); if (m) m.classList.add('tw-wait'); });
     /* v3.12: cards slide in one after another without pauses; once all are in, texts type —
        card 1, card 2 0.7 s later, card 3 another 0.7 s later (overlapping); each line draws with its text */
+    /* v3.13: cards slide in top to bottom; each card's text types fast the moment that card has landed */
     var runStep = function () {
-      steps.forEach(function (st, k) { setTimeout(function () { st.classList.add('pseq-in'); }, k * 220); });
-      var allIn = (steps.length - 1) * 220 + 700;
       steps.forEach(function (st, k) {
         setTimeout(function () {
-          st.classList.add('pseq-line');
-          var txt = st.querySelector('[data-type="scroll"]');
-          if (txt) typeIt(txt, 0, null, 18);
-        }, allIn + k * 700);
+          st.classList.add('pseq-in');
+          setTimeout(function () {
+            st.classList.add('pseq-line');
+            var txt = st.querySelector('[data-type="scroll"]');
+            if (txt) typeIt(txt, 0, null, 8);
+          }, 450);
+        }, k * 220);
       });
     };
     var sio = new win.IntersectionObserver(function (entries) {

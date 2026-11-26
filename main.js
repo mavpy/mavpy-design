@@ -176,6 +176,57 @@ function initMavpy(root) {
     });
   }
 
+  /* ---------- v3.7: sticky header gets a background once the page scrolls ---------- */
+  var headEl = $('.mv-head');
+  if (headEl) {
+    var onScrollHead = function () { headEl.classList.toggle('is-stuck', win.scrollY > 8); };
+    onScrollHead(); win.addEventListener('scroll', onScrollHead, { passive: true });
+  }
+
+  /* ---------- v3.7: cards slide up softly when they enter the view, in order ---------- */
+  var cardSel = '.v-fc, .v-pain, .v-flow-step, .v-case, .v-stage, .v-plan, .v-contact--2';
+  var cards = $$(cardSel);
+  if (cards.length && 'IntersectionObserver' in win && !reduce) {
+    cards.forEach(function (el) {
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.matches(cardSel); });
+      el.style.setProperty('--ri', sibs.indexOf(el));
+      el.classList.add('ri');
+    });
+    var cio = new win.IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('ri-in'); cio.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    cards.forEach(function (el) { cio.observe(el); });
+  }
+
+  /* ---------- v3.7: the first case opens by itself when the cases block scrolls in ---------- */
+  var acc = $('[data-accordion]');
+  if (acc && tog.length) {
+    var opened = false;
+    var openFirst = function () { if (!opened && tog[0].getAttribute('aria-expanded') !== 'true') { opened = true; tog[0].click(); } };
+    if ('IntersectionObserver' in win) {
+      var aio = new win.IntersectionObserver(function (entries) { if (entries[0].isIntersecting) { openFirst(); aio.disconnect(); } }, { threshold: 0.25 });
+      aio.observe(acc);
+    } else { openFirst(); }
+  }
+
+  /* ---------- v3.7: hero — word slides out of the bars; right block is typed ---------- */
+  var typeEl = $('[data-type]');
+  if (typeEl) {
+    var html = typeEl.innerHTML, parts = html.split(/<br\s*\/?>/i);
+    if (reduce) { typeEl.classList.add('is-typed'); }
+    else {
+      typeEl.innerHTML = parts.map(function () { return '<span class="tw-line"></span>'; }).join('<br>');
+      var lines = typeEl.querySelectorAll('.tw-line'), li = 0, ci = 0;
+      var tick = function () {
+        if (li >= parts.length) { typeEl.classList.add('is-typed'); return; }
+        var txt = parts[li].replace(/&nbsp;/g, '\u00a0');
+        lines[li].textContent = txt.slice(0, ++ci);
+        if (ci >= txt.length) { li++; ci = 0; setTimeout(tick, 160); } else { setTimeout(tick, 42); }
+      };
+      setTimeout(tick, 1100);
+    }
+  }
+
   /* ---------- v3.3: footer wordmark stretches to the full content width ---------- */
   var fit = $('[data-fit]');
   if (fit) {

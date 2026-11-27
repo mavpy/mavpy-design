@@ -1213,3 +1213,6 @@ section[id]{scroll-margin-top:max(72px,calc(108 * var(--u)))}
   .mv-hero .mv-notjust br.br-d{display:none}
   .mv-hero .mv-notjust,:lang(uk) .mv-hero .mv-notjust{font-size:clamp(34px,10vw,60px);line-height:1}
 }
+/* UA big word «клієнти»: letters 1–2 px further apart */
+:lang(uk) .mv-hero .mv-clients{letter-spacing:calc(.015em + 2px)}
+@media (max-width:1199px){:lang(uk) .mv-hero .mv-clients{letter-spacing:calc(.015em + 1px)}}

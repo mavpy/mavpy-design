@@ -177,12 +177,56 @@ function initMavpy(root) {
     });
   }
 
-  if ('scrollRestoration' in win.history && !win.location.hash) { win.history.scrollRestoration = 'manual'; win.scrollTo(0, 0); }
-  /* v3.11: the page always opens at the very top (no anchor) — also after fonts/images settle and on back-forward */
-  if (!win.location.hash) {
-    var toTop = function () { if (win.scrollY < 400) win.scrollTo(0, 0); };
-    win.addEventListener('load', toTop);
-    win.addEventListener('pageshow', function (e) { if (e.persisted) win.scrollTo(0, 0); });
+  /* v3.14: the page always opens at the very top, under the header — even after a menu link put a #anchor in the URL;
+     menu links scroll to their section without writing the anchor into the address */
+  if ('scrollRestoration' in win.history) win.history.scrollRestoration = 'manual';
+  if (win.location.hash && win.history.replaceState) win.history.replaceState(null, '', win.location.pathname + win.location.search);
+  win.scrollTo(0, 0);
+  win.addEventListener('load', function () { win.scrollTo(0, 0); });
+  win.addEventListener('pageshow', function (e) { if (e.persisted) win.scrollTo(0, 0); });
+  doc.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    var target = id ? doc.getElementById(id) : null;
+    if (!target && id !== 'top' && id !== '') return;
+    e.preventDefault();
+    if (target) {
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      /* content above can grow while we travel (a case opens, cards reveal) — settle on the section */
+      var tries = 0, settle = function () {
+        var off = parseFloat(getComputedStyle(target).scrollMarginTop) || 0, d = target.getBoundingClientRect().top - off;
+        if (Math.abs(d) > 4 && tries++ < 4) { target.scrollIntoView({ behavior: 'auto', block: 'start' }); setTimeout(settle, 250); }
+      };
+      setTimeout(settle, 900);
+    }
+    else win.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* v3.14: on phones the reviews stop running — one review in the centre, ← → to page through */
+  var revBox = $('[data-revs]'), revNav = $('.v-rev-nav');
+  if (revBox && revNav) {
+    var phone = win.matchMedia('(max-width: 600px)');
+    var all = Array.prototype.slice.call(revBox.querySelectorAll('.v-review:not([aria-hidden])'));
+    var n = Math.round(all.length / 2) || all.length, cards = all.slice(0, n), cur = 0;
+    var count = revNav.querySelector('.v-rev-count');
+    var show = function () {
+      cards.forEach(function (c, k) { c.classList.toggle('is-active', k === cur); });
+      if (count) count.textContent = (cur + 1) + ' / ' + n;
+    };
+    var setMode = function () {
+      var on = phone.matches;
+      revBox.classList.toggle('is-slider', on);
+      revNav.setAttribute('aria-hidden', on ? 'false' : 'true');
+      revNav.querySelectorAll('button').forEach(function (b) { b.tabIndex = on ? 0 : -1; });
+      show();
+    };
+    revNav.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-dir]'); if (!b) return;
+      cur = (cur + Number(b.getAttribute('data-dir')) + n) % n; show();
+    });
+    if (phone.addEventListener) phone.addEventListener('change', setMode); else phone.addListener(setMode);
+    setMode();
   }
 
   /* ---------- v3.7: sticky header gets a background once the page scrolls ---------- */

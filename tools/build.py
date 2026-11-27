@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.13 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.14 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -74,7 +74,7 @@ E = dict(
      'Owners of industrial roofs don’t see solar as income, and B2B decisions take <b>months</b>.',
      'Headline: “Your roof is an untapped financial asset”. An ROI calculator on the first screen: payback in <b>5–7 years</b>.',
      'Visitors see <b>their own payback</b> before the first call, so sales talks start further along.')],
-  rev_idx='Reviews', rev_h='Client reviews', rev_p='Reviews from people we’ve already launched with.',
+  rev_prev='Previous review', rev_next='Next review', rev_idx='Reviews', rev_h='Client reviews', rev_p='Reviews from people we’ve already launched with.',
   reviews=[
     ('review-natalia-srt', 'Natalia M.', 'SRT · online booking', 'Booking used to eat half my administrator’s day. Now it runs on its own and patients just show up. Serhii handled everything, I barely had to step in.'),
     ('review-ivan', 'Ivan V.', 'Doctor LOR · new site and booking', 'We had visitors but almost no enquiries. Serhii didn’t just redesign, he asked why people were leaving first. That’s the difference. The form finally started filling.'),
@@ -147,7 +147,7 @@ U = dict(
      'Власники промислових дахів не бачать у сонячній станції доходу, а рішення в B2B ухвалюють <b>місяцями</b>.',
      'Заголовок «Ваш дах — фінансовий актив, який простоює». Калькулятор окупності на першому екрані: <b>5–7 років</b>.',
      'Ще до дзвінка відвідувач бачить <b>власні цифри окупності</b>, тож переговори починаються не з нуля.')],
-  rev_idx='Відгуки', rev_h='Відгуки наших клієнтів', rev_p='Відгуки тих, з ким ми вже запустили сайт.',
+  rev_idx='Відгуки', rev_prev='Попередній відгук', rev_next='Наступний відгук', rev_h='Відгуки наших клієнтів', rev_p='Відгуки тих, з ким ми вже запустили сайт.',
   reviews=[
     ('review-natalia-srt', 'Наталія М.', 'SRT · онлайн-запис', 'Запис забирав у мого адміністратора пів робочого дня. Тепер він працює сам, а пацієнти просто приходять. Сергій зробив усе, мені майже не довелося втручатися.'),
     ('review-ivan', 'Іван В.', 'Doctor LOR · новий сайт і запис', 'Відвідувачі були, а заявок — майже ні. Сергій спершу з’ясував, чому люди йдуть, і лише потім узявся за дизайн. Форма нарешті почала заповнюватися.'),
@@ -293,7 +293,8 @@ def page(t, lang):
         return ''.join(f'<figure class="v-card v-review"{" aria-hidden=\"true\"" if hid else ""}><span class="q" aria-hidden="true">“</span><blockquote>{q}</blockquote>'
                        f'<figcaption>{img(a, "", "v-ava", "png")}<span><strong>{n}</strong><em>{c}</em></span></figcaption></figure>' for a, n, c, q in (t['reviews'][2:] + t['reviews'][:2]) * 2)
     o.append(f'''<section class="v-sec v-bg-base v-rule" data-reveal=""><div class="v-wrap">{head(5, t["rev_idx"], t["rev_h"], t["rev_p"])}</div>
-  <div class="mv-marq v-revs"><div class="mv-track mv-track--slow">{revs(False)}{revs(True)}</div></div></section>''')
+  <div class="mv-marq v-revs" data-revs=""><div class="mv-track mv-track--slow">{revs(False)}{revs(True)}</div></div>
+  <div class="v-rev-nav" aria-hidden="true"><button type="button" class="v-rev-btn" data-dir="-1" aria-label="{t["rev_prev"]}" tabindex="-1">←</button><span class="v-rev-count"></span><button type="button" class="v-rev-btn" data-dir="1" aria-label="{t["rev_next"]}" tabindex="-1">→</button></div></section>''')
     # 06 team
     slides = ''.join(f'''<div class="v-member{" is-active" if i == 0 else ""}" data-member="{i}"{"" if i == 0 else " aria-hidden=\"true\""}>
       {img(im, n, "v-member-photo")}
@@ -387,6 +388,7 @@ def _html(lang):
 <link href="{FONTS}" rel="stylesheet">
 <link rel="stylesheet" href="{P}styles.css">
 <style>body{{margin:0;background:#F7F5F2}}</style>
+<script>if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.hash)history.replaceState(null,'',location.pathname+location.search);</script>
 </head>
 <body>
 {page(t, lang)}

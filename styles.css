@@ -1151,3 +1151,32 @@
 .v-price b{grid-column:2;grid-row:1;justify-self:start}
 .v-price .v-price-sub{grid-column:2;grid-row:2;flex-basis:auto}
 .pseq .v-flow-side::before{transition-duration:.9s}
+
+/* =========================================================
+   v3.14 — Serhii's notes 27.11 (notes/2026-11-27-v3.14-edits.md)
+   ========================================================= */
+/* sticky header: a thin line along the bottom, same weight and colour as the hero grid */
+.mv-head::after{content:'';position:absolute;left:50%;bottom:0;width:100vw;height:1px;transform:translateX(-50%);background:rgba(15,15,15,.045);pointer-events:none}
+.mv-head.is-stuck{box-shadow:0 0 0 100vmax rgba(247,245,242,.94)}
+/* menu links land the section right under the sticky header */
+section[id]{scroll-margin-top:max(72px,calc(108 * var(--u)))}
+@media (max-width:600px){
+  /* hero: button full width, label centred */
+  .mv .mv-hero-bottom .mv-btn{width:100% !important;align-self:stretch;justify-content:center}
+  /* reviews: no running line — one review in the centre, ← → below */
+  .v-revs.is-slider{padding:4px 20px}
+  .v-revs.is-slider .mv-track{animation:none;width:auto;justify-content:center;transform:none}
+  .v-revs.is-slider .v-review{display:none;margin:0 auto}
+  .v-revs.is-slider .v-review.is-active{display:flex;width:100%;max-width:400px}
+  .v-rev-nav[aria-hidden="false"]{display:flex}
+  /* contact: the form first, the contacts under it */
+  .v-contact--2 .v-form{order:-1}
+}
+.v-rev-nav{display:none;align-items:center;justify-content:center;gap:20px;margin-top:20px}
+.v-rev-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--ink);font:500 20px/1 var(--f-body);cursor:pointer;transition:border-color .2s var(--ease),transform .2s var(--ease)}
+.v-rev-btn:hover{border-color:var(--amber-500);transform:scale(1.05)}
+.v-rev-count{font:500 14px/1 var(--f-mono, monospace);color:var(--text-3);min-width:3.5em;text-align:center}
+@media (max-width:600px){
+  /* team: every portrait exactly the same size */
+  .v-member-photo{width:100% !important;max-width:none;height:auto !important;aspect-ratio:4/5 !important;object-fit:cover !important;object-position:50% 20%;align-self:start}
+}

@@ -57,7 +57,7 @@ function initMavpy(root) {
   /* ---------- Cases accordion: one open at a time ---------- */
   var tog = $$('[data-accordion] .mv-tog');
   tog.forEach(function (btn) {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
       var panel = doc.getElementById(btn.getAttribute('aria-controls'));
       var wasOpen = btn.getAttribute('aria-expanded') === 'true';
       tog.forEach(function (b) {
@@ -70,6 +70,14 @@ function initMavpy(root) {
         void panel.offsetWidth; // restart the marker draw-on
         panel.classList.add('is-open', 'is-in');
       }
+      /* v3.15: hold the clicked row in place while the panel above collapses — no jump */
+      var top0 = btn.getBoundingClientRect().top, t0 = performance.now();
+      var hold = function (now) {
+        var d = btn.getBoundingClientRect().top - top0;
+        if (Math.abs(d) > 0.5) win.scrollBy(0, d);
+        if (now - t0 < 900) win.requestAnimationFrame(hold);
+      };
+      if (!e || e.isTrusted !== false) win.requestAnimationFrame(hold);
     });
   });
 
@@ -211,7 +219,9 @@ function initMavpy(root) {
     var n = Math.round(all.length / 2) || all.length, cards = all.slice(0, n), cur = 0;
     var count = revNav.querySelector('.v-rev-count');
     var show = function () {
-      cards.forEach(function (c, k) { c.classList.toggle('is-active', k === cur); });
+      /* v3.15: look the cards up every time — the running line may have rebuilt them */
+      var live = Array.prototype.slice.call(revBox.querySelectorAll('.v-review:not([aria-hidden])'));
+      live.forEach(function (c, k) { c.classList.toggle('is-active', k === cur); });
       if (count) count.textContent = (cur + 1) + ' / ' + n;
     };
     var setMode = function () {
@@ -265,10 +275,10 @@ function initMavpy(root) {
   /* ---------- v3.8: typed text (hero right block on load, process details on scroll), no caret ---------- */
   var typeIt = function (el, startDelay, done, speed) {
     speed = speed || 28;
-    var parts = el.innerHTML.split(/<br\s*\/?>/i);
+    var seps = el.innerHTML.match(/<br[^>]*>/gi) || [], parts = el.innerHTML.split(/<br[^>]*>/i);
     if (reduce) { if (done) done(); return; }
     el.style.minHeight = el.offsetHeight + 'px';
-    el.innerHTML = parts.map(function () { return '<span class="tw-line"></span>'; }).join('<br>');
+    el.innerHTML = parts.map(function (x, k) { return '<span class="tw-line"></span>' + (seps[k] || ''); }).join('');
     el.classList.remove('tw-wait');
     var lines = el.querySelectorAll('.tw-line'), li = 0, ci = 0;
     var tick = function () {
@@ -285,19 +295,16 @@ function initMavpy(root) {
      the next card starts when the previous one is ~2/3 in — one smooth chain 1 → 2 → 3 */
   var steps = $$('#how .v-flow-step');
   if (steps.length && 'IntersectionObserver' in win && !reduce) {
-    steps.forEach(function (st) { st.classList.add('pseq'); var m = st.querySelector('[data-type="scroll"]'); if (m) m.classList.add('tw-wait'); });
+    steps.forEach(function (st) { st.classList.add('pseq'); });
     /* v3.12: cards slide in one after another without pauses; once all are in, texts type —
        card 1, card 2 0.7 s later, card 3 another 0.7 s later (overlapping); each line draws with its text */
     /* v3.13: cards slide in top to bottom; each card's text types fast the moment that card has landed */
+    /* v3.15: cards slide in top to bottom; the amber line draws and the text fades in as each card lands (no typing) */
     var runStep = function () {
       steps.forEach(function (st, k) {
         setTimeout(function () {
           st.classList.add('pseq-in');
-          setTimeout(function () {
-            st.classList.add('pseq-line');
-            var txt = st.querySelector('[data-type="scroll"]');
-            if (txt) typeIt(txt, 0, null, 8);
-          }, 450);
+          setTimeout(function () { st.classList.add('pseq-line'); }, 350);
         }, k * 220);
       });
     };

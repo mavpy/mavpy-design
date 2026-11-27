@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MAVPY site v3.14 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
+"""MAVPY site v3.15 ("Swiss workshop"). One template → UA (/, default) and EN (/en/).
 Usage: python3 tools/build.py .   (writes index.html and ua/index.html into the repo)"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -51,7 +51,7 @@ E = dict(
   steps_fig=['1 team', '3 approvals', '2 weeks'],
   steps_more=['Strategy, copy, design, build, booking and ads. One team and one contract, so nothing gets lost between contractors.', 'You approve three things: the plan, the design and the launch. We do the rest and show you the result.', 'Week 1: plan and design. Week 2: build, integrations and launch. The timeline is fixed in the contract.'],
   cols=['#', 'Project', 'Industry', 'Result'], what='What I do',
-  cases_idx='Cases', cases_h='Before → after', cases_p='Where each client started, what we did and what changed.',
+  cases_idx='Cases', cases_h='How our clients’<br>business changed', cases_p='Where each client started, what we did and what changed.',
   dt=['Before', 'What we did', 'After'], case_word='case',
   cases=[
     ('Doctor LOR', 'ENT clinic · Kharkiv', '', 'case-doctor-lor', 'https://www.drlor-kh.com/', 'drlor-kh.com',
@@ -124,7 +124,7 @@ U = dict(
   steps_fig=['1 команда', '3 погодження', '2 тижні'],
   steps_more=['Стратегія, тексти, дизайн, розробка, запис і реклама. Одна команда, один договір — і ніхто не губиться між підрядниками.', 'Ви погоджуєте три речі: план, дизайн і запуск. Решту робимо самі й показуємо результат.', 'Перший тиждень — план і дизайн. Другий — розробка, інтеграції й запуск. Строки фіксуємо в договорі.'],
   cols=['#', 'Проєкт', 'Сфера', 'Результат'], what='Чим займаюся',
-  cases_idx='Кейси', cases_h='Було → стало', cases_p='З чим прийшли, що ми зробили й що змінилося.',
+  cases_idx='Кейси', cases_h='Як змінився<br>бізнес клієнтів', cases_p='З чим прийшли, що ми зробили й що змінилося.',
   dt=['Було', 'Що зробили', 'Стало'], case_word='кейс',
   cases=[
     ('Doctor LOR', 'ЛОР-клініка · Харків', '', 'case-doctor-lor', 'https://www.drlor-kh.com/', 'drlor-kh.com',
@@ -232,7 +232,7 @@ def page(t, lang):
           <span class="a-mask"><span class="mv-clients" style="--d:.15s">{t["clients"]}</span></span>
         </h1>
       </div>
-      <p class="mv-notjust" data-type="" aria-label="{t["notjust"].replace("<br>", " ")}">{t["notjust"]}</p>
+      <p class="mv-notjust" data-type="" aria-label="{t["notjust"].replace("<br>", " ")}">{"<br>".join(t["notjust"].split("<br>")[:2]) + "".join(" <br class=\"br-d\">" + x for x in t["notjust"].split("<br>")[2:])}</p>
     </div>
     <div class="mv-hero-bottom">
       <p class="mv-hero-note a-blur" style="--d:.6s">{t["hero_note"]}</p>
@@ -283,7 +283,7 @@ def page(t, lang):
   <div class="v-case-row"><span class="v-case-l"><span class="v-num">0{i+1}</span><h3 class="v-case-name">{name}</h3></span><span class="v-case-kind">{kind}</span>
     <button type="button" class="mv-tog" aria-expanded="{str(op).lower()}" aria-controls="{cid}" aria-label="{name}, {t["case_word"]}">{PLUS}</button></div>
   <div class="mv-acc{" is-open is-in" if op else ""}" id="{cid}"><div><div class="v-case-body">
-    <div class="v-case-shot">{img(im, name + " website", "is-wide" if im in WIDE_SHOTS else "")}</div>
+    <div class="v-case-shot">{img(im, name + " website", "is-wide" if im in WIDE_SHOTS else "").replace(' decoding=', ' width="1600" height="1378" decoding=')}</div>
     <div class="v-case-txt"><dl>{dl}</dl><p class="v-actions v-case-act"><a class="mv-btn mv-btn--amber" href="{url}" target="_blank" rel="noopener">{t["live"]} {ARROW}</a><span class="v-host">{host}</span></p></div>
   </div></div></div>
 </article>'''

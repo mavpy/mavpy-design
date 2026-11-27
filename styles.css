@@ -1180,3 +1180,36 @@ section[id]{scroll-margin-top:max(72px,calc(108 * var(--u)))}
   /* team: every portrait exactly the same size */
   .v-member-photo{width:100% !important;max-width:none;height:auto !important;aspect-ratio:4/5 !important;object-fit:cover !important;object-position:50% 20%;align-self:start}
 }
+
+/* =========================================================
+   v3.15 — Serhii's review 27.11 (notes/2026-11-27-v3.15-edits.md). Everything else is fixed as it is.
+   ========================================================= */
+/* cases: slower, smooth open/close (the clicked row is held in place by JS) */
+.mv-acc{transition:grid-template-rows .7s cubic-bezier(.45,0,.25,1)}
+.mv-acc .v-case-shot{transition:opacity .5s ease-in-out .15s,transform .5s ease-in-out .15s}
+[data-accordion]{overflow-anchor:none}
+/* process (desktop): no typing — text fades in, the amber line draws as before */
+.pseq .v-flow-more{opacity:0;transition:opacity .9s ease-in-out}
+.pseq.pseq-line .v-flow-more{opacity:1}
+.pseq .v-flow-side::before{transition-duration:1.2s}
+/* team: the row of small portraits is part of the white card — padding, white, closer to the active person */
+.v-team{background:var(--white);border-radius:16px}
+.v-team .v-stage{background:transparent}
+.v-team .v-tabs{margin-top:0;padding:0 max(16px,calc(24 * var(--u))) max(16px,calc(24 * var(--u)));border-top:1px solid var(--line);padding-top:max(16px,calc(24 * var(--u)))}
+@media (max-width:1199px){
+  /* hero on phones and small tablets: wider right phrase, larger small texts */
+  .mv-hero .mv-notjust,:lang(uk) .mv-hero .mv-notjust{width:100%;max-width:none;font-size:clamp(28px,8vw,44px);line-height:1}
+  .mv-hero .mv-kicker{font-size:clamp(16px,4.2vw,22px)}
+  .mv-hero .mv-hero-note{font-size:clamp(16px,4.2vw,20px);line-height:1.35}
+  /* prices on phones: normal weight, not hairline */
+  .v-price b{font-weight:600}
+}
+@media (min-width:601px) and (max-width:1199px){
+  /* featured on tablets: the button runs the full width */
+  .mv .v-fc-txt .v-actions{width:100%}
+  .mv .v-fc-txt .v-actions .mv-btn{width:100% !important;align-self:stretch}
+}
+@media (max-width:1199px){
+  .mv-hero .mv-notjust br.br-d{display:none}
+  .mv-hero .mv-notjust,:lang(uk) .mv-hero .mv-notjust{font-size:clamp(34px,10vw,60px);line-height:1}
+}
